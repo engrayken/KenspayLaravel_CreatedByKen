@@ -1,0 +1,86 @@
+/* * {
+    font-family: 'Roboto', sans-serif !important;
+} */
+
+.topbar {
+    background-image: linear-gradient(to right, #4672c4, #195B7e);
+    /* background-image: linear-gradient(to right, #173D52, #195B7e); */
+}
+
+.user-thumb {
+    background: #e8e8e8;
+    color: #174159;
+}
+
+.navbar-menu li a {
+    color: #495463 !important;
+}
+
+i {
+    margin-right: 5px !important;
+}
+
+#interswitch-button {
+    background: url('../../images/btn-interswitch.png')no-repeat;
+    width: 234px;
+    height: 92px;
+    font-size: 0;
+    border: none;
+}
+
+#voguepay-button {
+    background: url('../../images/btn-voguepay.png')no-repeat;
+    width: 154px;
+    height: 47px;
+    font-size: 0;
+    border: none;
+}
+
+#ravepay-button {
+    background: url('../../images/btn-ravepay.png')no-repeat;
+    width: 234px;
+    height: 92px;
+    font-size: 0;
+    border: none;
+}
+
+#paystack-button {
+    background: url('../../images/btn-ravepay.png')no-repeat;
+    width: 234px;
+    height: 92px;
+    font-size: 0;
+    border: none;
+}
+
+#wallet-button {
+    background: url('../../images/btn-wallet.png')no-repeat;
+    width: 153px;
+    height: 45px;
+    font-size: 0;
+    border: none;
+}
+
+.page-ath-gfx {
+    background-color: #7baaf2;
+}
+
+.card-title {
+    color: #173D52 !important;
+}
+
+.topbar-wrap {
+    background: #fff;
+    margin-bottom: 12px;
+}
+
+@media (min-width: 992px) {
+    .topbar-wrap {
+        margin-bottom: 35px;
+    }
+}
+
+@media (min-width: 576px) {
+    .topbar-wrap {
+        margin-bottom: 25px;
+    }
+}

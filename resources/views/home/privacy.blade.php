@@ -1,0 +1,39 @@
+@extends('home.app')
+
+@section('content')
+
+<div class="page-content">
+    <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-lg-12">
+<div class="container" style="max-width: 100% !important;">
+<div class="row">
+<div class="col-lg-12">
+<div class="content-area card pl-lg-5 pr-lg-5">
+<div class="card-innr">
+
+    <div class="row" style="margin-top:20px;">
+
+
+        <p class="" style="text-align:left;">
+             <b class="d-flex justify-content-center align-items-center" style="font-weight:bold;color:#173D52;font-size:30px; margin-bottom:5px;"><span style="color:inherit;border-bottom:10px solid #D50000;">Privacy Policy</span></b>
+            <br>
+            {!! $cpage->message !!}
+            </p>
+
+
+
+</div>
+
+</div>
+</div><!-- .col -->
+</div><!-- .row -->
+</div><!-- .container -->
+</div>
+</div>
+{{-- <button id="website-rating-btn" data-toggle="modal" data-target="#website-rating" class="btn"
+style="padding: 4px 10px;background-image: linear-gradient(#114761,#173D52);color:#fff;position:fixed;top:50%;right:0;border:0;border-bottom-right-radius:0;border-top-right-radius:0;min-width:unset;"><img
+width="25px" height="25px"
+src="{{ asset('frontend1/images/star.png') }}" /></button> --}}
+</div>
+
+@endsection
