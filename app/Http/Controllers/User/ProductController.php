@@ -5,14 +5,14 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\Product;
+use App\Models\Product\Product;
 use App\Models\SubProduct;
 use Illuminate\Contracts\Session\Session;
-use App\Models\User;
+use App\Models\Users\User;
 use App\CustomClass\ProductCheck;
 use App\CustomClass\BalanceCharge;
 use App\Models\PhoneBook;
-use App\Models\Setting;
+use App\Models\Site\Setting;
 
 class ProductController extends Controller
 {

@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cpage;
-use App\Models\Setting;
+use App\Models\Site\Setting;
 use App\CustomClass\BalanceCharge;
-use App\Models\User;
+use App\Models\Users\User;
 use App\Models\UserEmailVerify;
 
 
@@ -109,7 +109,7 @@ class HomeController extends Controller
         $vtoken = UserEmailVerify::where('token','=',$token)->first();
         $title='confirm email';
         if($user && $vtoken && $user->active!=1 && $vtoken->userEmail ===$user->email && $vtoken->token ===$user->token)
-        { 
+        {
             $userUp = User::where('token','=',$token)->update(['active'=>'1','token'=>'0']);
         $vtokend = UserEmailVerify::where('token','=',$token)->delete();
              return redirect('confirmview')->with(['display'=>'yes','success'=>'Account verified successfully <a href="user">Click here to Contine</a>']);

@@ -8,10 +8,10 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubProduct;
 use Illuminate\Contracts\Session\Session;
-use App\Models\User;
+use App\Models\Users\User;
 use App\CustomClass\ProductCheck;
 use App\CustomClass\BalanceCharge;
-use App\Models\Setting;
+use App\Models\Site\Setting;
 
 
 class ProductController extends Controller

@@ -1,0 +1,45 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('mypins', function (Blueprint $table) {
+            $table->increments('id');
+            $table->bigInteger('transId')->unsigned();
+            $table->string('userId')->nullable();
+            $table->string('network')->nullable();
+            $table->string('deno')->nullable();
+            $table->string('amount')->nullable();
+            $table->string('quantity')->default(1);
+            $table->mediumstring('descr')->nullable();
+            $table->string('pin')->nullable();
+            $table->string('seria')->nullable();
+            $table->string('status')->nullable();
+            $table->timestamps();
+
+            $table->foreign('userId')
+             ->references('id')->on('users')
+            ->onDelete('cascade');
+
+            $table->foreign('transId')
+             ->references('id')->on('transactions')
+            ->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('mypins');
+    }
+};

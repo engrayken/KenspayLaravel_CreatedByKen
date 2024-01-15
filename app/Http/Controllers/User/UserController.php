@@ -8,10 +8,10 @@ use App\Models\Mypin;
 use App\Models\Product;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Users\User;
 use App\Models\Transaction;
 use App\Models\PhoneBook;
-use App\Models\Setting;
+use App\Models\Site\Setting;
 use App\Models\Servicefee;
 use App\Models\UserEmailVerify;
 use App\CustomClass\BalanceCharge;
@@ -28,7 +28,7 @@ class UserController extends Controller
 
             // return Session()->get('loginid');
         $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
+       $user= User::where('id',$ids)->first();
         $settings = Setting::where('id','=','1')->first();
 
 

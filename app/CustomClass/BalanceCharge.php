@@ -5,11 +5,11 @@ namespace App\CustomClass;
 use App\CustomClass\Apis;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Users\User;
 use App\Models\Product;
 use App\Models\SubProduct;
 use App\Models\Transaction;
-use App\Models\Setting;
+use App\Models\Site\Setting;
 use App\Models\ServiceFee;
 use Illuminate\Contracts\Session\Session;
 
@@ -25,7 +25,7 @@ class BalanceCharge
         private $transid;
 
         public function servicefeeCheck(){
-        $ids= session()->get('loginid');
+       $ids= session()->get('loginid');
 
         $user= User::where('id',$ids)->first();
         $settings = Setting::where('id','=','1')->first();
