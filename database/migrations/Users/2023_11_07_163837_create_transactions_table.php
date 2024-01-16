@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('userId')->unsigned();
+            $table->string('userId');
             $table->string('userName')->nullable();
             $table->string('transId')->nullable();
             $table->string('network')->nullable();
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('balBefore')->nullable();
             $table->string('balAfter')->nullable();
             $table->string('status')->nullable();
-            $table->mediumstring('rstatus')->nullable();
+            $table->mediumText('rstatus')->nullable();
             $table->timestamps();
 
             $table->foreign('userId')

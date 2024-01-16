@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('phone_books', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('userId')->unsigned();
+            $table->string('userId');
             $table->string('cname')->nullable();
             $table->string('phone')->nullable();
             $table->timestamps();

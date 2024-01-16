@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('mypins', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('transId')->unsigned();
-            $table->string('userId')->nullable();
+            $table->integer('transId')->unsigned();
+            $table->string('userId');
             $table->string('network')->nullable();
             $table->string('deno')->nullable();
             $table->string('amount')->nullable();
             $table->string('quantity')->default(1);
-            $table->mediumstring('descr')->nullable();
+            $table->mediumText('descr')->nullable();
             $table->string('pin')->nullable();
             $table->string('seria')->nullable();
             $table->string('status')->nullable();

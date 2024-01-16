@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Cpage;
+use App\Models\Site\Cpage;
 use App\Models\Site\Setting;
 use App\CustomClass\BalanceCharge;
 use App\Models\Users\User;
-use App\Models\UserEmailVerify;
+use App\Models\Users\UserEmailVerify;
 
 
 class HomeController extends Controller

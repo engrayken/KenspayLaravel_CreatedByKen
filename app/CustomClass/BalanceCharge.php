@@ -6,11 +6,11 @@ use App\CustomClass\Apis;
 
 use Illuminate\Http\Request;
 use App\Models\Users\User;
-use App\Models\Product;
-use App\Models\SubProduct;
-use App\Models\Transaction;
+use App\Models\Product\Product;
+use App\Models\Product\SubProduct;
+use App\Models\Users\Transaction;
 use App\Models\Site\Setting;
-use App\Models\ServiceFee;
+use App\Models\Site\ServiceFee;
 use Illuminate\Contracts\Session\Session;
 
 

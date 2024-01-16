@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('service_fees', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('userId')->unsigned();
+            $table->string('userId');
             $table->string('feeId')->nullable();
             $table->string('userName')->nullable();
             $table->string('amount')->nullable();
