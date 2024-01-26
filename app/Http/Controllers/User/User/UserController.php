@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Mypin;
-use App\Models\Product;
+use App\Models\Product\Category;
+use App\Models\Users\Mypin;
+use App\Models\Product\Product;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use App\Models\Users\User;
-use App\Models\Transaction;
-use App\Models\PhoneBook;
+use App\Models\Users\Transaction;
+use App\Models\Users\PhoneBook;
 use App\Models\Site\Setting;
-use App\Models\Servicefee;
-use App\Models\UserEmailVerify;
+use App\Models\Site\Servicefee;
+use App\Models\Users\UserEmailVerify;
 use App\CustomClass\BalanceCharge;
 use App\CustomClass\Kensend;
 

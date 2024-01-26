@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\User\ProductController;
+use App\Http\Controllers\User\User\UserController;
+use App\Http\Controllers\User\Product\ProductController;
 use App\Http\Controllers\MailController;
 
 /*

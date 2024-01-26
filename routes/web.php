@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Auth\SignupController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\NonUser\ProductController;
+use App\Http\Controllers\Website\WebsiteController;
+use App\Http\Controllers\User\Auth\AuthController;
+use App\Http\Controllers\Website\ProductController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -31,27 +31,27 @@ Route::post('/variations', [ProductController::class,'variation'])->name('variat
 
 
 
-Route::get('/', [HomeController::class,'index']);
-Route::get('/privacy-policy', [HomeController::class,'privacy'])->name('privacy');
-Route::get('/terms-and-conditions', [HomeController::class,'terms'])->name('terms');
-Route::get('/documentation', [HomeController::class,'documentation'])->name('documentation');
-Route::get('/contact', [HomeController::class,'contact'])->name('contact');
-Route::get('/help', [HomeController::class,'contact'])->name('help');
-Route::get('/partners', [HomeController::class,'partner'])->name('partner');
-Route::get('/widget-ticket', [HomeController::class,'ticket'])->name('widget-ticket');
-Route::get('/login', [HomeController::class,'login'])->middleware('alreadyLogin');
-Route::get('/register', [HomeController::class,'signup'])->middleware('alreadyLogin');
-Route::get('/forget-password', [HomeController::class,'forgot'])->middleware('alreadyLogin');
+Route::get('/', [WebsiteController::class,'index']);
+Route::get('/privacy-policy', [WebsiteController::class,'privacy'])->name('privacy');
+Route::get('/terms-and-conditions', [WebsiteController::class,'terms'])->name('terms');
+Route::get('/documentation', [WebsiteController::class,'documentation'])->name('documentation');
+Route::get('/contact', [WebsiteController::class,'contact'])->name('contact');
+Route::get('/help', [WebsiteController::class,'contact'])->name('help');
+Route::get('/partners', [WebsiteController::class,'partner'])->name('partner');
+Route::get('/widget-ticket', [WebsiteController::class,'ticket'])->name('widget-ticket');
+Route::get('/login', [WebsiteController::class,'login'])->middleware('alreadyLogin');
+Route::get('/register', [WebsiteController::class,'signup'])->middleware('alreadyLogin');
+Route::get('/forget-password', [WebsiteController::class,'forgot'])->middleware('alreadyLogin');
 
-Route::get('/conVerEmail/{id}', [HomeController::class,'emconf'])->where(['id' => '[0-9a-zA-Z]+'])->name('conVerEmail');
-Route::get('/confirmview', [HomeController::class,'confirmview'])->name('confirmview');
+Route::get('/conVerEmail/{id}', [WebsiteController::class,'emconf'])->where(['id' => '[0-9a-zA-Z]+'])->name('conVerEmail');
+Route::get('/confirmview', [WebsiteController::class,'confirmview'])->name('confirmview');
 
 
-Route::post('/registeru', [SignupController::class,'signupu'])->name('Signup');
-Route::post('/loginu', [LoginController::class,'loginu'])->name('Login');
-Route::get('/logout', [LoginController::class,'logOut'])->name('logout');
+Route::post('/registeru', [AuthController::class,'signupu'])->name('Signup');
+Route::post('/loginu', [AuthController::class,'loginu'])->name('Login');
+Route::get('/logout', [AuthController::class,'logOut'])->name('logout');
 
-// Route::get('/settings', [HomeController::class,'settings'])->name('settings');
+// Route::get('/settings', [WebsiteController::class,'settings'])->name('settings');
 
 
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\NonUser;
+namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\Product;
-use App\Models\SubProduct;
+use App\Models\Product\Product;
+use App\Models\Product\SubProduct;
 use Illuminate\Contracts\Session\Session;
 use App\Models\Users\User;
 use App\CustomClass\ProductCheck;

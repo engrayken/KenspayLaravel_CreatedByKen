@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Product;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
 use App\Models\Product\Product;
-use App\Models\SubProduct;
-use Illuminate\Contracts\Session\Session;
+use App\Models\Product\SubProduct;
 use App\Models\Users\User;
 use App\CustomClass\ProductCheck;
 use App\CustomClass\BalanceCharge;
-use App\Models\PhoneBook;
+use App\Models\Users\PhoneBook;
 use App\Models\Site\Setting;
+use App\Enums\ProductEnums;
+use App\Enums\SiteEnums;
+use App\Enums\AccountEnums;
 
 class ProductController extends Controller
 {
@@ -20,38 +21,27 @@ class ProductController extends Controller
 
     public function pin()
     {
-        if(Session()->get('loginid')){
 
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
-        $network= Product::where('prodCat_name','pin')->get();
-        $title='Generate Recharge Card Pin';
-        $settings = Setting::where('id','=','1')->first();
-            $servicefeef= new BalanceCharge();
-            $servicefeef->servicefeeCheck();
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $network= Product::where(ProductEnums::$prodCat_name['pinCat'])->get();
+        $title=ProductEnums::$prodCat_name['pinTitle'];
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $servicefeef= new BalanceCharge();
+        $servicefeef->servicefeeCheck();
         return view('user.pin', compact('user','network','title','settings'));
-        }
-
-          return  redirect('login')->with('failed','You Must Login First');
-
     }
 
     public function airtime()
     {
-        if(Session()->get('loginid')){
-
         $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
-        $network= Product::where('prodCat_name','airtime')->get();
-        $title='Buy Airtime Vtu';
-        $settings = Setting::where('id','=','1')->first();
+        $user= User::findOrfail($ids);
+        $network= Product::where(ProductEnums::$prodCat_name['airCat'])->get();
+        $title=ProductEnums::$prodCat_name['airTitle'];
+        $settings = Setting::findOrfail(SiteEnums::$settings);
             $servicefeef= new BalanceCharge();
             $servicefeef->servicefeeCheck();
         return view('user.airtime', compact('user','network','title','settings'));
-        }
-
-          return  redirect('login')->with('failed','You Must Login First');
-
     }
 
     public function data()

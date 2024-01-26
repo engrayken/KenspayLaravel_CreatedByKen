@@ -7,13 +7,16 @@ class AccountEnums{
     public static $suspendedAccount = -1;
 
         public static $Auth = [
+        "sessionLogin"=>'loginid',
         "success"=> ["success"=>"Registration Successful <a href='/login'>click here</a> to login"],
         "failed"=> ["failed"=>"Registration Failed"],
 
         "successLogin"=> ["success"=>"Registration Successful <a href='/login'>click here</a> to login"],
-        "failedLogin"=> ["failed"=>"Email or Password are Invalid"]
+        "failedLogin"=> ["failed"=>"Email or Password are Invalid"],
+        "sessionFailed"=> ["failed"=>"You Must Login First"]
 
     ];
+
 
 
     public static $facebookChannel = "facebook";
