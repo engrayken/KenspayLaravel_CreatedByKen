@@ -17,7 +17,9 @@ class AccountEnums{
 
     ];
 
-
+    public static $activeStatus = 1;
+    public static $inactiveStatus = 0;
+    public static $suspendStatus = 2;
 
     public static $facebookChannel = "facebook";
     public static $googleChannel = "google";

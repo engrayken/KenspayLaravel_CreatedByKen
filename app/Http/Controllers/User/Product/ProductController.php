@@ -14,11 +14,19 @@ use App\Models\Site\Setting;
 use App\Enums\ProductEnums;
 use App\Enums\SiteEnums;
 use App\Enums\AccountEnums;
+use App\Http\Requests\Product\PayRequest;
+use App\Interfaces\Billings\IBillingRepository;
+use App\Interfaces\User\IUserRepository;
 
 class ProductController extends Controller
 {
+private IBillingRepository $serviceRepository;
+private IUserRepository $UserviceRepository;
 
-
+public function __construct(IBillingRepository $serviceRepo, IUserRepository $UserviceRepo) {
+    $this->serviceRepository = $serviceRepo;
+    $this->UserviceRepository = $UserviceRepo;
+}
     public function pin()
     {
 
@@ -27,213 +35,124 @@ class ProductController extends Controller
         $network= Product::where(ProductEnums::$prodCat_name['pinCat'])->get();
         $title=ProductEnums::$prodCat_name['pinTitle'];
         $settings = Setting::findOrfail(SiteEnums::$settings);
-        $servicefeef= new BalanceCharge();
-        $servicefeef->servicefeeCheck();
+       $this->serviceRepository->BalanceCharge($user, $settings->monthlyCharge);
         return view('user.pin', compact('user','network','title','settings'));
     }
 
     public function airtime()
     {
-        $ids= session()->get('loginid');
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
         $user= User::findOrfail($ids);
-        $network= Product::where(ProductEnums::$prodCat_name['airCat'])->get();
-        $title=ProductEnums::$prodCat_name['airTitle'];
+        $network= Product::where(ProductEnums::$prodCat_name['airtCat'])->get();
+        $title=ProductEnums::$prodCat_name['airtTitle'];
         $settings = Setting::findOrfail(SiteEnums::$settings);
-            $servicefeef= new BalanceCharge();
-            $servicefeef->servicefeeCheck();
+       $this->serviceRepository->BalanceCharge($user, $settings->monthlyCharge);
         return view('user.airtime', compact('user','network','title','settings'));
     }
 
     public function data()
     {
-        if(Session()->get('loginid')){
-
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
-        $network= Product::where('prodCat_name','sme')->get();
-        $title='Buy internet sme data';
-        $settings = Setting::where('id','=','1')->first();
-            $servicefeef= new BalanceCharge();
-            $servicefeef->servicefeeCheck();
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $network= Product::where(ProductEnums::$prodCat_name['dataCat'])->get();
+        $title=ProductEnums::$prodCat_name['dataTitle'];
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $this->serviceRepository->BalanceCharge($user, $settings->monthlyCharge);
         return view('user.data', compact('user','network','title','settings'));
-        }
-
-          return  redirect('login')->with('failed','You Must Login First');
 
     }
 
     public function tv()
     {
-        if(Session()->get('loginid')){
-
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
-        $network= Product::where('prodCat_name','tv')->get();
-        $title='Tv subscription';
-        $settings = Setting::where('id','=','1')->first();
-            $servicefeef= new BalanceCharge();
-            $servicefeef->servicefeeCheck();
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $network= Product::where(ProductEnums::$prodCat_name['tvCat'])->get();
+        $title=ProductEnums::$prodCat_name['tvTitle'];
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $this->serviceRepository->BalanceCharge($user, $settings->monthlyCharge);
         return view('user.tv', compact('user','network','title','settings'));
         }
 
-          return  redirect('login')->with('failed','You Must Login First');
-
-    }
-
     public function education()
     {
-        if(Session()->get('loginid')){
-
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
-        $network= Product::where('prodCat_name','education')->get();
-        $title='Education Payment';
-        $settings = Setting::where('id','=','1')->first();
-            $servicefeef= new BalanceCharge();
-            $servicefeef->servicefeeCheck();
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $network= Product::where(ProductEnums::$prodCat_name['eduCat'])->get();
+        $title=ProductEnums::$prodCat_name['eduTitle'];
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $this->serviceRepository->BalanceCharge($user, $settings->monthlyCharge);
         return view('user.education', compact('user','network','title','settings'));
         }
 
-          return  redirect('login')->with('failed','You Must Login First');
-
-    }
     public function electricity()
     {
-        if(Session()->get('loginid')){
-
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
-        $network= Product::where('prodCat_name','electricity')->get();
-        $title='Pay electricity bill';
-        $settings = Setting::where('id','=','1')->first();
-            $servicefeef= new BalanceCharge();
-            $servicefeef->servicefeeCheck();
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $network= Product::where(ProductEnums::$prodCat_name['electCat'])->get();
+        $title=ProductEnums::$prodCat_name['electTitle'];
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $this->serviceRepository->BalanceCharge($user, $settings->monthlyCharge);
         return view('user.electricity', compact('user','network','title','settings'));
         }
-
-          return  redirect('login')->with('failed','You Must Login First');
-
-    }
 
 
     public function amount(Request $Request)
     {
-        if(Session()->get('loginid')){
-
-        $network= SubProduct::query()->where('subProdMain_name', $Request->network)->get();
-
-
-
-            foreach ($network as $value) {
+       $network= SubProduct::query()->where('subProdMain_name', $Request->network)->get();
+            foreach ($network as $value)
+            {
                 $check[]=  array('name'=>$value->subProdTitle,'amount'=>$value->subProdAmount,'variation'=>$value->subProdAmount_variation,'id'=>$value->subProdId);
             }
-
              return json_encode($check);
 
         }
 
-          return  redirect('login')->with('failed','You Must Login First');
-
-    }
-
     public function variation(Request $Request)
     {
-        if(Session()->get('loginid')){
-
         $network= SubProduct::where('subProdId', $Request->amountid)->first();
-
-
             $response = array(
               "amount" => $network->subProdAmount,
               "per" => $network->subProdAmount_variation
             );
-
-
              return json_encode($response);
-
         }
 
-          return  redirect('login')->with('failed','You Must Login First');
-
-    }
 
 
-
-    public function pay(Request $Request)
+    public function pay(PayRequest $Request)
     {
+        $Request->merge(['amount'=>abs($Request->amount)]);
+        $Request->validated();
+
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $this->serviceRepository->BalanceCharge($user, $settings->monthlyCharge);
+        $this->UserviceRepository->PhoneBook($user, $Request);
+
+return response()->json('good');
 
 
+            // $payCharge = new BalanceCharge();
 
-        if(Session()->get('loginid')){
+            //  $jump= $payCharge->charge($Request->network,$Request->phone,$Request->amount,$Request->quantity, $Request->transid);
 
-        // $fetchUser= User::where('id',Session()->get('loginid'))->first();
-            $Request->merge(['amount'=>abs($Request->amount)]);
+            //  if($jump!==true){
+            // $response = array(
+            //   "code" =>"101","message"=>$jump
+            //     );
 
-            $payCharge = new BalanceCharge();
-
-            $sanitize = new ProductCheck();
-
-
-          $sanitizeCheck= $sanitize->airtime($Request->network,$Request->phone,$Request->amount,$Request->quantity,$Request->transid);
-            if($sanitizeCheck!==true)
-            {
-                $response = array(
-                    "code" =>"101","message"=>$sanitizeCheck
-                      );
-
-                   return json_encode($response);
-            }
-
-            $Request->validate([
-                'phone'=>'required|numeric',
-                'network'=>'required|string',
-                'amount'=>'required|numeric',
-                'quantity'=>'required|numeric|min:10',
-                'transid'=>'required|string'
-            ]);
-        // $user= User::where('id',$ids)->first();
-        // $network= SubProduct::query()->where('subProdMain_name', $Request->network)->get();
+            //  }
+            //  else{
+            //        $response = array(
+            //   "code" =>"s0c","message"=>"succes"
+            //     );
+            //  }
 
 
-
-            // foreach ($network as $value) {
-            //     $check[]=  array('name'=>$value->subProdTitle,'amount'=>$value->subProdAmount,'variation'=>$value->subProdAmount_variation);
-            // }
-
-        $phonesave= PhoneBook::where(['userId'=> Session()->get('loginid'),'phone'=>$Request->phone])->first();
-
-
-            if($phonesave=='')
-            {
-                $saveName= new PhoneBook();
-                $saveName->userId=Session()->get('loginid');
-                $saveName->cname=$Request->cname;
-                $saveName->phone=$Request->phone;
-                $save= $saveName->save();
-            }
-
-             $jump= $payCharge->charge($Request->network,$Request->phone,$Request->amount,$Request->quantity, $Request->transid);
-
-             if($jump!==true){
-            $response = array(
-              "code" =>"101","message"=>$jump
-                );
-
-             }
-             else{
-                   $response = array(
-              "code" =>"s0c","message"=>"succes"
-                );
-             }
-
-
-             return json_encode($response);
+            //  return json_encode($response);
                 // return $check;
 
         }
-
-          return  redirect('login')->with('failed','You Must Login First');
-
-    }
 
 }

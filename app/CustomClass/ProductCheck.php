@@ -5,8 +5,8 @@ namespace App\CustomClass;
 use Illuminate\Http\Request;
 
 use Illuminate\Contracts\Session\Session;
-use App\Models\Transaction;
-use App\Models\User;
+use App\Models\Users\Transaction;
+use App\Models\Users\User;
 
 class ProductCheck
 {
