@@ -5,6 +5,6 @@ use App\Models\Users\User;
 
 interface IUserRepository
 {
-public function PhoneBook(User $user, $data);
+public function PhoneBook($data, User $user);
 
 }

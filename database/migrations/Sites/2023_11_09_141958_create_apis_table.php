@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('apis', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('type')->nullable();
             $table->string('name')->nullable();
             $table->string('url')->nullable();;
             $table->string('username')->nullable();;

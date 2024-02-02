@@ -21,22 +21,4 @@ class AccountEnums{
     public static $inactiveStatus = 0;
     public static $suspendStatus = 2;
 
-    public static $facebookChannel = "facebook";
-    public static $googleChannel = "google";
-    public static $linkedinChannel = "linkedin";
-    public static $webAppChannel = "web app";
-
-    public static $pendingInvitation = "pending";
-    public static $acceptedInvitation = "accepted";
-
-    public static $thirdPartyChannels = [
-        "google",
-        "facebook",
-        "linkedin",
-    ];
-    public static $appChannels = [
-        "web app",
-        "mobile app"
-    ];
-
 }

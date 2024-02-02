@@ -30,15 +30,15 @@ class PayRequest extends FormRequest
                 'network'=>['required','string'],
                 'amount'=>['required','numeric'],
                 'quantity'=>['required','numeric','min:1'],
-                'transid'=>['required','unique:transactions,transId']
+                'transid'=>['required']
         ];
     }
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json([
-            'status' => 'error',
-            'message' => 'Validation failed',
-            'errors' => $validator->errors(),
-        ], 422));
-    }
+    // protected function failedValidation(Validator $validator)
+    // {
+    //     throw new HttpResponseException(response()->json([
+    //         'status' => 'error',
+    //         'message' => 'Validation failed',
+    //         'errors' => $validator->errors(),
+    //     ], 422));
+    // }
 }

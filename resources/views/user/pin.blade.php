@@ -339,7 +339,6 @@
 
                             // actionCode = parsedData.actionCode;
                             success: function(data) {
-                                alert(data);
                                 $('#verify_loading').hide();
                                 $('#verify_loading2').hide();
                                 if (data.code == 's0c') {

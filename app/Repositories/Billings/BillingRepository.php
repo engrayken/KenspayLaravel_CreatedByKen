@@ -2,7 +2,10 @@
 namespace App\Repositories\Billings;
 
 use App\Enums\AccountEnums;
+use App\Enums\ProductEnums;
+use App\Enums\SiteEnums;
 use App\Interfaces\Billings\IBillingRepository;
+use App\Models\Users\Transaction;
 use App\Models\Users\User;
 
 class BillingRepository implements IBillingRepository
@@ -39,5 +42,24 @@ class BillingRepository implements IBillingRepository
             return true;
 
 }
+
+public function checkBal($balance, $total_prod, $tranid)
+{
+$response = Transaction::where('transId',$tranid)->first();
+if($balance<$total_prod)
+return failedResponse(SiteEnums::$lowWallet);
+elseif($response)
+return failedResponse(SiteEnums::$tranExit);
+return SiteEnums::$successReponseCode;
+
+
+}
+
+public function createTransaction(User $user, $transaction)
+{
+     $user->transaction()->create($transaction);
+
+}
+
 
 }

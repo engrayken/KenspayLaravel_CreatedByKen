@@ -31,12 +31,12 @@ class User extends Model
     ];
 
         public function ServiceFee(){
-        return $this->hasMany(ServiceFee::class, "userid");
+        return $this->hasMany(ServiceFee::class, "userId");
     }
         public function Transaction(){
-        return $this->hasMany(Transaction::class, "userid");
+        return $this->hasMany(Transaction::class, "userId");
     }
         public function PhoneBook(){
-        return $this->hasMany(PhoneBook::class, "userid");
+        return $this->hasMany(PhoneBook::class, "userId");
     }
 }

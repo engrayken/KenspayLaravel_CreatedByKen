@@ -9,7 +9,7 @@ class ProductEnums{
         "airtCat"=>["prodCat_name"=>"airtime"],
         "airtTitle"=>"Buy Airtime Vtu",
 
-        "dataCat"=>["prodCat_name"=>"data"],
+        "dataCat"=>["prodCat_name"=>"sme"],
         "dataTitle"=>"Buy Data",
 
         "tvCat"=>["prodCat_name"=>"tv"],
@@ -20,11 +20,12 @@ class ProductEnums{
 
         "electCat"=>["prodCat_name"=>"electricity"],
         "electTitle"=>"Electricity Bill",
-];
-    public static $failedReponseCode = "2718";
 
-    public static $activeStatus = 1;
-    public static $inactiveStatus = 0;
-    public static $suspendStatus = 2;
+        "otherCat"=>["prodCat_name"=>"other"],
+        "allTitle"=>"OtherService",
+];
+    public static $defaultQauantity = 1;
+    public static $vtu = ' vtu';
+
 
 }
