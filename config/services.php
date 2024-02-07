@@ -31,4 +31,15 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+        'vtpass' => [
+        'api_key' => env("VTPASS_API_KEY"),
+        'public_key' => env("VTPASS_PUBLIC_KEY"),
+        'secret_key' => env("VTPASS_SECRET_KEY"),
+        ],
+
+
+        'mbang' => [
+        'public_key' => env("MBANG_PUBLIC_KEY"),
+        'secret_key' => env("MBANG_SECRET_KEY"),
+    ]
 ];

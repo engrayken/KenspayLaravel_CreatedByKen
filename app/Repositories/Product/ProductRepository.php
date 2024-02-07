@@ -13,6 +13,7 @@ use App\Services\Apis\AirtimeApi;
 use App\Services\Apis\PinApi;
 use App\Services\ApiSwitch;
 use App\Services\SwitchProduct;
+use Illuminate\Support\Facades\Storage;
 
 class ProductRepository implements IProductRepository
 {
@@ -58,21 +59,21 @@ $network= Product::where('prodName', $Request['network'])->first();
         $balBefore = $user->dataBalance;
         $dep= $user->dataBalance-$total_prod;
         $cre= $dep+$total_prod;
-    //     $update= $user;
-    //     $update->dataBalance -= $total_prod;
-    //     $update->save();
-    //    $this->BserviceRepository->createTransaction($user, [
-    //         "userName"=> $user->name,
-    //         "transId"=>$this->transid,
-    //         "network"=> $this->network.ProductEnums::$vtu,
-    //         "amount"=> $total_prod,
-    //         "deno"=> $this->amount,
-    //         "phone"=> $this->phone,
-    //         "quantity"=> $this->quantity ?? ProductEnums::$defaultQauantity,
-    //         "balBefore"=> $balBefore,
-    //         "balAfter"=> $dep,
-    //         "status" =>SiteEnums::$pendingStatus,
-    //     ]);
+        $update= $user;
+        $update->dataBalance -= $total_prod;
+        $update->save();
+       $this->BserviceRepository->createTransaction($user, [
+            "userName"=> $user->name,
+            "transId"=>$this->transid,
+            "network"=> $this->network.ProductEnums::$vtu,
+            "amount"=> $total_prod,
+            "deno"=> $this->amount,
+            "phone"=> $this->phone,
+            "quantity"=> $this->quantity ?? ProductEnums::$defaultQauantity,
+            "balBefore"=> $balBefore,
+            "balAfter"=> $dep,
+            "status" =>SiteEnums::$pendingStatus,
+        ]);
             $dataArray =
             [
                 "balBefore"=>$balBefore,
@@ -89,6 +90,8 @@ $network= Product::where('prodName', $Request['network'])->first();
                 "serverType"=>$server->type,
                 "serverStatus"=>$server->status,
             ];
+        //  Storage::disk('local')->put("file.txt", $Request);
+
      return $this->switchSevices->switchApi($user, $dataArray);
             break;
 
@@ -107,22 +110,22 @@ $network= Product::where('prodName', $Request['network'])->first();
         $balBefore = $user->dataBalance;
         $dep= $user->dataBalance-$total_prod;
         $cre= $dep+$total_prod;
-    //     $update= $user;
-    //     $update->dataBalance -= $total_prod;
-    //     $update->save();
+        $update= $user;
+        $update->dataBalance -= $total_prod;
+        $update->save();
 
-    //    $this->BserviceRepository->createTransaction($user, [
-    //         "userName"=> $user->name,
-    //         "transId"=>$this->transid,
-    //         "network"=> $this->network,
-    //         "amount"=> $total_prod,
-    //         "deno"=> $SubProduct->subProdAmount_variation,
-    //         "phone"=> $this->phone,
-    //         "quantity"=> $this->quantity ?? ProductEnums::$defaultQauantity,
-    //         "balBefore"=> $balBefore,
-    //         "balAfter"=> $dep,
-    //         "status" =>SiteEnums::$pendingStatus,
-    //     ]);
+       $this->BserviceRepository->createTransaction($user, [
+            "userName"=> $user->name,
+            "transId"=>$this->transid,
+            "network"=> $this->network,
+            "amount"=> $total_prod,
+            "deno"=> $SubProduct->subProdAmount_variation,
+            "phone"=> $this->phone,
+            "quantity"=> $this->quantity ?? ProductEnums::$defaultQauantity,
+            "balBefore"=> $balBefore,
+            "balAfter"=> $dep,
+            "status" =>SiteEnums::$pendingStatus,
+        ]);
             $dataArray =
             [
                 "balBefore"=>$balBefore,

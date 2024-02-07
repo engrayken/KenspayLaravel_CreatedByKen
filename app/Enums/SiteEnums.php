@@ -44,9 +44,11 @@ class SiteEnums{
     public static $activeStatus = 1;
     public static $pendingStatus = 0;
     public static $suspendStatus = 2;
+    public static $successStatus = 1;
+    public static $failedStatus = 2;
     public static $settings= 1;
-    public static $lowWallet ="Error: Low Wallet! Please Fund Account";
-    public static $tranExit ="Error: This Transaction Already Exist, Reload browser and try again";
+    public static $lowWallet ="Internal Error: Low Wallet! Please Fund Account";
+    public static $tranExit ="Internal Error: This Transaction Already Exist, Reload browser and try again";
 
 
 }

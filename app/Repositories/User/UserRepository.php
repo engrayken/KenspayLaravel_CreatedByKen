@@ -15,8 +15,9 @@ public function PhoneBook($data, User $user)
     {
     if(!$check)
     $user->PhoneBook()->create(["phone"=>$phone,"cname"=>$cname]);
-    $user->PhoneBook()->update(["phone"=>$phone,"cname"=>$cname]);
-    }
+    $user->PhoneBook()->where("phone",$phone)->update(["phone"=>$phone,"cname"=>$cname]);
+
+}
 
 }
 
