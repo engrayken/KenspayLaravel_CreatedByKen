@@ -1,6 +1,8 @@
 <?php
 
-use App\Enums\CustomEnums;
+use App\Enums\AccountEnums;
+
+use App\Enums\SiteEnums;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -28,7 +30,7 @@ return new class extends Migration
             $table->string('bName')->default('Kenspay Technology');
             $table->string('attempt')->nullable();
             $table->timestamp('last_login')->nullable();
-            $table->integer('status')->default(CustomEnums::$inactiveStatus);
+            $table->integer('status')->default(AccountEnums::$inactiveStatus);
             $table->longText('token')->nullable();
             $table->longText('utoken')->nullable();
             $table->timestamps();

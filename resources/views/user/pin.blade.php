@@ -303,7 +303,7 @@
                     var phone = $('#phone').val();
                     var amount = $('#amount').val();
                     var quantity = $('#quantity').val();
-                    var transid = 'kpweb{{ time() }}';
+                    var transid = '{{ time() }}';
 
                     if (network == '' || phone == '' || amount == '' || quantity == '') {
                         $('#emptyError').show();
@@ -356,7 +356,7 @@
                                 //  $('#verify_loading2').hide();
                                 //  $('#emptyError').show();
                                 //  $('#emptyError').html(data.message);
-                                // alert(data.message);
+                                // alert(data);
 
 
                             },

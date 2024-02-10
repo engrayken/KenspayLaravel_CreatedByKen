@@ -9,6 +9,7 @@ class Mypin extends Model
 {
     use HasFactory;
     protected $fillable = [
+            "trans_id",
             "transId",
             "userId",
             "network",

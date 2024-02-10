@@ -36,6 +36,9 @@ class User extends Model
         public function Transaction(){
         return $this->hasMany(Transaction::class, "userId");
     }
+        public function Mypin(){
+        return $this->hasMany(Mypin::class, "userId");
+    }
         public function PhoneBook(){
         return $this->hasMany(PhoneBook::class, "userId");
     }

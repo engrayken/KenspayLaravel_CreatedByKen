@@ -2,7 +2,7 @@
 namespace App\Repositories\Auth;
 
 use App\Enums\AccountEnums;
-use App\Enums\CustomEnums;
+use App\Enums\SiteEnums;
 use App\Interfaces\Auth\IAuthRepository;
 use App\Models\Users\User;
 use Illuminate\Support\Facades\Hash;
@@ -18,9 +18,9 @@ $data['password']=Hash::make($data['password']);
 $signUp = User::create($data);
 if(!$signUp)
 {
-return CustomEnums::$failedReponseCode;
+return SiteEnums::$failedReponseCode;
 }
-return CustomEnums::$successReponseCode;
+return SiteEnums::$successReponseCode;
 
 }
 public function login($data)

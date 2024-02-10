@@ -31,5 +31,14 @@ class ApiSeeder extends Seeder
             "password" => "VtpassAirtime",
             "status" => 1,
             ]);
+
+            Api::updateOrCreate([
+            "type" => "pin",
+            "name" => "KensPayPin",
+            "url" => "vtpass.com/api",
+            "username" => "KensPayPin",
+            "password" => "KensPayPin",
+            "status" => 1,
+            ]);
     }
 }

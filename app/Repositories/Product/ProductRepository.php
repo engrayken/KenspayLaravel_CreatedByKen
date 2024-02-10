@@ -7,6 +7,7 @@ use App\Interfaces\Product\IProductRepository;
 use App\Models\Product\Product;
 use App\Models\Product\SubProduct;
 use App\Models\Site\Api;
+use App\Models\Site\Epin;
 use App\Models\Users\User;
 use App\Repositories\Billings\BillingRepository;
 use App\Services\Apis\AirtimeApi;
@@ -157,6 +158,10 @@ $network= Product::where('prodName', $Request['network'])->first();
             $checkBal = $this->BserviceRepository->checkBal($user->pinBalance, $total_prod, $this->transid);
             if($checkBal!=SiteEnums::$successReponseCode)
             return $checkBal;
+        $pinNet = str_replace('-pin','',$this->network);
+        $checkPin = $this->BserviceRepository->checkPin($user, $pinNet, $SubProduct->subProdAmount,$this->quantity);
+        if($checkPin!=SiteEnums::$successReponseCode)
+            return $checkPin;
         $balBefore = $user->pinBalance;
         $dep= $user->pinBalance-$total_prod;
         $cre= $dep+$total_prod;
@@ -164,29 +169,30 @@ $network= Product::where('prodName', $Request['network'])->first();
         // $update->pinBalance -= $total_prod;
         // $update->save();
 
-        // $this->BserviceRepository->createTransaction($user, [
-        //     "userName"=> $user->name,
-        //     "transId"=>$this->transid,
-        //     "network"=> $SubProduct->subProdTitle,
-        //     "amount"=> $total_prod,
-        //     "deno"=> $SubProduct->subProdAmount,
-        //     "phone"=> $this->phone,
-        //     "quantity"=> $this->quantity ?? ProductEnums::$defaultQauantity,
-        //     "balBefore"=> $balBefore,
-        //     "balAfter"=> $dep,
-        // ]);
+      $trans_id =  $this->BserviceRepository->createTransaction($user, [
+            "userName"=> $user->name,
+            "transId"=>$this->transid,
+            "network"=> str_replace('-',' ',$this->network),
+            "amount"=> $total_prod,
+            "deno"=> $SubProduct->subProdAmount,
+            "phone"=> $this->phone,
+            "quantity"=> $this->quantity,
+            "balBefore"=> $balBefore,
+            "balAfter"=> $dep,
+        ]);
 
             $dataArray =
             [
                 "balBefore"=>$balBefore,
                 "cre"=>$cre,
                 "dep"=>$dep,
-                "network"=>$network,
+                "network"=>$this->network,
                 "phone"=>$this->phone,
-                "subProdAmount"=>$SubProduct->subProdAmount,
+                "deno"=>$SubProduct->subProdAmount,
                 "amount"=>$total_prod,
                 "quantity"=>$this->quantity,
                 "transid"=>$this->transid,
+                "trans_id"=>$trans_id,
                 // "amountCharge"=>$this->amount,
                 "serverName"=>$server->name,
                 "serverType"=>$server->type,

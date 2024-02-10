@@ -47,8 +47,14 @@ class SiteEnums{
     public static $successStatus = 1;
     public static $failedStatus = 2;
     public static $settings= 1;
+    public static $defaultUser= 1;
+    public static $defaultUserBalance= 1000;
+    public static $lowPins ="Internal Error: The Quantity of pins is not upto, Kindly reduce and try again";
     public static $lowWallet ="Internal Error: Low Wallet! Please Fund Account";
     public static $tranExit ="Internal Error: This Transaction Already Exist, Reload browser and try again";
+    public static $traReach ="You have reach the quantity of pins to be printed a day";
 
+    public static $pinNum= ['0','1','2','3','4','5','6','8','9'];
+    public static $pinAlp= ['a','y','o','g','u','k','e','n','t','h'];
 
 }

@@ -15,6 +15,8 @@ use App\Http\Requests\Product\PayRequest;
 use App\Interfaces\Billings\IBillingRepository;
 use App\Interfaces\Product\IProductRepository;
 use App\Interfaces\User\IUserRepository;
+use App\Models\Site\Epin;
+use App\Models\Users\Mypin;
 
 class ProductController extends Controller
 {
@@ -123,7 +125,6 @@ public function __construct(IBillingRepository $serviceRepo, IUserRepository $Us
     public function pay(PayRequest $Request)
     {
 
-        // ["code" =>"101","message"=>"Error: Low Wallet! Please Fund Account"];
         $Request->merge(['amount'=>abs($Request->amount)]);
         $Request->validated();
         $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
@@ -134,6 +135,16 @@ public function __construct(IBillingRepository $serviceRepo, IUserRepository $Us
        $response = $this->PserviceRepository->pay($Request, $user);
 
         return $response;
+
+//    $epins= Epin::orderBy('created_at','desc')->take(5)->where(["net"=>"mtn","deno"=>"100"])->get();
+
+//    foreach($epins as $item)
+//    {
+//   $data = ["userId"=>$user,"transId"=>'1234',"network"=>$item->net,"deno"=>$item->deno,
+//   "amount"=>$item->pin,"quantity"=>$item->pin,
+//   "descr"=>$item->descr,"pin"=>$item->pin,"seria"=>$item->seria,"status"=>SiteEnums::$successStatus];
+//  $user->Mypin()->create($data);
+// }
 
 
         }

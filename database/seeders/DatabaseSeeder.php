@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             SubProductSeeder::class,
             ApiSeeder::class,
+            EpinLimitSeeder::class,
         ]);
     }
 }

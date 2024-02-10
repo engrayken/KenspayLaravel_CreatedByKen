@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mypins', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('transId')->unsigned();
+            $table->id();
+            $table->unsignedBigInteger('trans_id');
+            $table->string('transId');
             $table->string('userId');
             $table->string('network')->nullable();
             $table->string('deno')->nullable();
@@ -29,7 +30,7 @@ return new class extends Migration
              ->references('id')->on('users')
             ->onDelete('cascade');
 
-            $table->foreign('transId')
+            $table->foreign('trans_id')
              ->references('id')->on('transactions')
             ->onDelete('cascade');
         });

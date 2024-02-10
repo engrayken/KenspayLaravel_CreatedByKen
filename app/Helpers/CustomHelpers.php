@@ -1,10 +1,11 @@
 <?php
 
-use App\Enums\CustomEnums;
+
+use App\Enums\SiteEnums;
 
 function successApiResponse($message = null, $data = [], $errors = [], $status = 200, $headers = []){
     return response()->json([
-        "status" => CustomEnums::$successReponseCode,
+        "status" => SiteEnums::$successReponseCode,
         "message" => $message,
         "data" => $data,
         "errors" => $errors
@@ -13,7 +14,7 @@ function successApiResponse($message = null, $data = [], $errors = [], $status =
 
 function failedApiResponse($message = null, $data = [], $errors = [], $status = 200, $headers = []){
     return response()->json([
-        "status" => CustomEnums::$failedReponseCode,
+        "status" => SiteEnums::$failedReponseCode,
         "message" => $message,
         "data" => $data,
         "errors" => $errors

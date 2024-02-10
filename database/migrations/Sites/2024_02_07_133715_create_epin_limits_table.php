@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->increments('catId');
-            $table->string('catName')->nullable();
-            $table->string('catTitle')->nullable();
+        Schema::create('epin_limits', function (Blueprint $table) {
+            $table->increments("id");
+            $table->string("net")->nullable();
+            $table->string("deno")->nullable();
+            $table->string("balance")->nullable();
+            $table->string("limit")->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('epin_limits');
     }
 };

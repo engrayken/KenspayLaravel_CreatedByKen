@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\CustomEnums;
 use App\Enums\SiteEnums;
 
 function successApiResponse($message = null, $data = [], $errors = [], $status = 200, $headers = []){

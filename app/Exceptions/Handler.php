@@ -32,20 +32,20 @@ class Handler extends ExceptionHandler
             //
         });
 
-                $this->reportable(function(Exception $ex){
-            return failedApiResponse($ex->getMessage(), [], $ex->getTraceAsString(), 500);
-        });
+        //         $this->reportable(function(Exception $ex){
+        //     return failedApiResponse($ex->getMessage(), [], $ex->getTraceAsString(), 500);
+        // });
 
-        $this->renderable(function(HttpException $ex){
-            return failedApiResponse($ex->getMessage(), $ex->getHeaders()['data'] ?? [], [], $ex->getStatusCode());
-        });
+        // $this->renderable(function(HttpException $ex){
+        //     return failedApiResponse($ex->getMessage(), $ex->getHeaders()['data'] ?? [], [], $ex->getStatusCode());
+        // });
 
-        $this->renderable(function(ValidationException $ex){
-            return failedApiResponse($ex->getMessage(),[], $ex->errors(), 400);
-        });
+        // $this->renderable(function(ValidationException $ex){
+        //     return failedApiResponse($ex->getMessage(),[], $ex->errors(), 400);
+        // });
 
-        $this->renderable(function(Exception $ex){
-            return failedApiResponse($ex->getMessage(), [], $ex->getTraceAsString(), 500);
-        });
+        // $this->renderable(function(Exception $ex){
+        //     return failedApiResponse($ex->getMessage(), [], $ex->getTraceAsString(), 500);
+        // });
     }
 }
