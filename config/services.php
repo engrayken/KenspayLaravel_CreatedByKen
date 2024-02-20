@@ -31,6 +31,13 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+        'php_mailer' => [
+        'email_host' => env("EMAIL_HOST"),
+        'email_username' => env("EMAIL_USERNAME"),
+        'email_password' => env("EMAIL_PASSWORD"),
+        'email_port' => env("EMAIL_PORT"),
+        ],
+
         'vtpass' => [
         'api_key' => env("VTPASS_API_KEY"),
         'public_key' => env("VTPASS_PUBLIC_KEY"),
@@ -41,5 +48,17 @@ return [
         'mbang' => [
         'public_key' => env("MBANG_PUBLIC_KEY"),
         'secret_key' => env("MBANG_SECRET_KEY"),
+        ],
+
+        'paystack' => [
+        'public_key' => env("PSTACK_PUBLIC_KEY"),
+        'secret_key' => env("PSTACK_SECRET_KEY"),
+        ],
+
+        'monify' => [
+        'public_key' => env("MONIFY_PUBLIC_KEY"),
+        'secret_key' => env("MONIFY_SECRET_KEY"),
+        'URL' => env("MONIFY_URL"),
+        'contractCode' => env("MONIFY_CONTRACT_CODE"),
     ]
 ];

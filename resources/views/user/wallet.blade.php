@@ -41,9 +41,9 @@
                                                         class="fas fa-wallet ml-1"></i> Manual Funding (<span
                                                         class="text-success">Specify Account</span>) <span
                                                         style="font-size: 12px">Stamp <strike>N</strike>90</span></h2>
-                                                <p class="mt-0 mb-0"> Bank Name: Gt bank</p>
-                                                <p class="mt-0 mb-0"> Acc Name: Kenme </p>
-                                                <p class="mt-0 mb-0"> Acc Numb: 0610561789955</p>
+                                                <p class="mt-0 mb-0"> Bank Name: Gtbank</p>
+                                                <p class="mt-0 mb-0"> Acc Name: Kenspay Technology </p>
+                                                <p class="mt-0 mb-0"> Acc Numb: 0610567899</p>
 
                                             </div>
 
@@ -53,7 +53,8 @@
 20px;color:#2c80ff;"><i
                                                         class="fas fa-wallet ml-1"></i> Fund Data Balance (<span
                                                         class="text-success"><strike>N</strike>{{ number_format($user->dataBalance) }}</span>)
-                                                    <span style="font-size: 12px">Stamp <strike>N</strike>90</span></h2>
+                                                    <span style="font-size: 12px">Stamp <strike>N</strike>90</span>
+                                                </h2>
                                                 <p class="mt-0 mb-0"> <b style="font-weight:400;font-size:15px;">
 
                                                         @if (empty($user->customerNumber))
@@ -80,7 +81,8 @@
             20px;color:#2c80ff;"><i
                                                         class="fas fa-wallet ml-1"></i> Fund Pin Balance (<span
                                                         class="text-success"><strike>N</strike>{{ number_format($user->pinBalance) }}</span>)
-                                                    <span style="font-size: 12px">Charge 1.5% </span></h2>
+                                                    <span style="font-size: 12px">Charge 1.5% </span>
+                                                </h2>
 
 
 
@@ -128,10 +130,9 @@
                         var email = '{{ $user->email }}';
                         var txnid = '{{ time() }}';
                         var name = '{{ $user->name }}';
-             if(!parseInt(amount))
-                 {
-              return alert('Amount must be a numeric');
-                 }
+                        if (!parseInt(amount)) {
+                            return alert('Amount must be a numeric');
+                        }
                         $.ajax({
                             url: "{{ route('paysinit') }}",
                             method: "POST",
@@ -144,13 +145,13 @@
                             dataType: "json",
                         });
 
-                        var  charge = 1.5;
-                        var aamount= charge/100*amount;
-                        var chargeAmount=parseFloat(aamount) + parseFloat(amount);
+                        var charge = 1.5;
+                        var aamount = charge / 100 * amount;
+                        var chargeAmount = parseFloat(aamount) + parseFloat(amount);
 
                         // var aamount += parseInt(amount);
                         var handler = PaystackPop.setup({
-                            key: '{{ $settings->payStackPublic }}',
+                            key: '{{ config('services.paystack.public_key') }}',
                             email: email,
                             amount: chargeAmount * 100,
                             bearer: 'subaccount',

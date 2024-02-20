@@ -33,8 +33,10 @@ class AuthController extends Controller
     public function loginu(LoginRequest $request)
     {
     $response = $this->serviceRepository->login($request->validated());
-        if(!$response == true)
+        if(!$response == true && !$response =='3mv')
         return back()->with(AccountEnums::$Auth['failedLogin']);
+            if($response =='3mv')
+        return back()->with(AccountEnums::$Auth['failedLoginEmail']);
        return redirect('/user');
     }
 

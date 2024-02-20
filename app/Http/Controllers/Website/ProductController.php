@@ -11,6 +11,8 @@ use Illuminate\Contracts\Session\Session;
 use App\Models\Users\User;
 use App\CustomClass\ProductCheck;
 use App\CustomClass\BalanceCharge;
+use App\Enums\ProductEnums;
+use App\Enums\SiteEnums;
 use App\Models\Site\Setting;
 
 
@@ -21,10 +23,9 @@ class ProductController extends Controller
     public function pin()
     {
 
-        $network= Product::where('prodCat_name','pin')->get();
-        $settings = Setting::where('id','=','1')->first();
-
-        $title='Generate Recharge Card Pin';
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $network= Product::where(ProductEnums::$prodCat_name['pinCat'])->get();
+        $title=ProductEnums::$prodCat_name['pinTitle'];
         return view('home.pin', compact('network','title','settings'));
 
 
@@ -32,10 +33,10 @@ class ProductController extends Controller
 
     public function airtime()
     {
-        $network= Product::where('prodCat_name','airtime')->get();
-        $title='Buy Airtime Vtu';
-        $settings = Setting::where('id','=','1')->first();
 
+        $network= Product::where(ProductEnums::$prodCat_name['airtCat'])->get();
+        $title=ProductEnums::$prodCat_name['airtTitle'];
+        $settings = Setting::findOrfail(SiteEnums::$settings);
         return view('home.airtime', compact('network','title','settings'));
 
     }
@@ -43,10 +44,9 @@ class ProductController extends Controller
     public function data()
     {
 
-        $network= Product::where('prodCat_name','sme')->get();
-        $title='Buy Data';
-        $settings = Setting::where('id','=','1')->first();
-
+        $network= Product::where(ProductEnums::$prodCat_name['dataCat'])->get();
+        $title=ProductEnums::$prodCat_name['dataTitle'];
+        $settings = Setting::findOrfail(SiteEnums::$settings);
         return view('home.data', compact('network','title','settings'));
 
     }
@@ -54,32 +54,27 @@ class ProductController extends Controller
     public function tv()
     {
 
-        $network= Product::where('prodCat_name','tv')->get();
-        $title='Tv subscription';
-        $settings = Setting::where('id','=','1')->first();
-
+        $network= Product::where(ProductEnums::$prodCat_name['tvCat'])->get();
+        $title=ProductEnums::$prodCat_name['tvTitle'];
+        $settings = Setting::findOrfail(SiteEnums::$settings);
         return view('home.tv', compact('network','title','settings'));
 
     }
 
     public function education()
     {
-
-        $network= Product::where('prodCat_name','education')->get();
-        $title='Educational Payment';
-        $settings = Setting::where('id','=','1')->first();
-
+        $network= Product::where(ProductEnums::$prodCat_name['eduCat'])->get();
+        $title=ProductEnums::$prodCat_name['eduTitle'];
+        $settings = Setting::findOrfail(SiteEnums::$settings);
         return view('home.education', compact('network','title','settings'));
 
     }
 
     public function electricity()
     {
-
-        $network= Product::where('prodCat_name','electricity')->get();
-        $title='Electricity Bill';
-        $settings = Setting::where('id','=','1')->first();
-
+        $network= Product::where(ProductEnums::$prodCat_name['electCat'])->get();
+        $title=ProductEnums::$prodCat_name['electTitle'];
+        $settings = Setting::findOrfail(SiteEnums::$settings);
         return view('home.electricity', compact('network','title','settings'));
 
     }
@@ -119,65 +114,5 @@ class ProductController extends Controller
     }
 
 
-
-    // public function pay(Request $Request)
-    // {
-
-
-
-
-    //     // $fetchUser= User::where('id',Session()->get('loginid'))->first();
-
-    //         $payCharge = new BalanceCharge();
-
-    //         $sanitize = new ProductCheck();
-
-
-    //       $sanitizeCheck= $sanitize->airtime($Request->network,$Request->phone,$Request->amount,$Request->quantity,$Request->transid);
-    //         if($sanitizeCheck!==true)
-    //         {
-    //             $response = array(
-    //                 "code" =>"101","message"=>$sanitizeCheck
-    //                   );
-
-    //                return json_encode($response);
-    //         }
-
-    //         $Request->validate([
-    //             'phone'=>'required|numeric',
-    //             'network'=>'required|string',
-    //             'amount'=>'required|numeric',
-    //             'quantity'=>'required|numeric|min:10',
-    //             'transid'=>'required|string'
-    //         ]);
-    //     // $user= User::where('id',$ids)->first();
-    //     // $network= SubProduct::query()->where('subProdMain_name', $Request->network)->get();
-
-
-
-    //         // foreach ($network as $value) {
-    //         //     $check[]=  array('name'=>$value->subProdTitle,'amount'=>$value->subProdAmount,'variation'=>$value->subProdAmount_variation);
-    //         // }
-
-    //          $jump= $payCharge->charge($Request->network,$Request->phone,$Request->amount,$Request->quantity, $Request->transid);
-
-    //          if($jump!==true){
-    //         $response = array(
-    //           "code" =>"101","message"=>$jump
-    //             );
-
-    //          }
-    //          else{
-    //                $response = array(
-    //           "code" =>"s0c","message"=>"succes"
-    //             );
-    //          }
-
-
-    //          return json_encode($response);
-    //             // return $check;
-
-
-    // }
 
 }

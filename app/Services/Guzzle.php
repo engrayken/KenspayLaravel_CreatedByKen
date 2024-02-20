@@ -15,6 +15,11 @@ class Guzzle
         try {
     $response = $client->get($server.$data['data'],[
             'headers' => $headers,// Use 'json' key if sending JSON data
+            //eg     $headers = [
+    // 'Content-Type' => 'application/json', // Adjust the content type as needed
+    // "userid"=>config("services.mbang.public_key"),
+    // "pass"=>config("services.mbang.secret_key"),
+    //     ];
         ]);
     // Get the response body as a string
     $body = $response->getBody()->getContents();

@@ -3,7 +3,7 @@ namespace App\Enums;
 
 class SiteEnums{
 
-    public static $siteName = "Kenspay";
+    public static $siteName = "kenspay";
     public static $phone ="2348138442969";
     public static $email = "support@kenspay.com.ng";
     public static $ehost = "kenspay.com.ng";
@@ -11,6 +11,7 @@ class SiteEnums{
     public static $address = "We base in lagos and kogi state";
     public static $bankFee = 90;
     public static $monthlyCharge = 200;
+    public static $setPin = 1000;
     public static $limit = 40;
     public static $monifySecret = 0;
     public static $monifyProductCode = 0;
@@ -53,6 +54,8 @@ class SiteEnums{
     public static $lowWallet ="Internal Error: Low Wallet! Please Fund Account";
     public static $tranExit ="Internal Error: This Transaction Already Exist, Reload browser and try again";
     public static $traReach ="You have reach the quantity of pins to be printed a day";
+    public static $serviceOff ="Failed: Internal Error, Service Temporary Off";
+    public static $pinEnable ="Pin enable is off, Kindly visit your profile and click Enable Pins";
 
     public static $pinNum= ['0','1','2','3','4','5','6','8','9'];
     public static $pinAlp= ['a','y','o','g','u','k','e','n','t','h'];

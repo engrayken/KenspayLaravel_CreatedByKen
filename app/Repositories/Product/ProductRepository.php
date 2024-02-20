@@ -150,7 +150,7 @@ $network= Product::where('prodName', $Request['network'])->first();
             $SubProduct= SubProduct::where(['subProdMain_name'=>$this->network,'subProdId'=>$this->amount])->first();
             $server = Api::where(['type'=>ProductEnums::$prodCat_name['pinCat']['prodCat_name'],'status'=>SiteEnums::$activeStatus])->first();
           if(!$server)
-          return failedResponse("Failed: Internal Error, Service Temporary Off");
+          return failedResponse(SiteEnums::$serviceOff);
 
             $total_cal= $SubProduct->subProdAmount_variation/100*$SubProduct->subProdAmount;
             $total_prod1= $SubProduct->subProdAmount-$total_cal;
@@ -158,6 +158,9 @@ $network= Product::where('prodName', $Request['network'])->first();
             $checkBal = $this->BserviceRepository->checkBal($user->pinBalance, $total_prod, $this->transid);
             if($checkBal!=SiteEnums::$successReponseCode)
             return $checkBal;
+                  if($user->pinEnable=="off")
+          return failedResponse(SiteEnums::$pinEnable);
+
         $pinNet = str_replace('-pin','',$this->network);
         $checkPin = $this->BserviceRepository->checkPin($user, $pinNet, $SubProduct->subProdAmount,$this->quantity);
         if($checkPin!=SiteEnums::$successReponseCode)
@@ -165,9 +168,9 @@ $network= Product::where('prodName', $Request['network'])->first();
         $balBefore = $user->pinBalance;
         $dep= $user->pinBalance-$total_prod;
         $cre= $dep+$total_prod;
-        // $update= $user;
-        // $update->pinBalance -= $total_prod;
-        // $update->save();
+        $update= $user;
+        $update->pinBalance -= $total_prod;
+        $update->save();
 
       $trans_id =  $this->BserviceRepository->createTransaction($user, [
             "userName"=> $user->name,

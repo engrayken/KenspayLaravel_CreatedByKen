@@ -43,8 +43,8 @@ Route::get('/login', [WebsiteController::class,'login'])->middleware('alreadyLog
 Route::get('/register', [WebsiteController::class,'signup'])->middleware('alreadyLogin');
 Route::get('/forget-password', [WebsiteController::class,'forgot'])->middleware('alreadyLogin');
 
-Route::get('/conVerEmail/{id}', [WebsiteController::class,'emconf'])->where(['id' => '[0-9a-zA-Z]+'])->name('conVerEmail');
-Route::get('/confirmview', [WebsiteController::class,'confirmview'])->name('confirmview');
+Route::get('/confirm-email/{id}', [WebsiteController::class,'confirmEmail'])->where(['id' => '[0-9a-zA-Z]+'])->name('conVerEmail');
+Route::get('/confirm-account', [WebsiteController::class,'confirmview'])->name('confirmview');
 
 
 Route::post('/registeru', [AuthController::class,'signupu'])->name('Signup');

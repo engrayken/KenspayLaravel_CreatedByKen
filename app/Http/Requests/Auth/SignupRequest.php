@@ -25,11 +25,12 @@ class SignupRequest extends FormRequest
         return [
             //
             "name" => ["required", "regex:/^[a-zA-Z]{1}[a-zA-Z'-_]+/", "max:50"],
-            "email" => ["required", "email", "max:200", "unique:users,email"],
-            "phone" => ["required", "max:20","unique:users,phone"],
-            "password" => ["required","alpha_num","min:8", "max:32"],
+            "email" => ["required", "email", "max:200", "unique:p_users,email", "unique:users,email"],
+            "phone" => ["required", "max:20","unique:p_users,phone", "unique:users,phone"],
+            "password" => ["required",'regex:/[!@#$%^&*(),.?":{}|<>]/',"min:8", "max:32"],
             // "confirm_password" => ["required", "same:password"]
         ];
+
 //             [
 //         'name'=>['required'=>'Full name can not be empty',
 //         'max'=>'Full Name can not be more than 15'],
@@ -41,5 +42,12 @@ class SignupRequest extends FormRequest
 //         'password'=>['password'=>'password must not be empty']
 
 // ];
+    }
+
+        public function messages()
+    {
+        return [
+            'password.regex' => 'The password must contain at least one symbol (!@#$%^&*(),.?":{}|<>).',
+        ];
     }
 }

@@ -16,7 +16,7 @@ use App\Http\Controllers\MailController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+    Route::get('/rsv_acc_webhk', [UserController::class,'reserveWebhook'])->name('reserveWebhook');
     Route::middleware(['islogedin'])->group(function () {
     Route::get('/', [UserController::class,'index'])->name('dashboard');
     Route::get('/recharge_card', [ProductController::class,'pin'])->name('pin');
@@ -34,7 +34,7 @@ use App\Http\Controllers\MailController;
     Route::get('/AccountVerify', [UserController::class,'SendVerify'])->name('SendVerify');
     Route::get('/account', [UserController::class,'account'])->name('account');
     Route::post('/updateAccount', [UserController::class,'updateAccount'])->name('updateAccount');
-    Route::post('/setPin', [UserController::class,'setPin'])->name('setPin');
+    Route::put('/setPin', [UserController::class,'setPin'])->name('setPin');
     Route::post('/phonebook', [UserController::class,'phonebook'])->name('phonebook');
     Route::get('/wallet', [UserController::class,'wallet'])->name('wallet');
     Route::get('/instant', [UserController::class,'instant'])->name('instant');

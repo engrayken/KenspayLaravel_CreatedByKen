@@ -17,7 +17,12 @@ class User extends Model
         'name',
         'email',
         'phone',
+        'dataBalance',
+        'pinBalance',
+        'nin',
+        'bvn',
         'status',
+        'website',
         'password',
         'reference'
     ];

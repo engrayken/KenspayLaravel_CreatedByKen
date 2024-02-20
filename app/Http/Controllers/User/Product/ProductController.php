@@ -136,16 +136,6 @@ public function __construct(IBillingRepository $serviceRepo, IUserRepository $Us
 
         return $response;
 
-//    $epins= Epin::orderBy('created_at','desc')->take(5)->where(["net"=>"mtn","deno"=>"100"])->get();
-
-//    foreach($epins as $item)
-//    {
-//   $data = ["userId"=>$user,"transId"=>'1234',"network"=>$item->net,"deno"=>$item->deno,
-//   "amount"=>$item->pin,"quantity"=>$item->pin,
-//   "descr"=>$item->descr,"pin"=>$item->pin,"seria"=>$item->seria,"status"=>SiteEnums::$successStatus];
-//  $user->Mypin()->create($data);
-// }
-
 
         }
 

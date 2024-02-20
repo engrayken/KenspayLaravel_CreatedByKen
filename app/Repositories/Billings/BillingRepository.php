@@ -19,7 +19,9 @@ class BillingRepository implements IBillingRepository
         if(!$servicefee && $user->pinEnable=='on')
         {
         $charge = $user->pinBalance - $monthlyCharge;
-        $update = $user->update(["pinBalance"=>$charge]);
+        $update = $user;
+        $update->pinBalance -=$monthlyCharge;
+        $update = $update->save();
         if($update){
            $insert = $user->ServiceFee()->create([
             "userName"=>$user->name,
@@ -115,4 +117,82 @@ return SiteEnums::$successReponseCode;
 
 }
 
+
+public function paysInit(User $user, $request)
+{
+        if($request->insert=='new')
+        $user->Transaction()->create([
+            'userName' => $user->name,
+            'transId' => $request->txnid,
+            'network' => 'Psk Fund Wallet Init',
+            'amount' => $request->amount,
+            'deno' => $request->amount,
+            'phone' => $user->phone,
+            'balBefore' => $user->pinBalance,
+            'balAfter' => $user->pinBalance,
+            'status' => SiteEnums::$pendingStatus,
+            'rstatus' => 'init'
+    ]);
+
+     if($request->insert=='close')
+    // $cre= $user->pinBalance+$request->amount;
+    $update = $user->Transaction()->where('transId',$request->txnid)->update(['status'=>'0','rstatus'=>'close','network'=>'Psk Fund Wallet']);
+
+
 }
+
+   public function fundv(User $user, $id, $check)
+    {
+$checkItem2=session()->get('check');
+$checkItem=str_replace(array('f','o','z'),array('/','.',':'),$check);
+
+$update = $user->Transaction()->where(['transId'=>$id])->first();
+if($update==false)
+return ['code'=>'400'];
+
+if($update->status!='' && $update->status!=0)
+return ['code'=>'401'];
+
+
+  $curl = curl_init();
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => "https://api.paystack.co/transaction/verify/".$id,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "GET",
+    CURLOPT_HTTPHEADER => array(
+      "Authorization: Bearer ".config('services.paystack.secret_key'),
+      "Cache-Control: no-cache",
+    ),
+  ));
+
+//  $response='{"status":true,"message":"Verification successful","data":{"id":3372269676,"domain":"test","status":"success","reference":"1702547775","receipt_number":null,"amount":10000,"message":null,"gateway_response":"Successful","paid_at":"2023-12-14T09:57:34.000Z","created_at":"2023-12-14T09:57:27.000Z","channel":"card","currency":"NGN","ip_address":"102.88.33.75","metadata":{"custom_fields":[{"display_name":"Ayogu Kenneth","value":"1702547775"}],"referrer":"http://127.0.0.1:8000/user/wallet"},"log":{"start_time":1702547847,"time_spent":7,"attempts":1,"errors":0,"success":true,"mobile":false,"input":[],"history":[{"type":"action","message":"Attempted to pay with card","time":7},{"type":"success","message":"Successfully paid with card","time":7}]},"fees":150,"fees_split":null,"authorization":{"authorization_code":"AUTH_sbhokcd2pl","bin":"408408","last4":"4081","exp_month":"12","exp_year":"2030","channel":"card","card_type":"visa ","bank":"TEST BANK","country_code":"NG","brand":"visa","reusable":true,"signature":"SIG_k5itI2J13qoBBUNcEeDY","account_name":null,"receiver_bank_account_number":null,"receiver_bank":null},"customer":{"id":6001358,"first_name":"","last_name":"","email":"kennethayogu@gmail.com","customer_code":"CUS_e3n67bcmt3rmuhd","phone":"","metadata":null,"risk_action":"default","international_format_phone":null},"plan":null,"split":{},"order_id":null,"paidAt":"2023-12-14T09:57:34.000Z","createdAt":"2023-12-14T09:57:27.000Z","requested_amount":10000,"pos_transaction_data":null,"source":null,"fees_breakdown":null,"transaction_date":"2023-12-14T09:57:27.000Z","plan_object":{},"subaccount":{}}}';
+ $response = curl_exec($curl);
+  $err = curl_error($curl);
+  $decode=json_decode($response);
+
+    $status=$decode->data->status;
+    $total=$decode->data->amount/100;
+	$paid_at=substr($decode->data->paid_at, 0, 10);
+    $link=$decode->data->metadata->referrer;
+    $trans_id=$decode->data->reference;
+
+  if($checkItem2!=$decode->data->metadata->referrer && $decode->status!=true)
+    return ['code'=>'402'];
+
+    if($update->transId!=$id && $update->status==0 && $decode->status!=true)
+    return ['code'=>'403'];
+
+    $cre= $user->pinBalance+$total;
+    $update = Transaction::where('transId',$trans_id)->update(['balBefore'=>$user->pinBalance,'balAfter'=>$cre,'status'=>'1','rstatus'=>$response,'network'=>'Psk Fund Wallet']);
+    $dep= User::where('id',$user->id)->update(['pinBalance'=>$cre]);
+    return ['code'=>'s0c','total'=>$total];
+
+    }
+
+}
+
+

@@ -3,59 +3,52 @@
 namespace App\Http\Controllers\User\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product\Category;
-use App\Models\Users\Mypin;
-use App\Models\Product\Product;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use App\Models\Users\User;
 use App\Models\Users\Transaction;
-use App\Models\Users\PhoneBook;
 use App\Models\Site\Setting;
-use App\Models\Site\Servicefee;
 use App\Models\Users\UserEmailVerify;
-use App\CustomClass\BalanceCharge;
-use App\CustomClass\Kensend;
+use App\Enums\AccountEnums;
+use App\Enums\SiteEnums;
+use App\Http\Requests\User\UserRequest;
+use App\Interfaces\Billings\IBillingRepository;
+use App\Interfaces\User\IUserRepository;
+use App\Mail\PHPMailler;
+use App\Services\Apis\Monnify\CustomTransactionHashUtil;
 
 class UserController extends Controller
 {
 
+private IBillingRepository $BserviceRepository;
+private IUserRepository $UserviceRepository;
+private CustomTransactionHashUtil $CustomTransactionHashUtil;
+private PHPMailler $MailService;
 
+public function __construct(IBillingRepository $serviceRepo, IUserRepository $UserviceRepo,
+ PHPMailler $MailServiceRepo, CustomTransactionHashUtil $CustomTransactionHashUtilRepo) {
+    $this->BserviceRepository = $serviceRepo;
+    $this->UserviceRepository = $UserviceRepo;
+    $this->MailService = $MailServiceRepo;
+    $this->CustomTransactionHashUtil = $CustomTransactionHashUtilRepo;
+}
 
     public function index()
     {
-        if(Session()->get('loginid')){
 
-            // return Session()->get('loginid');
-        $ids= session()->get('loginid');
-       $user= User::where('id',$ids)->first();
-        $settings = Setting::where('id','=','1')->first();
-
-
-        $servicefeef= new BalanceCharge();
-        $servicefeef->servicefeeCheck();
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $this->BserviceRepository->BalanceCharge($user, $settings->monthlyCharge);
         return view('user.index', compact('user','settings'));
-
-    }
-    else{
-        return  redirect('login')->with('failed','You Must Login First');
-
-    }
-
-          return  redirect('login')->with('failed','You Must Login First');
-
 
 
     }
 
     public function SendVerify()
     {
-        $sendMaill= new KenSend();
         $insertV= new UserEmailVerify();
-        if(Session()->get('loginid')){
-
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
         $ver= UserEmailVerify::where('userId',$ids)->first();
 
 
@@ -87,287 +80,122 @@ class UserController extends Controller
             }
 
            return view('accessory.emv', compact('verCode'));
-        return   $sendMaill->sendMail($subject, view('accessory.emv',
+        return   $this->MailService->sendMail($subject, view('accessory.emv',
         compact('verCode')), $user->email);
 
         return back()->with('success','email verification link sent successfully, check your mail or spam box');
 
-    }
-
-          return  redirect('login')->with('failed','You Must Login First');
 
     }
 
     public function account()
     {
-        if(Session()->get('loginid')){
 
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
-        $title='Profile Setting';
-        $settings = Setting::where('id','=','1')->first();
-            $servicefeef= new BalanceCharge();
-            $servicefeef->servicefeeCheck();
+        $title=AccountEnums::$prof;
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $this->BserviceRepository->BalanceCharge($user, $settings->monthlyCharge);
         return view('user.account', compact('user','title','settings'));
-
-
-
     }
 
-          return  redirect('login')->with('failed','You Must Login First');
-
-    }
-
-    public function updateAccount(Request $request)
+    public function updateAccount(UserRequest $request)
     {
-        if(Session()->get('loginid')){
+      $updateData = $request->validated();
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+       $update = $user->update($updateData);
 
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
-
-        $request->validate([
-            'name'=>'required|string',
-            'bName'=>'required|string|min:3|max:20',
-        ],
-        [
-            'name'=>['required'=>'Full name must not be empty',
-            'string'=>'Full name must not contain any specail characters'],
-
-            'bName'=>['required'=>'Business name must not be empty',
-            'string'=>'Business name must not contain any specail characters'],
-
-        ]
-    );
-
-    $update= User::where('id',$user->id)->update(['name'=>$request->name,'bName'=>$request->bName]);
     if(!$update)
     {
         return back()->with('failed','Couldnt Update details');
     }
     return back()->with('success','Account Successfully Updated');
 
-    }
-
-          return  redirect('login')->with('failed','You Must Login First');
 
     }
 
      public function setPin(Request $request)
     {
-        if(Session()->get('loginid')){
-
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
-  $servicefeef= new BalanceCharge();
-            $servicefeef->servicefeeCheck();
-            if($request->setPin=='on')
-            {
-        if($user->pinBalance>999){
-            $total=$user->pinBalance - 1000;
-    $update= User::where('id',$user->id)->update(['pinEnable'=>'on','pinBalance'=>$total]);
-    if($update)
-    {
-                    $insertt = new Transaction();
-            $insertt->userId = $user->id;
-            $insertt->userName = $user->name;
-            $insertt->transId =time();
-            $insertt->network = 'Enable Pins';
-            $insertt->amount = '1000';
-            $insertt->deno = '1000';
-            $insertt->phone = $user->phone;
-            $insertt->balBefore = $user->pinBalance;
-            $insertt->balAfter = $total;
-            $insertt->status = '1';
-            $insertt->save();
-        // return back()->with('failed','Couldnt Update details');
-                  $response = array(
-              "code" =>"s0c","message"=>"success"
-                );
-
-             return json_encode($response);
-            }
-        } else{
-
-                     $response = array(
-              "code" =>"failed","message"=>"Pin balance too low"
-                );
-
-             return json_encode($response);
-        }
-    }
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        return $this->UserviceRepository->setPin($user, $request, $settings->monthlyCharge);
 
 
-            if($request->setPin=='off')
-            {
-
-    $update= User::where('id',$user->id)->update(['pinEnable'=>'off']);
-       $response = array(
-              "code" =>"s0c","message"=>"success"
-                );
-
-             return json_encode($response);
-                }
 
     }
 
-          return  redirect('login')->with('failed','You Must Login First');
-    }
 
 
 
 
     public function wallet()
     {
-        if(Session()->get('loginid')){
 
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $this->BserviceRepository->BalanceCharge($user, $settings->monthlyCharge);
         $title='Credit Wallet';
-        $settings = Setting::where('id','=','1')->first();
-            $servicefeef= new BalanceCharge();
-            $servicefeef->servicefeeCheck();
             session()->put('check', isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] === "on" ? "https" : "http" . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
         return view('user.wallet', compact('user','title','settings'));
 
-
-
-    }
-
-          return  redirect('login')->with('failed','You Must Login First');
 
     }
 
  public function paysInit(Request $request)
     {
-        if(Session()->get('loginid')){
-
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $settings = Setting::findOrfail(SiteEnums::$settings);
         $title='Credit Wallet';
-        $settings = Setting::where('id','=','1')->first();
-            $servicefeef= new BalanceCharge();
-            $servicefeef->servicefeeCheck();
-            if($request->insert=='new')
-            {
-            $insertt = new Transaction();
-            $insertt->userId = $user->id;
-            $insertt->userName = $user->name;
-            $insertt->transId =$request->txnid;
-            $insertt->network = 'Psk Fund Wallet Init';
-            $insertt->amount = $request->amount;
-            $insertt->deno = $request->amount;
-            $insertt->phone = $user->phone;
-            $insertt->balBefore=$user->pinBalance;
-            $insertt->balAfter=$user->pinBalance;
-            $insertt->status = '0';
-            $insertt->rstatus = 'init';
-            $insertt->save();
-                }
+        $this->BserviceRepository->BalanceCharge($user, $settings->monthlyCharge);
 
- if($request->insert=='close')
-            {
+     $this->BserviceRepository->paysInit($user, $request);
 
-    $cre= $user->pinBalance+$request->amount;
-    $update = Transaction::where('transId',$request->txnid)->update(['status'=>'0','rstatus'=>'close','network'=>'Psk Fund Wallet']);
-
-
-            }
-
-
-    }
-
-          return  redirect('login')->with('failed','You Must Login First');
 
     }
 
 
       public function fundv($id,$check)
     {
-        if(Session()->get('loginid')){
 
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
-        $title='Credit Wallet';
-        $settings = Setting::where('id','=','1')->first();
-            $servicefeef= new BalanceCharge();
-            $servicefeef->servicefeeCheck();
-$checkItem2=session()->get('check');
-$checkItem=str_replace(array('f','o','z'),array('/','.',':'),$check);
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $this->BserviceRepository->BalanceCharge($user, $settings->monthlyCharge);
+      $response =  $this->BserviceRepository->fundv($user, $id, $check);
+        if($response['code']==400)
+return redirect('user/wallet')->with('failed','Failed Trying to bypass transaction');
+        if($response['code']==401)
+return back()->with('failed','Account already funded');
 
-$update = Transaction::where(['transId'=>$id])->first();
+        if($response['code']==402)
+return back()->with('failed','Somethings went wrong');
 
-if($update==false)
-{
-    return redirect('user/wallet')->with('failed','Failed Trying to bypass transaction');
+        if($response['code']==403)
+return back()->with('failed','Somethings went wrong');
 
-}
-
-if($update->status!='' && $update->status!=0)
-{
-    return back()->with('failed','Account already funded');
-}
-
-    $curl = curl_init();
-  curl_setopt_array($curl, array(
-    CURLOPT_URL => "https://api.paystack.co/transaction/verify/".$id,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => "",
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 30,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => "GET",
-    CURLOPT_HTTPHEADER => array(
-      "Authorization: Bearer ".$settings->payStackPrivate,
-      "Cache-Control: no-cache",
-    ),
-  ));
-
-//  $response='{"status":true,"message":"Verification successful","data":{"id":3372269676,"domain":"test","status":"success","reference":"1702547775","receipt_number":null,"amount":10000,"message":null,"gateway_response":"Successful","paid_at":"2023-12-14T09:57:34.000Z","created_at":"2023-12-14T09:57:27.000Z","channel":"card","currency":"NGN","ip_address":"102.88.33.75","metadata":{"custom_fields":[{"display_name":"Ayogu Kenneth","value":"1702547775"}],"referrer":"http://127.0.0.1:8000/user/wallet"},"log":{"start_time":1702547847,"time_spent":7,"attempts":1,"errors":0,"success":true,"mobile":false,"input":[],"history":[{"type":"action","message":"Attempted to pay with card","time":7},{"type":"success","message":"Successfully paid with card","time":7}]},"fees":150,"fees_split":null,"authorization":{"authorization_code":"AUTH_sbhokcd2pl","bin":"408408","last4":"4081","exp_month":"12","exp_year":"2030","channel":"card","card_type":"visa ","bank":"TEST BANK","country_code":"NG","brand":"visa","reusable":true,"signature":"SIG_k5itI2J13qoBBUNcEeDY","account_name":null,"receiver_bank_account_number":null,"receiver_bank":null},"customer":{"id":6001358,"first_name":"","last_name":"","email":"kennethayogu@gmail.com","customer_code":"CUS_e3n67bcmt3rmuhd","phone":"","metadata":null,"risk_action":"default","international_format_phone":null},"plan":null,"split":{},"order_id":null,"paidAt":"2023-12-14T09:57:34.000Z","createdAt":"2023-12-14T09:57:27.000Z","requested_amount":10000,"pos_transaction_data":null,"source":null,"fees_breakdown":null,"transaction_date":"2023-12-14T09:57:27.000Z","plan_object":{},"subaccount":{}}}';
- $response = curl_exec($curl);
-  $err = curl_error($curl);
-  $decode=json_decode($response);
-
-    $status=$decode->data->status;
-    $total=$decode->data->amount/100;
-	$paid_at=substr($decode->data->paid_at, 0, 10);
-    $link=$decode->data->metadata->referrer;
-    $trans_id=$decode->data->reference;
-
-  if($checkItem2!=$decode->data->metadata->referrer && $decode->status!=true)
-{
-    return back()->with('failed','Somethings went wrong');
-}
-  if($update->transId!=$id && $update->status==0 && $decode->status!=true)
-{
-    return back()->with('failed','Somethings went wrong');
-}
-
-    $cre= $user->pinBalance+$total;
-    $update = Transaction::where('transId',$trans_id)->update(['balBefore'=>$user->pinBalance,'balAfter'=>$cre,'status'=>'1','rstatus'=>$response,'network'=>'Psk Fund Wallet']);
-    $dep= User::where('id',$user->id)->update(['pinBalance'=>$cre]);
-    return  back()->with('success','Account Credited with N'.$total.' successful');
-
-
-    }
-
-          return  redirect('login')->with('failed','You Must Login First');
+        if($response['code']=='s0c')
+return  back()->with('success','Account Credited with N'.$response["total"].' successful');
 
     }
 
  public function instant()
     {
-        if(Session()->get('loginid')){
 
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $this->BserviceRepository->BalanceCharge($user, $settings->monthlyCharge);
         $title='Credit Wallet';
-        $settings = Setting::where('id','=','1')->first();
-            $servicefeef= new BalanceCharge();
-            $servicefeef->servicefeeCheck();
-
-        $str = $settings->monifyProductCode.':'.$settings->monifySecret;
+        $str = config('services.monify.public_key').':'.config('services.monify.secret_key');
         $b64 = base64_encode($str);
-        $contractCode=$settings->monifyContractCode;
+        $contractCode=config('services.monify.contractCode');
+
+    if(!$user->bvn || !$user->bvn)
+return redirect('user/wallet')->with('failed','error occured, Please insert your NIN or BVN in your profile settings');
 
 //start login to monify
 if ($b64 === false) {
@@ -377,7 +205,7 @@ if ($b64 === false) {
 
 $ch = curl_init();
 
-curl_setopt($ch, CURLOPT_URL, "https://sandbox.monnify.com/api/v1/auth/login/");
+curl_setopt($ch, CURLOPT_URL, config('services.monify.URL')."/api/v1/auth/login/");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($ch, CURLOPT_HEADER, FALSE);
 
@@ -401,57 +229,51 @@ $Bearer= $resp->responseBody->accessToken;
 
 //start setup açcount
 
-if($user->bankName==0 && $user->customerName==0 && $user->customerNumber==0)
+if($user->bankName=='' && $user->customerName=='' && $user->customerNumber=='')
 {
 
+ $json = json_encode([
+"accountName"=>$user->name,
+  "accountReference"=>$user->reference,
+  "currencyCode"=>"NGN",
+  "contractCode"=>$contractCode,
+  "customerName"=>$user->name,
+  "bvn"=>$user->bvn,
+  "nin"=>$user->nin,
+  "customerEmail"=>$user->email,
+]);
 
 $ch = curl_init();
 
-curl_setopt($ch, CURLOPT_URL, "https://sandbox.monnify.com/api/v1/bank-transfer/reserved-accounts");
+curl_setopt($ch, CURLOPT_URL, config('services.monify.URL')."/api/v1/bank-transfer/reserved-accounts");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($ch, CURLOPT_HEADER, FALSE);
 
 curl_setopt($ch, CURLOPT_POST, TRUE);
 
-curl_setopt($ch, CURLOPT_POSTFIELDS, '{
-  "accountName": "'.$user->name.'",
-  "accountReference": "'.$user->reference.'",
-  "currencyCode": "NGN",
-  "contractCode": "'.$contractCode.'",
-  "customerName": "'.$user->name.'",
-  "customerEmail": "'.$user->email.'"}');
+curl_setopt($ch, CURLOPT_POSTFIELDS,
+$json
+);
 
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
   "Content-Type: application/json",
   "Authorization: Bearer $Bearer"
 ));
 
- $response = curl_exec($ch);
+$response = curl_exec($ch);
 curl_close($ch);
-
 $res=json_decode($response);
 //  dd($response);
 
 
 if(isset($res->requestSuccessful)=='true')
 {
-
 $customerName=htmlspecialchars($res->responseBody->customerName);
 $accountNumber=htmlspecialchars($res->responseBody->accountNumber);
 $bankName=htmlspecialchars($res->responseBody->bankName);
-
-//  $ref=$row['token'];
-
-
-$update= User::where('id',$user->id)->update(['bankName'=>$bankName,'customerName'=>$customerName,'customerNumber'=>$accountNumber,'reference'=>$user->reference]);
-
-
+$update = User::where('id',$user->id)->update(['bankName'=>$bankName,'customerName'=>$customerName,'customerNumber'=>$accountNumber,'reference'=>$user->reference]);
 if($update)
-{
 return back()->with('success','Account Generated Successful');
-
-}
-
 
 } else {
     return back()->with('failed',$res->responseMessage);
@@ -463,53 +285,38 @@ else {
 return back()->with('failed','error occure while creating account');
 }// end setup
 
-
 }
-
-
 
 } // end login to monify
 
 
     }
 
-          return  redirect('login')->with('failed','You Must Login First');
-
-    }
-
 
     public function transaction()
     {
-        if(Session()->get('loginid')){
-
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $this->BserviceRepository->BalanceCharge($user, $settings->monthlyCharge);
 
         $post= Transaction::where('userId',$ids)->orderBy('created_at','desc')->paginate(6);
 
         $title='Transaction History';
-        $settings = Setting::where('id','=','1')->first();
-            $servicefeef= new BalanceCharge();
-            $servicefeef->servicefeeCheck();
+
         return view('user.transaction', compact('settings','post','user','title'));
 
-
-
-    }
-
-          return  redirect('login')->with('failed','You Must Login First');
 
     }
 
     public function transactionv(Request $Request)
     {
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $this->BserviceRepository->BalanceCharge($user, $settings->monthlyCharge);
 
-        if(Session()->get('loginid')){
-
-            $ids= session()->get('loginid');
-
-
-        $post= Transaction::where(['userId'=>$ids])
+        $post= $user->Transaction()
         ->where('transId','like',"%{$Request->transId}%")
         ->where('network','like',"%{$Request->serviceName}%")
         ->where('status','like',"%{$Request->status}%")
@@ -523,36 +330,28 @@ return back()->with('failed','error occure while creating account');
             }
 
 
-
-             return json_encode($response);
-
-        }
-
-          return  redirect('login')->with('failed','You Must Login First');
+  return json_encode($response);
+            //  return response()->json($response);
 
     }
 
 
     public function transactionview($transId)
     {
-        if(Session()->get('loginid')){
 
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $this->BserviceRepository->BalanceCharge($user, $settings->monthlyCharge);
 
-        $post= Transaction::where('transId',$transId)->first();
+        $post= $user->Transaction()->where('transId',$transId)->first();
 
         $title='Transaction History';
-        $epin= Mypin::where('transId',$transId)->first();
+        $epin= $user->Mypin()->where('transId',$transId)->first();
 
-        $settings = Setting::where('id','=','1')->first();
-            $servicefeef= new BalanceCharge();
-            $servicefeef->servicefeeCheck();
         return view('user.transactionv', compact('post','user','epin','title','settings'));
 
 
-
-    }
 }
 
 
@@ -562,44 +361,115 @@ return back()->with('failed','error occure while creating account');
             'transId'=>'required|string',
             'per'=>'required',
         ]);
-        if(Session()->get('loginid')){
 
-        $ids= session()->get('loginid');
-        $user= User::where('id',$ids)->first();
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $this->BserviceRepository->BalanceCharge($user, $settings->monthlyCharge);
 
-        $epin= Mypin::where('transId',$request->transId)->get();
+
+        $epin= $user->Mypin()->where('transId',$request->transId)->get();
         $per=$request->per;
 
         $title='Print History';
-        $settings = Setting::where('id','=','1')->first();
-            $servicefeef= new BalanceCharge();
-            $servicefeef->servicefeeCheck();
         return view('user.print', compact('epin','user','title','per','settings'));
 
-
-
-    }
 }
 
 
 public function phonebook(Request $Request)
     {
-        if(Session()->get('loginid')){
-
-        $network= PhoneBook::query()->where('userId', Session()->get('loginid'))->get();
-
-
-
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+       $network= $user->PhoneBook()->get();
             foreach ($network as $value) {
                 $check[]=  array('cname'=>$value->cname,'phone'=>$value->phone);
             }
-
              return json_encode($check);
 
         }
 
-          return  redirect('login')->with('failed','You Must Login First');
+public function reserveWebhook(Request $request)
+{
+$settings = Setting::findOrfail(SiteEnums::$settings);
 
-    }
+    $json_string = file_get_contents('php://input');
+//    $json_string ='{"eventData":{"product":{"reference":"1707819474","type":"RESERVED_ACCOUNT"},"transactionReference":"MNFY|46|20240220045657|000665","paymentReference":"MNFY|46|20240220045657|000665","paidOn":"2024-02-20 04:56:58.0","paymentDescription":"Ayo","metaData":{},"paymentSourceInformation":[{"bankCode":"","amountPaid":100,"accountName":"Monnify Limited","sessionId":"rI25PDxyXv8CZx7NcRrmbhWX4EhSnbUw","accountNumber":"0065432190"}],"destinationAccountInformation":{"bankCode":"035","bankName":"Wema bank","accountNumber":"3000304876"},"amountPaid":100,"totalPayable":100,"cardDetails":{},"paymentMethod":"ACCOUNT_TRANSFER","currency":"NGN","settlementAmount":"90.00","paymentStatus":"PAID","customer":{"name":"Kenspay Technology","email":"kennethayogu@gmail.com"}},"eventType":"SUCCESSFUL_TRANSACTION"}';
+    $DEFAULT_MERCHANT_CLIENT_SECRET = config('services.monify.secret_key');
+    $computedHash = $this->CustomTransactionHashUtil->computeSHA512TransactionHash($json_string, $DEFAULT_MERCHANT_CLIENT_SECRET);
+    $signature = $request->header('HTTP_MONNIFY_SIGNATURE');
+        if( $computedHash != $signature)
+    return die("invalid Hash");
+   $jsonRequest = json_decode($json_string, true);
+   $str = config('services.monify.public_key').':'.config('services.monify.secret_key');
+    $b64 = base64_encode($str);
+    $transactionReferenceR = $jsonRequest['eventData']['transactionReference'];
+    $trans = Transaction::where('transId',$transactionReferenceR)->first();
+    if($trans)
+    return die('user has been credited before');
+
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, config('services.monify.URL')."/api/v1/auth/login");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+curl_setopt($ch, CURLOPT_HEADER, FALSE);
+curl_setopt($ch, CURLOPT_POST, TRUE);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+  "Content-Type: application/json",
+  "Authorization: Basic $b64"
+));
+ $response = curl_exec($ch);
+curl_close($ch);
+
+$resp=json_decode($response);
+if($resp->requestSuccessful!='true')
+return die('couldnt complete Basic Authorization ');
+
+$Bearer= $resp->responseBody->accessToken;
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, config('services.monify.URL')."/api/v2/transactions/". rawurlencode($transactionReferenceR));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+curl_setopt($ch, CURLOPT_HEADER, FALSE);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+      "Content-Type: application/json",
+  "Authorization: Bearer $Bearer"
+));
+
+ $responseR = curl_exec($ch);
+curl_close($ch);
+ $response =json_decode($responseR, true);
+if($response['requestSuccessful']!=true || $response['responseMessage']!='success')
+return die('couldnt complete Bearer Authorization ');
+if($response['responseBody']['transactionReference']!=$transactionReferenceR || $response['requestSuccessful']!=true || $response['responseMessage']!='success' || $jsonRequest['eventData']['paymentStatus']!='PAID' || $response['responseBody']['paymentStatus']!='PAID' || $jsonRequest['eventData']['customer']['email']!=$response['responseBody']['customer']['email'])
+return die('transactionReference is not valid');
+
+$transId = $response['responseBody']['transactionReference'];
+$email = $response['responseBody']['customer']['email'];
+$amountPaid = $response['responseBody']['amountPaid'];
+$charge = $amountPaid - $settings->bankFee;
+$user = User::where('email',$email)->first();
+$user->dataBalance +=$charge;
+$save = $user->save();
+if($save)
+$user->Transaction()->create([
+"transId"=>$transId,
+"userName"=>$user->name,
+"network"=>'Fund Wallet',
+"amount"=>$charge,
+"deno"=>$amountPaid,
+"phone"=>$user->phone,
+"balBefore"=>$user->dataBalance,
+"balAfter"=>$user->dataBalance+$charge,
+"status"=>SiteEnums::$successStatus,
+"rstatus"=>$responseR,
+]);
+
+  return Response('OK', 200);
+
+}
+
+
+
+
 
 }
