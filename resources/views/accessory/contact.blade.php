@@ -18,16 +18,18 @@
 
             </div>
             <div style="padding:20px 0% 0px 0%">
-                <h3 style="padding:10px 0 0px 0"><span class="il">Verify</span> your account</h3>
+                <h3 style="padding:10px 0 0px 0"><span class="il" style="color: rgb(202, 8, 8)">Title:</span>
+                    {{ $subject }}</h3>
                 <p style="font-weight:400;text-align:justify;padding:4px 4% 4px 0%">
-                    Below is your <span class="il">verification</span> link:
+                    <span style="color: rgb(202, 8, 8)"> Name:</span> {{ $name }}, <span class="il"><span
+                            style="color: rgb(202, 8, 8)"> Phone:</span> {{ $phone }} </span>
                 </p>
 
                 <h3 style="font-weight:400;color:black;text-align:center;padding:4px 4% 4px 0%">
-                    <a href="{{ route('conVerEmail', $verCode) }}">Click here</a> to verify your account
+                    <span style="color: rgb(202, 8, 8)"> Email:</span> {{ $email }}
                 </h3>
                 <p style="font-weight:400;text-align:justify;padding:4px 4% 4px 0%">
-                    We appreciate your interest and look forward to the possibility of working together.
+                    <span style="color: rgb(202, 8, 8)"> {{ $name }} Says:</span> {!! $message !!}
                 </p>
             </div>
             <div>

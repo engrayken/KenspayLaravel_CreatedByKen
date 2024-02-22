@@ -9,15 +9,24 @@ use App\Models\Site\Setting;
 use App\CustomClass\BalanceCharge;
 use App\Enums\PageTitleEnums;
 use App\Enums\SiteEnums;
+use App\Mail\PHPMailler;
 use App\Models\Users\PUser;
 use App\Models\Users\User;
 use App\Models\Users\UserEmailVerify;
-
+use Illuminate\Support\Facades\Hash;
 
 class WebsiteController extends Controller
 {
     //
 
+private PHPMailler $MailService;
+public function __construct(PHPMailler $phpmailServiceRepo) {
+    $this->MailService = $phpmailServiceRepo;
+}
+    public function fof()
+    {
+        return view('errorPage.errorPage');
+    }
 
     public function index()
     {
@@ -26,12 +35,13 @@ class WebsiteController extends Controller
         return view('home.index',compact('settings'));
     }
 
+
     public function privacy()
     {
         $cpage= Cpage::where(['type'=>'privacy'])->first();
-
+   $settings = Setting::findOrfail(SiteEnums::$settings);
         $title=PageTitleEnums::$titlePageP;
-        return view('home.privacy',compact('cpage','title'));
+        return view('home.privacy',compact('cpage','title','settings'));
     }
 
     public function terms()
@@ -58,6 +68,27 @@ class WebsiteController extends Controller
         return view('home.contact',compact('cpage','title','settings'));
     }
 
+    public function contactTicket(Request $request)
+    {
+        $conValidate = $request->validate([
+
+            "name"=>"required",
+             "email"=>"required|email",
+            "phone"=>"required|numeric",
+            "message"=>"required",
+        ]);
+$subject = "contact form";
+$name = $request->name;
+$email = $request->email;
+$phone = $request->phone;
+$message = $request->message;
+$settings = Setting::findOrfail(SiteEnums::$settings);
+
+$makeway = view('accessory.contact', compact('subject','name','email','phone','message'));
+ $this->MailService->sendMail($subject, $makeway, $settings->email);
+return back()->with('success','Mail Sent Successfully, We will get back to you as soon as posible');
+
+    }
 
     public function partner()
     {
@@ -95,6 +126,7 @@ class WebsiteController extends Controller
    $settings = Setting::findOrfail(SiteEnums::$settings);
         return view('home.forgot',compact('title','settings'));
     }
+
 
         public function confirmview()
     {

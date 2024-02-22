@@ -34,6 +34,7 @@ use App\Http\Controllers\MailController;
     Route::get('/AccountVerify', [UserController::class,'SendVerify'])->name('SendVerify');
     Route::get('/account', [UserController::class,'account'])->name('account');
     Route::post('/updateAccount', [UserController::class,'updateAccount'])->name('updateAccount');
+    Route::post('/updatePass', [UserController::class,'updatePass'])->name('updatePass');
     Route::put('/setPin', [UserController::class,'setPin'])->name('setPin');
     Route::post('/phonebook', [UserController::class,'phonebook'])->name('phonebook');
     Route::get('/wallet', [UserController::class,'wallet'])->name('wallet');

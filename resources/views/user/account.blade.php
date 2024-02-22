@@ -14,11 +14,12 @@
 
 
 
-                                        <form method="POST" action="{{ route('updateAccount') }}">
+                                        <form method="POST" action="{{ route('updateAccount') }}" id="updateForm">
 
                                             <h2 class="page-ath-heading mt-0 mb-0"
                                                 style="font-weight:400;font-size:
-            30px;color:#2c80ff;">Update
+                                                30px;color:#2c80ff;">
+                                                Update
                                                 Profile </h2>
 
 
@@ -54,18 +55,8 @@
                                                     Data:</b> {{ number_format($user->dataBalance) }} <a class=""
                                                     href="{{ route('wallet') }}">(<small class="text-danger"
                                                         style="font-size:12px"> Add Fund</small>)</a></p>
-                                            {{-- <h2 style="font-weight:400;font-size:20px;color:#2c80ff;">Instant Wallet Funding </h2>
-           <p class="mt-0 mb-0"> Bank: {{ $user->bankName }} </p>
-            <p class="mt-0 mb-0"> Account Name: {{ $user->customerName }}</p>
-            <p class="mt-0 mb-0"> Account No: {{ $user->customerNumber }} </p>
 
-           <p class="mt-0 mb-0" style="font-weight:400;font-size:18px;color:#2c80ff;">Manuel Wallet Funding</p>
-
-            <p class="mt-0 mb-0"> Bank Name:	Gt bank</p>
-          <p class="mt-0 mb-0">  Acc Name:	Kenspay Technology </p>
-          <p class="mt-0 mb-0">  Acc Numb:	0610567899</p> --}}
                                             @csrf
-                                            {{-- <input name="_token" type="hidden" value="t82ZLvqCuNFdGkfb05L13xNaL0egIRI4Ymw7gSP6"> --}}
 
                                             <div class="alert btn-success mt-4" id="success" style="display: none"></div>
                                             @if (Session::has('success'))
@@ -75,7 +66,12 @@
                                             @if (Session::has('failed'))
                                                 <div class="alert btn-danger"> {{ Session::get('failed') }}</div>
                                             @endif
-
+                                            @error('new_password')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                            @error('old_password')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                             <div class="alert text-danger mt-4" id="emptyError" style="display: none"></div>
 
 
@@ -123,7 +119,8 @@
                                             @enderror
                                             <div class="gaps-1x"></div>
 
-                                            <div class="input-group mb-3" style="width:unset; display:none" id="nin">
+                                            <div class="input-group mb-3" style="width:unset; display:none"
+                                                id="nin">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-addon1">
                                                         <i class="fas fa-info ml-1"></i>
@@ -167,9 +164,46 @@
                                 @enderror
 
                                 <button style="border-radius:100px;" class="btn btn-primary btn-block">Update</button>
+
+                                <button style="border-radius:100px;" id="cpass"
+                                    class="btn btn-danger btn-block">Change Password</button>
+
                                 </form>
+                                <form method="POST" action="{{ route('updatePass') }}" id="passForm"
+                                    style="display: none">
+                                    @csrf
+                                    <h2 class="page-ath-heading mt-0 mb-0"
+                                        style="font-weight:400;font-size:
+                                                30px;color:#2c80ff;">
+                                        Change
+                                        Password </h2>
 
 
+                                    <div class="input-group mb-3" style="width:unset;">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fas fa-key-circle ml-1"></i>
+                                            </span>
+                                        </div>
+                                        <input type="password" placeholder="Enter Old Password" name="old_password"
+                                            class="form-control" required>
+                                    </div>
+
+
+                                    <div class="input-group mb-3" style="width:unset;">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fas fa-key-circle ml-1"></i>
+                                            </span>
+                                        </div>
+                                        <input type="password" placeholder="Enter New Password" name="new_password"
+                                            class="form-control" required>
+                                    </div>
+
+                                    <button style="border-radius:100px;" id="pcpass"
+                                        class="btn btn-secondary btn-block">Change Now</button>
+
+                                </form>
 
 
                             </div>
@@ -346,6 +380,26 @@
 
 
             });
+
+
+
+            $('#cpass').show();
+            $('#pcpass').hide();
+            $('#passForm').hide();
+
+            $('#cpass').on('click', function(e) {
+                e.preventDefault();
+                var cpass = $('#cpass').val();
+                var pcpass = $('#pcpass').val();
+                var updateForm = $('#updateForm').val();
+                var passForm = $('#passForm').val();
+                $('#cpass').hide();
+                $('#pcpass').show();
+                $('#updateForm').hide();
+                $('#passForm').show();
+
+            });
+
 
 
         });

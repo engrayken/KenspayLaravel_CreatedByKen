@@ -53,18 +53,17 @@
                                 style="background-image: linear-gradient(to right, #4672c4, #195B7e);min-width:unset;padding:7px 10px;">+</button>
                             <span style="color:#4672c4;font-weight:bold;">Follow us on Social Media</span>
                             <div class="w-100 d-lg-block d-none mt-2 hidden-footer">
-                                <a class="mr-1" href="https://www.facebook.com/kenspay1" target="_blank"
-                                    style="color:#4672c4"><i style="font-size:20px;"
-                                        class="fab fa-facebook-f"></i></a>
-                                {{-- <a class="mr-1" href="https://www.instagram.com/kenspay" target="_blank"
-                                    style="color:#4672c4"><i style="font-size:20px;"
-                                        class="fab fa-instagram"></i></a>
-                                <a class="mr-1" href="https://www.twitter.com/kenspay" target="_blank"
-                                    style="color:#4672c4"><i style="font-size:20px;"
-                                        class="fab fa-twitter"></i></a> --}}
-                                <a class="mr-1" href="https://www.youtube.com/@kenspay" target="_blank"
-                                    style="color:#4672c4"><i style="font-size:20px;"
-                                        class="fab fa-youtube"></i></a><br />
+                                <a class="mr-1" href="{{ $settings->facebook }}" target="_blank"
+                                    style="color:#4672c4"><i style="font-size:20px;" class="fab fa-facebook-f"></i></a>
+                                {{-- https://www.facebook.com/kenspay1 --}}
+                                <a class="mr-1" href="{{ $settings->instagram }}" target="_blank"
+                                    style="color:#4672c4"><i style="font-size:20px;" class="fab fa-instagram"></i></a>
+                                <a class="mr-1" href="{{ $settings->twitter }}" target="_blank"
+                                    style="color:#4672c4"><i style="font-size:20px;" class="fab fa-twitter"></i></a>
+                                <a class="mr-1" href="{{ $settings->youtube }}" target="_blank"
+                                    style="color:#4672c4"><i style="font-size:20px;" class="fab fa-youtube"></i></a>
+
+                                <br />
                             </div>
                         </div>
                     </div>
@@ -74,15 +73,12 @@
                                 style="background-image: linear-gradient(to right, #4672c4, #195B7e);min-width:unset;padding:7px 10px;">+</button>
                             <span style="color:#4672c4;font-weight:bold;">Download our Apps</span>
                             <div class="w-100 d-lg-block d-none hidden-footer">
-                                {{-- <a class="mr-1"
-                                    href="https://apps.apple.com/us/app/kenspay-vtu-bills-payment/id1557796281"
-                                    target="_blank" style="color:#4672c4">
+                                <a class="mr-1" href="{{ $settings->iosApp }}" target="_blank" style="color:#4672c4">
                                     <img style="max-width:60px;max-height:80px;"
                                         src="{{ asset('frontend1/images/app_store.png') }}" />
-                                </a> --}}
-                                <a class="mr-1"
-                                    href="https://play.google.com/store/apps/details?id=app.kenspay.com.ng"
-                                    target="_blank" style="color:#4672c4">
+                                </a>
+                                <a class="mr-1" href="{{ $settings->androidApp }}" target="_blank"
+                                    style="color:#4672c4">
                                     <img style="max-width:60px;max-height:80px;"
                                         src="{{ asset('frontend1/images/play_store.png') }}" />
                                 </a>
@@ -170,20 +166,17 @@
                     <div class="input-item input-with-label text-center">
                         <label class="input-item-label ucap p-2 mr-1 mb-0 exp-label"
                             style="font-size:50px;cursor:pointer;">
-                            <input style="visibility: hidden;" value="unlike" type="radio"
-                                name="expression" />
+                            <input style="visibility: hidden;" value="unlike" type="radio" name="expression" />
                             &#x1f44e;<span style="color:#333;font-size:14px;">Unlike</span>
                         </label>
                         <label class="input-item-label ucap p-2 mr-1 mb-0 exp-label"
                             style="font-size:50px;cursor:pointer;">
-                            <input style="visibility: hidden;" value="like" type="radio"
-                                name="expression" />
+                            <input style="visibility: hidden;" value="like" type="radio" name="expression" />
                             &#x1F44D;<span style="color:#333;font-size:14px;">Like</span>
                         </label>
                         <label class="input-item-label ucap p-2 mb-0 exp-label"
                             style="font-size:50px;color:#D50000;cursor:pointer;">
-                            <input style="visibility: hidden;" value="love" type="radio"
-                                name="expression" />
+                            <input style="visibility: hidden;" value="love" type="radio" name="expression" />
                             &#x2764;<span style="color:#333;font-size:14px;">Love</span>
                         </label>
                     </div>
@@ -205,25 +198,24 @@
             <a href="#" class="modal-close" data-dismiss="modal" aria-label="Close"><em
                     class="ti ti-close"></em></a>
             <div class="popup-body">
-                                        <div class="w-100 justify-content-center align-items-center">
-                        <h4 align="center" style="color:#4672c4">
-                            Oops, you are not logged in.<br><br>
-                    </div>
-                    <div class="w-100 d-flex justify-content-center align-items-center">
-                        <a href="{{ route('Login') }}" class="btn btn-default"
-                            style="background-color:#4672c4;min-width: 150px;">Login</a>
-                        &nbsp; <b>&nbsp;</b> &nbsp;
-                        <a href="{{ route('Signup') }}" class="btn btn-default"
-                            style="border-color:#4672c4;color:#4672c4;min-width: 150px;line-height: 1.1;">Sign
-                            Up</a>
-                    </div>
-                                </div>
+                <div class="w-100 justify-content-center align-items-center">
+                    <h4 align="center" style="color:#4672c4">
+                        Oops, you are not logged in.<br><br>
+                </div>
+                <div class="w-100 d-flex justify-content-center align-items-center">
+                    <a href="{{ route('Login') }}" class="btn btn-default"
+                        style="background-color:#4672c4;min-width: 150px;">Login</a>
+                    &nbsp; <b>&nbsp;</b> &nbsp;
+                    <a href="{{ route('Signup') }}" class="btn btn-default"
+                        style="border-color:#4672c4;color:#4672c4;min-width: 150px;line-height: 1.1;">Sign
+                        Up</a>
+                </div>
+            </div>
         </div><!-- .modal-content -->
     </div><!-- .modal-dialog -->
 </div>
 
-<div class="modal fade" id="show-processing-modal" tabindex="-1" data-backdrop="static"
-    data-keyboard="false">
+<div class="modal fade" id="show-processing-modal" tabindex="-1" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog">
         <div class="modal-content">
             <div class="popup-body">
@@ -239,8 +231,7 @@
     </div><!-- .modal-dialog -->
 </div>
 
-<div class="modal fade" id="show-account-switch-modal" tabindex="-1" data-backdrop="static"
-    data-keyboard="false">
+<div class="modal fade" id="show-account-switch-modal" tabindex="-1" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog">
         <div class="modal-content">
             <div class="popup-body">
@@ -284,7 +275,139 @@
     });
 </script>
 <script type="text/javascript">
-    const optionVarsx = [{"id":1,"prods":[{"name":"Airtel Airtime VTU","url":"https:\/\/www.kenspay.com.ng\/airtel-airtime"},{"name":"MTN Airtime VTU","url":"https:\/\/www.kenspay.com.ng\/mtn-airtime"},{"name":"GLO Airtime VTU","url":"https:\/\/www.kenspay.com.ng\/glo-airtime"},{"name":"9mobile Airtime VTU","url":"https:\/\/www.kenspay.com.ng\/9mobile-airtime"},{"name":"9Mobile Airtime Pin","url":"https:\/\/www.kenspay.com.ng\/9mobile-pin"},{"name":"Smile Network Payment","url":"https:\/\/www.kenspay.com.ng\/smile-airtime"},{"name":"International Airtime","url":"https:\/\/www.kenspay.com.ng\/foreign-airtime"}]},{"id":3,"prods":[{"name":"Airtel Data","url":"https:\/\/www.kenspay.com.ng\/airtel-data"},{"name":"MTN Data","url":"https:\/\/www.kenspay.com.ng\/mtn-data"},{"name":"GLO Data","url":"https:\/\/www.kenspay.com.ng\/glo-data"},{"name":"9mobile Data","url":"https:\/\/www.kenspay.com.ng\/9mobile-data"},{"name":"Smile Payment","url":"https:\/\/www.kenspay.com.ng\/smile"},{"name":"Spectranet","url":"https:\/\/www.kenspay.com.ng\/spectranet"},{"name":"GLO Data (SME)","url":"https:\/\/www.kenspay.com.ng\/glo-sme-data"}]},{"id":8,"prods":[{"name":"WAEC Result Checker PIN","url":"https:\/\/www.kenspay.com.ng\/waec-result"},{"name":"WAEC Registration PIN","url":"https:\/\/www.kenspay.com.ng\/waec-registration"},{"name":"JAMB PIN VENDING (UTME & Direct Entry)","url":"https:\/\/www.kenspay.com.ng\/jamb"}]},{"id":7,"prods":[{"name":"Ikeja Electric Payment - IKEDC","url":"https:\/\/www.kenspay.com.ng\/ikeja-electric"},{"name":"Eko Electric Payment - EKEDC","url":"https:\/\/www.kenspay.com.ng\/eko-electric"},{"name":"Abuja Electricity Distribution Company- AEDC","url":"https:\/\/www.kenspay.com.ng\/abuja-electric"},{"name":"KEDCO - Kano Electric","url":"https:\/\/www.kenspay.com.ng\/kano-electric"},{"name":"PHED - Port Harcourt Electric","url":"https:\/\/www.kenspay.com.ng\/portharcourt-electric"},{"name":"Jos Electric - JED","url":"https:\/\/www.kenspay.com.ng\/jos-electric"},{"name":"Kaduna Electric - KAEDCO","url":"https:\/\/www.kenspay.com.ng\/kaduna-electric"},{"name":"Enugu Electric - EEDC","url":"https:\/\/www.kenspay.com.ng\/enugu-electric"},{"name":"IBEDC - Ibadan Electricity Distribution Company","url":"https:\/\/www.kenspay.com.ng\/ibedc"},{"name":"Benin Electricity - BEDC","url":"https:\/\/www.kenspay.com.ng\/benin-electric"}]},{"id":13,"prods":[]},{"id":15,"prods":[{"name":"Third Party Motor Insurance - Universal Insurance","url":"https:\/\/www.kenspay.com.ng\/car-insurance"},{"name":"Health Insurance - HMO  ","url":"https:\/\/www.kenspay.com.ng\/health-insurance-rhl"},{"name":"Personal Accident Insurance","url":"https:\/\/www.kenspay.com.ng\/personal-accident-insurance-fbn"},{"name":"Home Cover Insurance","url":"https:\/\/www.kenspay.com.ng\/home-cover-insurance-fbn"}]},{"id":14,"prods":[{"name":"SMSclone.com","url":"https:\/\/www.kenspay.com.ng\/smsclone"}]},{"id":6,"prods":[{"name":"DSTV Subscription","url":"https:\/\/www.kenspay.com.ng\/dstv"},{"name":"Gotv Payment","url":"https:\/\/www.kenspay.com.ng\/gotv"},{"name":"Startimes Subscription","url":"https:\/\/www.kenspay.com.ng\/startimes"},{"name":"ShowMax","url":"https:\/\/www.kenspay.com.ng\/showmax"}]}];
+    const optionVarsx = [{
+        "id": 1,
+        "prods": [{
+            "name": "Airtel Airtime VTU",
+            "url": "https:\/\/www.kenspay.com.ng\/airtel-airtime"
+        }, {
+            "name": "MTN Airtime VTU",
+            "url": "https:\/\/www.kenspay.com.ng\/mtn-airtime"
+        }, {
+            "name": "GLO Airtime VTU",
+            "url": "https:\/\/www.kenspay.com.ng\/glo-airtime"
+        }, {
+            "name": "9mobile Airtime VTU",
+            "url": "https:\/\/www.kenspay.com.ng\/9mobile-airtime"
+        }, {
+            "name": "9Mobile Airtime Pin",
+            "url": "https:\/\/www.kenspay.com.ng\/9mobile-pin"
+        }, {
+            "name": "Smile Network Payment",
+            "url": "https:\/\/www.kenspay.com.ng\/smile-airtime"
+        }, {
+            "name": "International Airtime",
+            "url": "https:\/\/www.kenspay.com.ng\/foreign-airtime"
+        }]
+    }, {
+        "id": 3,
+        "prods": [{
+            "name": "Airtel Data",
+            "url": "https:\/\/www.kenspay.com.ng\/airtel-data"
+        }, {
+            "name": "MTN Data",
+            "url": "https:\/\/www.kenspay.com.ng\/mtn-data"
+        }, {
+            "name": "GLO Data",
+            "url": "https:\/\/www.kenspay.com.ng\/glo-data"
+        }, {
+            "name": "9mobile Data",
+            "url": "https:\/\/www.kenspay.com.ng\/9mobile-data"
+        }, {
+            "name": "Smile Payment",
+            "url": "https:\/\/www.kenspay.com.ng\/smile"
+        }, {
+            "name": "Spectranet",
+            "url": "https:\/\/www.kenspay.com.ng\/spectranet"
+        }, {
+            "name": "GLO Data (SME)",
+            "url": "https:\/\/www.kenspay.com.ng\/glo-sme-data"
+        }]
+    }, {
+        "id": 8,
+        "prods": [{
+            "name": "WAEC Result Checker PIN",
+            "url": "https:\/\/www.kenspay.com.ng\/waec-result"
+        }, {
+            "name": "WAEC Registration PIN",
+            "url": "https:\/\/www.kenspay.com.ng\/waec-registration"
+        }, {
+            "name": "JAMB PIN VENDING (UTME & Direct Entry)",
+            "url": "https:\/\/www.kenspay.com.ng\/jamb"
+        }]
+    }, {
+        "id": 7,
+        "prods": [{
+            "name": "Ikeja Electric Payment - IKEDC",
+            "url": "https:\/\/www.kenspay.com.ng\/ikeja-electric"
+        }, {
+            "name": "Eko Electric Payment - EKEDC",
+            "url": "https:\/\/www.kenspay.com.ng\/eko-electric"
+        }, {
+            "name": "Abuja Electricity Distribution Company- AEDC",
+            "url": "https:\/\/www.kenspay.com.ng\/abuja-electric"
+        }, {
+            "name": "KEDCO - Kano Electric",
+            "url": "https:\/\/www.kenspay.com.ng\/kano-electric"
+        }, {
+            "name": "PHED - Port Harcourt Electric",
+            "url": "https:\/\/www.kenspay.com.ng\/portharcourt-electric"
+        }, {
+            "name": "Jos Electric - JED",
+            "url": "https:\/\/www.kenspay.com.ng\/jos-electric"
+        }, {
+            "name": "Kaduna Electric - KAEDCO",
+            "url": "https:\/\/www.kenspay.com.ng\/kaduna-electric"
+        }, {
+            "name": "Enugu Electric - EEDC",
+            "url": "https:\/\/www.kenspay.com.ng\/enugu-electric"
+        }, {
+            "name": "IBEDC - Ibadan Electricity Distribution Company",
+            "url": "https:\/\/www.kenspay.com.ng\/ibedc"
+        }, {
+            "name": "Benin Electricity - BEDC",
+            "url": "https:\/\/www.kenspay.com.ng\/benin-electric"
+        }]
+    }, {
+        "id": 13,
+        "prods": []
+    }, {
+        "id": 15,
+        "prods": [{
+            "name": "Third Party Motor Insurance - Universal Insurance",
+            "url": "https:\/\/www.kenspay.com.ng\/car-insurance"
+        }, {
+            "name": "Health Insurance - HMO  ",
+            "url": "https:\/\/www.kenspay.com.ng\/health-insurance-rhl"
+        }, {
+            "name": "Personal Accident Insurance",
+            "url": "https:\/\/www.kenspay.com.ng\/personal-accident-insurance-fbn"
+        }, {
+            "name": "Home Cover Insurance",
+            "url": "https:\/\/www.kenspay.com.ng\/home-cover-insurance-fbn"
+        }]
+    }, {
+        "id": 14,
+        "prods": [{
+            "name": "SMSclone.com",
+            "url": "https:\/\/www.kenspay.com.ng\/smsclone"
+        }]
+    }, {
+        "id": 6,
+        "prods": [{
+            "name": "DSTV Subscription",
+            "url": "https:\/\/www.kenspay.com.ng\/dstv"
+        }, {
+            "name": "Gotv Payment",
+            "url": "https:\/\/www.kenspay.com.ng\/gotv"
+        }, {
+            "name": "Startimes Subscription",
+            "url": "https:\/\/www.kenspay.com.ng\/startimes"
+        }, {
+            "name": "ShowMax",
+            "url": "https:\/\/www.kenspay.com.ng\/showmax"
+        }]
+    }];
     $('.exp-label').on('click', function(e) {
         $('.exp-label').removeClass('shadow');
         if ($(e.currentTarget).hasClass('exp-label')) {
@@ -522,120 +645,121 @@
         });
     }
 
-                $(document).ready(function() {
-            setTimeout(function() {
-                $.ajax({
-                    url: "https://www.kenspay.com.ng/ajax-platform-notification",
-                    method: "GET",
-                    success: function(data) {
-                        data = JSON.parse(data);
-                        $('#notification-spinner').html(data.totalCount);
-                        if (data.totalCount > 0) {
-                            ///build notification
-                            data.data.forEach((element) => {
-                                var html =
-                                    '<div class="w-100 d-flex flex-column align-items-center justify-content-center pl-2 pr-2 pt-2 pb-0 mb-2 platform-notification-view" data-id="' +
-                                    element.id + '" data-subject="' + element
-                                    .subject + '" data-date="' + element.date +
-                                    '" data-flag="' + element.flag +
-                                    '" data-content="' + btoa(element.content) +
-                                    '" style="border-bottom: 1px solid #e6effb;">';
-                                html +=
-                                    '<div class="d-flex justify-content-between align-items-center w-100"><h4 style="max-width:250px;"><span class="d-block" style="font-size: 14px;font-weight: 700;letter-spacing: 0.02em;line-height: 1;margin-top: 0;">' +
-                                    element.subject +
-                                    '</span><span class="d-block" style="font-size: 10px;letter-spacing: 0.02em;padding-top: 7px;font-weight: 400;color: #758698;line-height: 1;">' +
-                                    element.date + '</span></h4>' + element.flag +
-                                    '</div>';
-                                html +=
-                                    '<div class="d-flex justify-content-start align-items-center w-100"><span style="display:block;font-size:12px;color:#758698;letter-spacing: 0.01em;line-height: 1;padding-top: 7px;font-weight: 400;">' +
-                                    element.preamble +
-                                    '</span></div><a role="button" id="single-platform-display/' +
-                                    element.id +
-                                    '" href="https://www.kenspay.com.ng/single-platform-display' +
-                                    "/" + element.id +
-                                    '" class="btn noty-view-btn btn-sm align-self-end" style="min-width:unset;width:50px;padding:0;color:#fff;background-image:linear-gradient(#4672c4, #195B7e);cursor:pointer;">view</a></div>';
-                                $('#noty-holder-div').append(html);
-                            });
-                        } else if (data.totalCount == 1) {
+    $(document).ready(function() {
+        setTimeout(function() {
+            $.ajax({
+                url: "https://www.kenspay.com.ng/ajax-platform-notification",
+                method: "GET",
+                success: function(data) {
+                    data = JSON.parse(data);
+                    $('#notification-spinner').html(data.totalCount);
+                    if (data.totalCount > 0) {
+                        ///build notification
+                        data.data.forEach((element) => {
                             var html =
-                                "<div class='w-100 d-flex flex-column align-items-center justify-content-center pl-2 pr-2 pt-2 pb-0 mb-2 platform-notification-view' data-id='" +
-                                data.data.id + "' data-subject='" + data.data.subject +
-                                "' data-date='" + data.data.date + "' data-flag='" + data
-                                .data.flag + "' data-content='" + btoa(data.data.content) +
-                                "' style='border-bottom: 1px solid #e6effb;'>";
+                                '<div class="w-100 d-flex flex-column align-items-center justify-content-center pl-2 pr-2 pt-2 pb-0 mb-2 platform-notification-view" data-id="' +
+                                element.id + '" data-subject="' + element
+                                .subject + '" data-date="' + element.date +
+                                '" data-flag="' + element.flag +
+                                '" data-content="' + btoa(element.content) +
+                                '" style="border-bottom: 1px solid #e6effb;">';
                             html +=
                                 '<div class="d-flex justify-content-between align-items-center w-100"><h4 style="max-width:250px;"><span class="d-block" style="font-size: 14px;font-weight: 700;letter-spacing: 0.02em;line-height: 1;margin-top: 0;">' +
-                                data.data.subject +
+                                element.subject +
                                 '</span><span class="d-block" style="font-size: 10px;letter-spacing: 0.02em;padding-top: 7px;font-weight: 400;color: #758698;line-height: 1;">' +
-                                data.data.date + '</span></h4>' + data.data.flag + '</div>';
+                                element.date + '</span></h4>' + element.flag +
+                                '</div>';
                             html +=
                                 '<div class="d-flex justify-content-start align-items-center w-100"><span style="display:block;font-size:12px;color:#758698;letter-spacing: 0.01em;line-height: 1;padding-top: 7px;font-weight: 400;">' +
-                                data.data.preamble +
-                                '</span></div><a role="button" href="https://www.kenspay.com.ng/single-platform-display' +
+                                element.preamble +
+                                '</span></div><a role="button" id="single-platform-display/' +
+                                element.id +
+                                '" href="https://www.kenspay.com.ng/single-platform-display' +
                                 "/" + element.id +
-                                '" class="btn noty-view-btn btn-sm align-self-end single-platform-display" style="min-width:unset;width:50px;padding:0;color:#fff;background-image:linear-gradient(#4672c4, #195B7e);cursor:pointer;">view</a></div>';
+                                '" class="btn noty-view-btn btn-sm align-self-end" style="min-width:unset;width:50px;padding:0;color:#fff;background-image:linear-gradient(#4672c4, #195B7e);cursor:pointer;">view</a></div>';
                             $('#noty-holder-div').append(html);
-                            $('#notification-counter').text(data.totalCount > 99 ? "99+" :
-                                data.totalCount);
-                            if (data.totalCount == 0) {
-                                if (!document.getElementById('notification-counter')
-                                    .classList.contains('d-none')) {
-                                    $('#notification-counter').addClass('d-none');
-                                }
-                            } else {
-                                if (document.getElementById('notification-counter')
-                                    .classList.contains('d-none')) {
-                                    $('#notification-counter').removeClass('d-none');
-                                }
+                        });
+                    } else if (data.totalCount == 1) {
+                        var html =
+                            "<div class='w-100 d-flex flex-column align-items-center justify-content-center pl-2 pr-2 pt-2 pb-0 mb-2 platform-notification-view' data-id='" +
+                            data.data.id + "' data-subject='" + data.data.subject +
+                            "' data-date='" + data.data.date + "' data-flag='" + data
+                            .data.flag + "' data-content='" + btoa(data.data.content) +
+                            "' style='border-bottom: 1px solid #e6effb;'>";
+                        html +=
+                            '<div class="d-flex justify-content-between align-items-center w-100"><h4 style="max-width:250px;"><span class="d-block" style="font-size: 14px;font-weight: 700;letter-spacing: 0.02em;line-height: 1;margin-top: 0;">' +
+                            data.data.subject +
+                            '</span><span class="d-block" style="font-size: 10px;letter-spacing: 0.02em;padding-top: 7px;font-weight: 400;color: #758698;line-height: 1;">' +
+                            data.data.date + '</span></h4>' + data.data.flag + '</div>';
+                        html +=
+                            '<div class="d-flex justify-content-start align-items-center w-100"><span style="display:block;font-size:12px;color:#758698;letter-spacing: 0.01em;line-height: 1;padding-top: 7px;font-weight: 400;">' +
+                            data.data.preamble +
+                            '</span></div><a role="button" href="https://www.kenspay.com.ng/single-platform-display' +
+                            "/" + element.id +
+                            '" class="btn noty-view-btn btn-sm align-self-end single-platform-display" style="min-width:unset;width:50px;padding:0;color:#fff;background-image:linear-gradient(#4672c4, #195B7e);cursor:pointer;">view</a></div>';
+                        $('#noty-holder-div').append(html);
+                        $('#notification-counter').text(data.totalCount > 99 ? "99+" :
+                            data.totalCount);
+                        if (data.totalCount == 0) {
+                            if (!document.getElementById('notification-counter')
+                                .classList.contains('d-none')) {
+                                $('#notification-counter').addClass('d-none');
                             }
                         } else {
-                            if (data.totalCount == 0) {
-                                if (!document.getElementById('notification-counter')
-                                    .classList.contains('d-none')) {
-                                    $('#notification-counter').addClass('d-none');
-                                }
+                            if (document.getElementById('notification-counter')
+                                .classList.contains('d-none')) {
+                                $('#notification-counter').removeClass('d-none');
                             }
-                            $('#noty-holder-div').html(
-                                "<p class='mt-2 text-center'>No Notifications.</p>");
                         }
-                    }
-
-                    //end build notifcation
-
-                });
-            }, 10);
-            setTimeout(function() {
-                $.ajax({
-                    url: "https://www.kenspay.com.ng/ajax-get-modal-display-platform-notification",
-                    method: "GET",
-                    success: function(data) {
-
-                        data = JSON.parse(data);
-
-                        if (data.totalCount > 0) {
-                            $('#platform-notification-modal-display-subject').html(data
-                                .notification.subject);
-                            $('#platform-notification-modal-display-date').html(data
-                                .notification.date);
-                            $('#platform-notification-modal-display-flag').html(data
-                                .notification.flag);
-                            $('#platform-notification-modal-display-content').html(data
-                                .notification.content);
-                            $('#platform-notification-modal-display').attr(
-                                'data-notification-id', data.notification.id);
-                            $('#single-platform-display-modal-btn').attr("href",
-                                "https://www.kenspay.com.ng/single-platform-display" + "/" + data
-                                .notification.id);
-                            $('#platform-notification-modal-display').modal('show');
+                    } else {
+                        if (data.totalCount == 0) {
+                            if (!document.getElementById('notification-counter')
+                                .classList.contains('d-none')) {
+                                $('#notification-counter').addClass('d-none');
+                            }
                         }
+                        $('#noty-holder-div').html(
+                            "<p class='mt-2 text-center'>No Notifications.</p>");
                     }
-                });
-            }, 8000);
-            $('#platform-notification-modal-display').on('hidden.bs.modal', function(e) {
-                readPlatformNotification($(e.target).attr('data-notification-id'));
+                }
+
+                //end build notifcation
+
             });
+        }, 10);
+        setTimeout(function() {
+            $.ajax({
+                url: "https://www.kenspay.com.ng/ajax-get-modal-display-platform-notification",
+                method: "GET",
+                success: function(data) {
+
+                    data = JSON.parse(data);
+
+                    if (data.totalCount > 0) {
+                        $('#platform-notification-modal-display-subject').html(data
+                            .notification.subject);
+                        $('#platform-notification-modal-display-date').html(data
+                            .notification.date);
+                        $('#platform-notification-modal-display-flag').html(data
+                            .notification.flag);
+                        $('#platform-notification-modal-display-content').html(data
+                            .notification.content);
+                        $('#platform-notification-modal-display').attr(
+                            'data-notification-id', data.notification.id);
+                        $('#single-platform-display-modal-btn').attr("href",
+                            "https://www.kenspay.com.ng/single-platform-display" + "/" +
+                            data
+                            .notification.id);
+                        $('#platform-notification-modal-display').modal('show');
+                    }
+                }
+            });
+        }, 8000);
+        $('#platform-notification-modal-display').on('hidden.bs.modal', function(e) {
+            readPlatformNotification($(e.target).attr('data-notification-id'));
         });
-            $('#noty-holder-div').on('click', '.platform-notification-view', function(e) {
+    });
+    $('#noty-holder-div').on('click', '.platform-notification-view', function(e) {
         e.preventDefault();
         var e1 = e.currentTarget;
         if ($(e.target).hasClass('single-platform-display')) {
@@ -748,7 +872,13 @@
             }
         }
         if (this.getAttribute('category') == 'more') {
-            var constrLinkArr = [{"link":"partners","name":"Partner with us"},{"link":"contact","name":"Contact"}];
+            var constrLinkArr = [{
+                "link": "partners",
+                "name": "Partner with us"
+            }, {
+                "link": "contact",
+                "name": "Contact"
+            }];
             var educationLink = "user\/education";
             // var insuranceLink = "https://www.kenspay.com.ng/insurance";
             $(dropdownContent).append('<a class="nav-link" href="' + educationLink +
@@ -771,7 +901,7 @@
 </script>
 {{-- jkuio --}}
 
-    <script type="text/javascript">
+<script type="text/javascript">
     var refUrl = document.referrer.replace(/^https?:\/\//, '');
     var p_url = "www.kenspay.com.ng/";
     var park = ;
@@ -806,18 +936,20 @@
 <!--Start of Tawk.to Script-->
 
 <script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/{{ $settings->tawkId }}/default';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
+    var Tawk_API = Tawk_API || {},
+        Tawk_LoadStart = new Date();
+    (function() {
+        var s1 = document.createElement("script"),
+            s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/{{ $settings->tawkId }}/default';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
     })();
-    </script>
+</script>
 
-            {{-- <script type="text/javascript" id="zsiqchat">
+{{-- <script type="text/javascript" id="zsiqchat">
         var $zoho = $zoho || {};
         $zoho.salesiq = $zoho.salesiq || {
             widgetcode: "7326e5692ac9a8a03322deef62fbda40832ea8180a227cf11a9e4beafb4071d4",
@@ -836,7 +968,7 @@
             $zoho.salesiq.floatbutton.visible('hide');
         }
     </script> --}}
-                    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"></script>
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"></script>
 <script>
     var OneSignal = window.OneSignal || [];
     OneSignal.push(function() {
@@ -863,8 +995,8 @@
     var curHr = today.getHours()
 
     if (curHr > 08 && curHr < 24) {
-    // console.log('good morning')
-      checkmindiv.html("We'll reply to your email in 30 minutes");
+        // console.log('good morning')
+        checkmindiv.html("We'll reply to your email in 30 minutes");
     } else {
         // console.log('good evening')
         checkmindiv.html("We'll reply to your email by 8:00am");
@@ -895,7 +1027,7 @@
         $('.floating-irs-wrapper3').find('.content2').removeClass('hide');
         self.next('div').removeClass('hide').addClass(self.data('next'));
 
-        if(!$("#ticket-content").hasClass('hide')) {
+        if (!$("#ticket-content").hasClass('hide')) {
             $("#ticket-content").toggleClass("hide");
         }
     });
@@ -929,7 +1061,7 @@
         if (document.querySelector('#zsiqscript')) $zoho.salesiq.floatwindow.visible('hide')
     });
 
-    $('.cookie-policy span').click(function () {
+    $('.cookie-policy span').click(function() {
         document.cookie = 'cookie-policy=1; path=/';
         $('.cookie-policy').remove();
     });

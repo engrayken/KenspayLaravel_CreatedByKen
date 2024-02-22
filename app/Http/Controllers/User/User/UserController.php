@@ -15,6 +15,7 @@ use App\Interfaces\Billings\IBillingRepository;
 use App\Interfaces\User\IUserRepository;
 use App\Mail\PHPMailler;
 use App\Services\Apis\Monnify\CustomTransactionHashUtil;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -111,6 +112,33 @@ public function __construct(IBillingRepository $serviceRepo, IUserRepository $Us
         return back()->with('failed','Couldnt Update details');
     }
     return back()->with('success','Account Successfully Updated');
+
+
+    }
+
+
+    public function updatePass(Request $request)
+    {
+        $val = ['class_subjects'=> ['required', 'regex:/[!@#$%^&*(),.?\":{}|<>]/','min:8']];
+    $request->validate([
+    "old_password" => "required",
+    "new_password" => $val['class_subjects'],
+    ],
+    [
+        "new_password.regex"=>"Your new password must contain one of this special characters eg !@#$%^&"
+    ]
+);
+
+        $ids= session()->get(AccountEnums::$Auth['sessionLogin']);
+        $user= User::findOrfail($ids);
+        // $oldPassword = Hash::make($request->old-password);
+        if(!Hash::check($request->old_password, $user->password))
+        return back()->with('failed','Old Password not matched');
+        $newPassword = Hash::make($request->new_password);
+        $update = $user->update(["password"=>$newPassword]);
+        if(!$update)
+        return back()->with('failed','Couldnt Update Password');
+        return back()->with('success','Account Successfully Updated');
 
 
     }
@@ -370,9 +398,10 @@ return back()->with('failed','error occure while creating account');
 
         $epin= $user->Mypin()->where('transId',$request->transId)->get();
         $per=$request->per;
-
+        $pinAlp = SiteEnums::$pinAlp;
+        $pinNum = SiteEnums::$pinNum;
         $title='Print History';
-        return view('user.print', compact('epin','user','title','per','settings'));
+        return view('user.print', compact('epin','user','title','per','settings','pinAlp','pinNum'));
 
 }
 

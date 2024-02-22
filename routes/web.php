@@ -36,6 +36,7 @@ Route::get('/privacy-policy', [WebsiteController::class,'privacy'])->name('priva
 Route::get('/terms-and-conditions', [WebsiteController::class,'terms'])->name('terms');
 Route::get('/documentation', [WebsiteController::class,'documentation'])->name('documentation');
 Route::get('/contact', [WebsiteController::class,'contact'])->name('contact');
+Route::post('/contact-ticket', [WebsiteController::class,'contactTicket'])->name('contact-ticket');
 Route::get('/help', [WebsiteController::class,'contact'])->name('help');
 Route::get('/partners', [WebsiteController::class,'partner'])->name('partner');
 Route::get('/widget-ticket', [WebsiteController::class,'ticket'])->name('widget-ticket');
@@ -49,11 +50,13 @@ Route::get('/confirm-account', [WebsiteController::class,'confirmview'])->name('
 
 Route::post('/registeru', [AuthController::class,'signupu'])->name('Signup');
 Route::post('/loginu', [AuthController::class,'loginu'])->name('Login');
+Route::post('/forget-password', [AuthController::class,'forgotPass'])->name('forgot-pass');
 Route::get('/logout', [AuthController::class,'logOut'])->name('logout');
 
 // Route::get('/settings', [WebsiteController::class,'settings'])->name('settings');
 
 
+Route::get('/error', [WebsiteController::class,'fof']);
 
 Route::get('/clear-cache', function() {
     Artisan::call('optimize:clear');

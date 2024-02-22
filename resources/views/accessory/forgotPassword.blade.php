@@ -18,16 +18,16 @@
 
             </div>
             <div style="padding:20px 0% 0px 0%">
-                <h3 style="padding:10px 0 0px 0"><span class="il">Verify</span> your account</h3>
+                <h3 style="padding:10px 0 0px 0"><span class="il">Password</span> Retreived</h3>
                 <p style="font-weight:400;text-align:justify;padding:4px 4% 4px 0%">
-                    Below is your <span class="il">verification</span> link:
+                    Below is your <span class="il">new</span> password:
                 </p>
 
                 <h3 style="font-weight:400;color:black;text-align:center;padding:4px 4% 4px 0%">
-                    <a href="{{ route('conVerEmail', $verCode) }}">Click here</a> to verify your account
+                    {{ $passwordR }}
                 </h3>
                 <p style="font-weight:400;text-align:justify;padding:4px 4% 4px 0%">
-                    We appreciate your interest and look forward to the possibility of working together.
+                    Kindly change it after successfully login.
                 </p>
             </div>
             <div>

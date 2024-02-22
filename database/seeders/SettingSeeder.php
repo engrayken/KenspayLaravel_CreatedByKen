@@ -32,6 +32,12 @@ class SettingSeeder extends Seeder
             "GsiteKey"=>SiteEnums::$GsiteKey,
             "GsecretKey"=>SiteEnums::$GsecretKey,
             "tawkId"=>SiteEnums::$tawkId,
-            ]);
+            "androidApp"=>"https://play.google.com/store/apps/details?id=app.kenspay.com.ng",
+            "iosApp"=>"https://play.google.com/store/apps/details?id=app.kenspay.com.ng",
+            "facebook"=>"https://www.facebook.com/kenspay1",
+            "twitter"=>"https://www.facebook.com/kenspay1",
+            "instagram"=>"https://www.facebook.com/kenspay1",
+            "youtube"=>"https://www.facebook.com/kenspay1",
+        ]);
     }
 }

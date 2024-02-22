@@ -31,6 +31,12 @@ return new class extends Migration
             $table->string('GsiteKey')->default(SiteEnums::$GsiteKey);
             $table->string('GsecretKey')->default(SiteEnums::$GsecretKey);
             $table->string('tawkId')->default(SiteEnums::$tawkId);
+            $table->string('androidApp')->nullable();
+            $table->string('iosApp')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('instagram')->nullable();
             $table->timestamps();
         });
     }
