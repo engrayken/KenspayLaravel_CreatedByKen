@@ -59,6 +59,9 @@ Route::get('/logout', [AuthController::class,'logOut'])->name('logout');
 Route::get('/error', [WebsiteController::class,'fof']);
 
 Route::get('/clear-cache', function() {
+  Artisan::call('config:clear');
+  Artisan::call('cache:clear');
+  Artisan::call('config:cache');
     Artisan::call('optimize:clear');
     echo Artisan::output();
 });

@@ -149,13 +149,13 @@ return back()->with('success','Mail Sent Successfully, We will get back to you a
         {
         $userUp = PUser::where('token','=',$token)->delete();
         $vtokend = UserEmailVerify::where('token','=',$token)->delete();
-        return redirect('confirmview')->with(['display'=>'yes','success'=>'Account verified successfully <a href="user">Click here to Continue</a>']);
+        return redirect('confirm-account')->with(['display'=>'yes','success'=>'Account verified successfully <a href="user">Click here to Continue</a>']);
         }
-        return redirect('confirmview')->with(['failed'=>'error: Couldnt Create User Contact admin']);
+        return redirect('confirm-account')->with(['failed'=>'error: Couldnt Create User Contact admin']);
 
             }
         // return view('accessory.emc',compact('title','settings'))->with('success','email failed');
-        return redirect('confirmview')->with(['failed'=>'error: Verification link expired']);
+        return redirect('confirm-account')->with(['failed'=>'error: Verification link expired']);
         // return 'sdfghj';
     }
 

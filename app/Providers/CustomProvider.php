@@ -10,11 +10,13 @@ use App\Interfaces\Auth\IAuthRepository;
 use App\Interfaces\Billings\IBillingRepository;
 use App\Interfaces\Product\IProductRepository;
 use App\Interfaces\User\IUserRepository;
+use App\Interfaces\Admin\IAdminRepository;
 
 use App\Repositories\Auth\AuthRepository;
 use App\Repositories\Billings\BillingRepository;
 use App\Repositories\Product\ProductRepository;
 use App\Repositories\User\UserRepository;
+use App\Repositories\Admin\AdminRepository;
 
 class CustomProvider extends ServiceProvider
 {
@@ -28,6 +30,7 @@ class CustomProvider extends ServiceProvider
     $this->app->bind(IUserRepository::class, UserRepository::class);
     $this->app->bind(IProductRepository::class, ProductRepository::class);
     $this->app->bind(IUserRepository::class, UserRepository::class);
+    $this->app->bind(IAdminRepository::class, AdminRepository::class);
 
     }
 

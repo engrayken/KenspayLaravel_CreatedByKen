@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\Exception;
 
 class PHPMailler
 {
-    public function sendMail($subject, $message, $sendTo)
+    public function sendMail($subject, $message, $sendTo, $bcc =  null)
     {
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
@@ -40,7 +40,8 @@ try {
    // $mail->addAddress('ellen@example.com');               //Name is optional
     $mail->addReplyTo($settings->email, 'Kenspay');
     // $mail->addCC('cc@example.com');
-    // $mail->addBCC('bcc@example.com');
+    if($bcc)
+    $mail->addBCC($bcc);
 
     //Attachments
    // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
