@@ -41,8 +41,13 @@ try {
     $mail->addReplyTo($settings->email, 'Kenspay');
     // $mail->addCC('cc@example.com');
     if($bcc)
-    $mail->addBCC($bcc);
+    {
+        foreach($bcc as $email)
+        {
+    $mail->addBCC($email);
 
+}
+    }
     //Attachments
    // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name

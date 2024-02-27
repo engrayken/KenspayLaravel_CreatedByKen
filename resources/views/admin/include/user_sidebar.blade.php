@@ -86,10 +86,13 @@
                                          class="icon-bubbles5"></i>Customer service</a></li>
                              <li class="nav-item"><a href="{{ route('admin.promotion_emails') }}" class="nav-link"><i
                                          class="icon-envelope"></i>Promotional Emails</a></li>
-                             <li class="nav-item"><a href="{{ route('admin.messages') }}" class="nav-link"><i
-                                         class="icon-bubbles5"></i>Messages</a></li>
-                             <li class="nav-item"><a href="{{ route('admin.reviews') }}"class="nav-link"><i
-                                         class="icon-clipboard6"></i>Platform Review</a></li>
+
+                             <li class="nav-item"><a href="{{ route('admin.notification') }}"class="nav-link"><i
+                                         class="icon-clipboard6"></i>Site Notification Msg</a></li>
+                             {{-- <li class="nav-item"><a href="{{ route('admin.messages') }}" class="nav-link"><i
+                                         class="icon-bubbles5"></i>Messages</a></li> --}}
+                             {{-- <li class="nav-item"><a href="{{ route('admin.reviews') }}"class="nav-link"><i
+                                         class="icon-clipboard6"></i>Platform Review</a></li> --}}
 
                          </ul>
                      </li>

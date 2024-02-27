@@ -45,11 +45,15 @@ Route::get('/', function () {
     Route::post('/send_email', [AdminController::class,'sendEmailNow'])->name('sendEmailNow');
     Route::get('/promotion_emails', [AdminController::class,'promotion_emails'])->name('promotion_emails');
     Route::post('/sendpemail', [AdminController::class,'sendpemail'])->name('sendpemail');
+    Route::get('/ticket', [AdminController::class,'ticket'])->name('ticket');
+    Route::get('/close_ticket/{ticket}', [AdminController::class,'cticket'])->name('close_ticket');
+    Route::get('/delete_ticket/{ticket}', [AdminController::class,'dticket'])->name('delete_ticket');
+    Route::get('/replay_ticket/{ticket}', [AdminController::class,'chticket'])->name('check_ticket');
+    Route::post('/replay_ticket/{ticket}', [AdminController::class,'rticket'])->name('reply_ticket');
 
     Route::get('/transfer', [AdminController::class,'transfer'])->name('transfer');
-    Route::get('/ticket', [AdminController::class,'ticket'])->name('ticket');
     Route::get('/messages', [AdminController::class,'messages'])->name('messages');
-    Route::get('/reviews', [AdminController::class,'reviews'])->name('reviews');
+    Route::get('/notification', [AdminController::class,'notification'])->name('notification');
     Route::get('/settings', [AdminController::class,'settings'])->name('settings');
     Route::get('/faq', [AdminController::class,'faq'])->name('faq');
     Route::get('/page', [AdminController::class,'page'])->name('page');

@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\admin\admin;
 
+use App\Enums\SiteEnums;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\ProfileRequest;
 use App\Interfaces\Admin\IAdminRepository;
 use App\Mail\PHPMailler;
 use App\Models\Admin\Admin;
+use App\Models\Site\Epin;
+use App\Models\Users\Reply_ticket;
 use App\Models\Site\Setting;
+use App\Models\Users\PUser;
+use App\Models\Users\Ticket;
 use App\Models\Users\User;
 use Illuminate\Http\Request;
 
@@ -25,19 +30,63 @@ class AdminController extends Controller
         $title = 'Dashboard';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
-        $setting = Setting::findorFail('1');
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $dabal = User::sum('dataBalance');
+        $pinbal = User::sum('pinBalance');
+        $vuser = User::all()->count();
+        $Nuser = PUser::all()->count();
+        $buser = User::where('status','-1')->count();
+        $ticket = Ticket::where('status',0)->count();
+        $cticket = Ticket::where('status',1)->count();
+        $mticket = Ticket::whereNotNull('subject')->orderBy('created_at','desc')->first();
+        $mtn =
+        "Total: Quan".Epin::where(['net'=>'mtn'])->count()." N".Epin::where(['net'=>'mtn'])->sum('deno').
+        "<br>MTN N100-".Epin::where(['net'=>'mtn','deno'=>100])->count()."quan-N".Epin::where(['net'=>'mtn','deno'=>100])->sum('deno')."<br>
+       MTN N200-".Epin::where(['net'=>'mtn','deno'=>200])->count()."quan-N".Epin::where(['net'=>'mtn','deno'=>200])->sum('deno')."<br>
+       MTN N400-".Epin::where(['net'=>'mtn','deno'=>400])->count()."quan-N".Epin::where(['net'=>'mtn','deno'=>400])->sum('deno')."<br>
+       MTN N500-".Epin::where(['net'=>'mtn','deno'=>500])->count()."quan-N".Epin::where(['net'=>'mtn','deno'=>500])->sum('deno')."<br>
+       MTN N1000-".Epin::where(['net'=>'mtn','deno'=>1000])->count()."quan-N".Epin::where(['net'=>'mtn','deno'=>1000])->sum('deno');
 
-        return view('admin.dashboard', compact('title','admin','setting'));
+        $airtel =
+        "Total: Quan".Epin::where(['net'=>'airtel'])->count()." N".Epin::where(['net'=>'airtel'])->sum('deno').
+        "<br>AIRTEL 100-".Epin::where(['net'=>'airtel','deno'=>100])->count()."quan-N".Epin::where(['net'=>'airtel','deno'=>100])->sum('deno')."<br>
+       AIRTEL 200-".Epin::where(['net'=>'airtel','deno'=>200])->count()."quan-N".Epin::where(['net'=>'airtel','deno'=>200])->sum('deno')."<br>
+       AIRTEL 400-".Epin::where(['net'=>'airtel','deno'=>400])->count()."quan-N".Epin::where(['net'=>'airtel','deno'=>400])->sum('deno')."<br>
+       AIRTEL 500-".Epin::where(['net'=>'airtel','deno'=>500])->count()."quan-N".Epin::where(['net'=>'airtel','deno'=>500])->sum('deno')."<br>
+       AIRTEL 1000-".Epin::where(['net'=>'airtel','deno'=>1000])->count()."quan-N".Epin::where(['net'=>'airtel','deno'=>1000])->sum('deno');
+
+           $glo =
+        "Total: Quan".Epin::where(['net'=>'glo'])->count()." N".Epin::where(['net'=>'glo'])->sum('deno').
+        "<br>GLO 100-".Epin::where(['net'=>'glo','deno'=>100])->count()."quan-N".Epin::where(['net'=>'glo','deno'=>100])->sum('deno')."<br>
+       GLO 200-".Epin::where(['net'=>'glo','deno'=>200])->count()."quan-N".Epin::where(['net'=>'glo','deno'=>200])->sum('deno')."<br>
+       GLO 400-".Epin::where(['net'=>'glo','deno'=>400])->count()."quan-N".Epin::where(['net'=>'glo','deno'=>400])->sum('deno')."<br>
+       GLO 500-".Epin::where(['net'=>'glo','deno'=>500])->count()."quan-N".Epin::where(['net'=>'glo','deno'=>500])->sum('deno')."<br>
+       GLO 1000-".Epin::where(['net'=>'glo','deno'=>1000])->count()."quan-N".Epin::where(['net'=>'glo','deno'=>1000])->sum('deno');
+
+           $ninemobile =
+        "Total: Quan".Epin::where(['net'=>'9mobile'])->count()." N".Epin::where(['net'=>'9mobile'])->sum('deno').
+        "<br>9MOBILE 100-".Epin::where(['net'=>'9mobile','deno'=>100])->count()."quan-N".Epin::where(['net'=>'9mobile','deno'=>100])->sum('deno')."<br>
+       9MOBILE 200-".Epin::where(['net'=>'9mobile','deno'=>200])->count()."quan-N".Epin::where(['net'=>'9mobile','deno'=>200])->sum('deno')."<br>
+       9MOBILE 400-".Epin::where(['net'=>'9mobile','deno'=>400])->count()."quan-N".Epin::where(['net'=>'9mobile','deno'=>400])->sum('deno')."<br>
+       9MOBILE 500-".Epin::where(['net'=>'9mobile','deno'=>500])->count()."quan-N".Epin::where(['net'=>'9mobile','deno'=>500])->sum('deno')."<br>
+       9MOBILE 1000-".Epin::where(['net'=>'9mobile','deno'=>1000])->count()."quan-N".Epin::where(['net'=>'9mobile','deno'=>1000])->sum('deno');
+       $tatalpins = "Total Pins: Quan".Epin::count()." N".Epin::sum('deno');
+
+
+
+        return view('admin.dashboard',
+        compact('title','admin','setting','buser','vuser','Nuser',
+        'ticket','cticket','pinbal','dabal','mticket','mtn','airtel','glo','ninemobile','tatalpins'));
 
     }
 
         public function user()
     {
-        $title = 'Dashboard';
+        $title = 'Users';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
         $user = User::all();
-        $setting = Setting::findorFail('1');
+        $setting = Setting::findOrfail(SiteEnums::$settings);
 
         return view('admin.user', compact('user','title','admin','setting'));
 
@@ -48,7 +97,7 @@ class AdminController extends Controller
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
         $user = User::findorFail($uid);
-        $setting = Setting::findorFail('1');
+        $setting = Setting::findOrfail(SiteEnums::$settings);
 
         return view('admin.manage_users', compact('user','title','admin','setting'));
 
@@ -58,7 +107,7 @@ class AdminController extends Controller
     {
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
-        $setting = Setting::findorFail('1');
+        $setting = Setting::findOrfail(SiteEnums::$settings);
 return $this->serviceReposervice->uprofile($request->validated(), $user);
 
     }
@@ -67,7 +116,7 @@ return $this->serviceReposervice->uprofile($request->validated(), $user);
     {
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
-        $setting = Setting::findorFail('1');
+        $setting = Setting::findOrfail(SiteEnums::$settings);
        $delete = $user->delete($user);
        if(!$delete)
     return back()->with('failed','failed to delete user account');
@@ -114,7 +163,7 @@ return $this->serviceReposervice->uprofile($request->validated(), $user);
         $title = "send email";
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
-        $setting = Setting::findorFail('1');
+        $setting = Setting::findOrfail(SiteEnums::$settings);
        $email = $user->email;
         return view('admin.send_email', compact('email','setting','admin','title'));
 
@@ -140,35 +189,14 @@ $makeway = view('mail.user', compact('subject','message'));
 
     }
 
-        public function transfer()
+
+    public function promotion_emails()
     {
-        $title = 'Dashboard';
-        $id = session()->get('adminid');
-        $admin = Admin::findorFail($id);
-        $setting = Setting::findorFail('1');
-
-        return view('admin.dashboard', compact('title','admin','setting'));
-
-    }
-
-        public function ticket()
-    {
-        $title = 'Dashboard';
-        $id = session()->get('adminid');
-        $admin = Admin::findorFail($id);
-        $setting = Setting::findorFail('1');
-
-        return view('admin.dashboard', compact('title','admin','setting'));
-
-    }
-
-        public function promotion_emails()
-    {
-        $title = 'Dashboard';
+        $title = 'promotion_emails';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
         $user = User::all();
-        $setting = Setting::findorFail('1');
+        $setting = Setting::findOrfail(SiteEnums::$settings);
 
         return view('admin.newsletter_subscribers', compact('title','admin','setting','user'));
 
@@ -182,44 +210,122 @@ $makeway = view('mail.user', compact('subject','message'));
         ]);
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
         $subject =$request->subject;
         $message =$request->message;
-       return $email =$request->email;
+       $email =$request->email;
 $makeway = view('mail.user', compact('subject','message'));
- $this->MailService->sendMail($subject, $makeway, $admin->email, $email);
+ $this->MailService->sendMail($subject, $makeway, $setting->email, $email);
 
     return back()->with('success',' Email as been sent successfully');
 
     }
 
-        public function messages()
+
+
+        public function ticket()
     {
-        $title = 'Dashboard';
+        $title = 'Ticket';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
-        $setting = Setting::findorFail('1');
+        $ticket = Ticket::all();
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+
+        return view('admin.ticket', compact('ticket','title','admin','setting'));
+
+    }
+
+    public function chticket(Ticket $ticket)
+    {
+        $title = 'Check Ticket';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+     $ticket = $ticket;
+        $df = $ticket->Reply_ticket()->get();
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+
+        return view('admin.check_ticket', compact('ticket','df','title','admin','setting'));
+
+    }
+
+        public function rticket(REQUEST $request, Ticket $ticket)
+    {
+        $request->validate(["reply"=>"required","user"=>"required","ticket_id"=>"required"]);
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $ticket->ticket_id;
+        $user = $ticket->User()->first();
+        $reply = $request->reply;
+
+    $ticket = $ticket->Reply_ticket()->create(["status"=>1,
+        "reply"=>$request->reply,"ticket_id"=>$request->ticket_id,"reply_id"=>$admin->id
+    ]);
+
+    $subject ="Support Ticket";
+    $makeway = view('mail.reply_ticket', compact('admin','user','reply'));
+ $this->MailService->sendMail($subject, $makeway, $user->email);
+        if(!$ticket)
+        return back()->with('failed','Reply failed to sent');
+        return back()->with('success',' Reply sent successfully');
+    }
+
+        public function cticket(Ticket $ticket)
+    {
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $ticket = $ticket->update(["status"=>1]);
+        return back()->with('success','ticket deleted successfully');
+
+    }
+
+        public function dticket(Ticket $ticket)
+    {
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $ticket = $ticket->delete($ticket);
+        return back()->with('success','ticket deleted successfully');
+
+    }
+
+
+        public function notification()
+    {
+        $title = 'notification';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
 
         return view('admin.dashboard', compact('title','admin','setting'));
 
     }
 
-        public function reviews()
-    {
-        $title = 'Dashboard';
-        $id = session()->get('adminid');
-        $admin = Admin::findorFail($id);
-        $setting = Setting::findorFail('1');
+    // public function transfer()
+    // {
+    //     $title = 'Dashboard';
+    //     $id = session()->get('adminid');
+    //     $admin = Admin::findorFail($id);
+    //     $setting = Setting::findOrfail(SiteEnums::$settings);
 
-        return view('admin.dashboard', compact('title','admin','setting'));
+    //     return view('admin.dashboard', compact('title','admin','setting'));
 
-    }
+    // }     public function messages()
+    // {
+    //     $title = 'Dashboard';
+    //     $id = session()->get('adminid');
+    //     $admin = Admin::findorFail($id);
+    //     $setting = Setting::findOrfail(SiteEnums::$settings);
+
+    //     return view('admin.dashboard', compact('title','admin','setting'));
+
+    // }
+
 
         public function settings()
     {
         $title = 'Dashboard';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
-        $setting = Setting::findorFail('1');
+        $setting = Setting::findOrfail(SiteEnums::$settings);
 
         return view('admin.dashboard', compact('title','admin','setting'));
 
@@ -230,7 +336,7 @@ $makeway = view('mail.user', compact('subject','message'));
         $title = 'Dashboard';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
-        $setting = Setting::findorFail('1');
+        $setting = Setting::findOrfail(SiteEnums::$settings);
 
         return view('admin.dashboard', compact('title','admin','setting'));
 
@@ -241,7 +347,7 @@ $makeway = view('mail.user', compact('subject','message'));
         $title = 'Dashboard';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
-        $setting = Setting::findorFail('1');
+        $setting = Setting::findOrfail(SiteEnums::$settings);
 
         return view('admin.dashboard', compact('title','admin','setting'));
 
@@ -252,7 +358,7 @@ $makeway = view('mail.user', compact('subject','message'));
         $title = 'Dashboard';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
-        $setting = Setting::findorFail('1');
+        $setting = Setting::findOrfail(SiteEnums::$settings);
 
         return view('admin.dashboard', compact('title','admin','setting'));
 
@@ -263,7 +369,7 @@ $makeway = view('mail.user', compact('subject','message'));
         $title = 'Dashboard';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
-        $setting = Setting::findorFail('1');
+        $setting = Setting::findOrfail(SiteEnums::$settings);
 
         return view('admin.dashboard', compact('title','admin','setting'));
 
@@ -274,7 +380,7 @@ $makeway = view('mail.user', compact('subject','message'));
         $title = 'Dashboard';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
-        $setting = Setting::findorFail('1');
+        $setting = Setting::findOrfail(SiteEnums::$settings);
 
         return view('admin.dashboard', compact('title','admin','setting'));
 
@@ -285,7 +391,7 @@ $makeway = view('mail.user', compact('subject','message'));
         $title = 'Dashboard';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
-        $setting = Setting::findorFail('1');
+        $setting = Setting::findOrfail(SiteEnums::$settings);
 
         return view('admin.dashboard', compact('title','admin','setting'));
 

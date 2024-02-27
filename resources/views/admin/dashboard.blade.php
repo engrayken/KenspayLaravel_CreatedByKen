@@ -24,9 +24,11 @@
                                     <div>
                                         <h6 class="font-weight-semibold">Users</h6>
                                         <ul class="list list-unstyled mb-0">
-                                            <li>verified users: <span class="font-weight-semibold text-default">#2</span>
+                                            <li>verified users: <span
+                                                    class="font-weight-semibold text-default">#{{ $vuser }}</span>
                                             </li>
-                                            <li>unverified users: <span class="font-weight-semibold text-default">#6</span>
+                                            <li>unverified users: <span
+                                                    class="font-weight-semibold text-default">#{{ $Nuser }}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -40,7 +42,7 @@
                                 <span>
 
                                     Blocked users:
-                                    <span class="font-weight-semibold">#1</span>
+                                    <span class="font-weight-semibold">#{{ $buser }}</span>
                                 </span>
                             </div>
                         </a>
@@ -55,9 +57,9 @@
                                         <h6 class="font-weight-semibold">Support Ticket</h6>
                                         <ul class="list list-unstyled mb-0">
                                             <li>Open tickets: <span class="font-weight-semibold text-default">
-                                                    #3</span></li>
+                                                    #{{ $ticket }}</span></li>
                                             <li>Closed tickets: <span class="font-weight-semibold text-default">
-                                                    #4</span>
+                                                    #{{ $cticket }}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -69,13 +71,13 @@
                                 <span>
 
                                     Customer messages:
-                                    <span class="font-weight-semibold">#nice way</span>
+                                    <span class="font-weight-semibold">#{{ $mticket->subject }}</span>
                                 </span>
                             </div>
                         </a>
                     </div>
                 </div>
-                <div class="col-md-4">
+                {{-- <div class="col-md-4">
                     <div class="card border-left-3 border-left-danger rounded-left-0">
                         <a href="./reviews" class="text-default">
                             <div class="card-body">
@@ -103,23 +105,23 @@
                             </div>
                         </a>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-md-6">
                     <div class="card border-left-3 border-left-secondary rounded-left-0">
                         <div class="card-body">
                             <div class="d-sm-flex align-item-sm-center flex-sm-nowrap">
                                 <div>
-                                    <h6 class="font-weight-semibold">Payout Log</h6>
+                                    <h6 class="font-weight-semibold">Pin's Log</h6>
                                     <ul class="list list-unstyled mb-0">
-                                        <li>Successful cash payouts: <span class="font-weight-semibold text-default">
-                                                #2</span></li>
-                                        <li>Pending cash payouts: <span class="font-weight-semibold text-default">
-                                                #1</span>
+                                        <li><b>MTN PINS:=></b> <span class="font-weight-semibold text-default">
+                                                {!! $mtn !!}</span></li>
+                                        <li><b>AIRTEL PINS:=></b> <span class="font-weight-semibold text-default">
+                                                {!! $airtel !!}</span>
                                         </li>
-                                        <li>Successful bitcoin payouts: <span class="font-weight-semibold text-default">
-                                                #5</span></li>
-                                        <li>Pending bitcoin payouts: <span class="font-weight-semibold text-default">
-                                                #6</span>
+                                        <li><b>GLO PINS:=></b> <span class="font-weight-semibold text-default">
+                                                {!! $glo !!}</span></li>
+                                        <li><b>9MOBILE PINS:=></b> <span class="font-weight-semibold text-default">
+                                                {!! $ninemobile !!}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -130,9 +132,9 @@
                         <div class="card-footer d-sm-flex justify-content-sm-between align-items-sm-center">
                             <span>
 
-                                Last payout:
+
                                 <span class="font-weight-semibold"date @cash</span><br>
-                                    <span class="font-weight-semibold">date @bitcoin</span>
+                                    <span class="font-weight-semibold">{{ $tatalpins }}</span>
                                 </span>
                         </div>
                     </div>
@@ -163,9 +165,10 @@
                         <div class="card-footer d-sm-flex justify-content-sm-between align-items-sm-center">
                             <span>
 
-                                User balance:
-                                <span class="font-weight-semibold">200</span><br>
-                                <span class="font-weight-semibold">600BTC</span>
+                                User Data Balance:
+                                <span class="font-weight-semibold">{{ $dabal }}</span><br>
+                                User Pin balance:
+                                <span class="font-weight-semibold">{{ $pinbal }}</span>
                             </span>
                         </div>
                     </div>
