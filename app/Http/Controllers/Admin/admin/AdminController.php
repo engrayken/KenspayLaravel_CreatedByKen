@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin\admin;
 
 use App\Enums\SiteEnums;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\SettingsRequest;
 use App\Http\Requests\Admin\User\ProfileRequest;
 use App\Interfaces\Admin\IAdminRepository;
 use App\Mail\PHPMailler;
@@ -11,6 +12,7 @@ use App\Models\Admin\Admin;
 use App\Models\Site\Epin;
 use App\Models\Users\Reply_ticket;
 use App\Models\Site\Setting;
+use App\Models\Users\Notification;
 use App\Models\Users\PUser;
 use App\Models\Users\Ticket;
 use App\Models\Users\User;
@@ -293,10 +295,71 @@ $makeway = view('mail.user', compact('subject','message'));
         $title = 'notification';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
+        $noti = Notification::orderBy('id','desc')->get();
         $setting = Setting::findOrfail(SiteEnums::$settings);
 
-        return view('admin.dashboard', compact('title','admin','setting'));
+        return view('admin.notification', compact('title','admin','setting','noti'));
 
+    }
+
+        public function pnotification(Request $request)
+    {
+        $request->validate([
+            "subject"=>"required",
+            "comment"=>"required"
+        ]);
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $user = User::all();
+        foreach($user as $user)
+        {
+          $sent =  Notification::create([
+                "userId"=>$user->id,
+                "subject"=>$request->subject,
+                "text"=>$request->comment,
+            ]);
+        }
+        if(!$sent)
+        return back()->with('failed','Notification not sent');
+        return back()->with('success','Notification sent successfull');
+    }
+
+            public function dnotification($delete)
+    {
+
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+          $delete =  Notification::where('created_at',$delete)->delete();
+        if(!$delete)
+        return back()->with('failed','Notification failed to delete');
+        return back()->with('success','Notification deleted successfull');
+    }
+
+    public function settings()
+    {
+        $title = 'Dashboard';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+
+        return view('admin.general_settings', compact('title','admin','setting'));
+
+    }
+
+
+    public function upsettings(SettingsRequest $request)
+    {
+
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+
+        $settings = Setting::findOrfail(SiteEnums::$settings);
+        $update = $settings->update($request->validated());
+
+      if(!$update)
+        return back()->with('failed','Settings failed to update');
+        return back()->with('success','Settings updated successfull');
     }
 
     // public function transfer()
@@ -320,16 +383,6 @@ $makeway = view('mail.user', compact('subject','message'));
     // }
 
 
-        public function settings()
-    {
-        $title = 'Dashboard';
-        $id = session()->get('adminid');
-        $admin = Admin::findorFail($id);
-        $setting = Setting::findOrfail(SiteEnums::$settings);
-
-        return view('admin.dashboard', compact('title','admin','setting'));
-
-    }
 
         public function faq()
     {

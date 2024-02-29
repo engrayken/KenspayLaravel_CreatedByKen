@@ -50,11 +50,14 @@ Route::get('/', function () {
     Route::get('/delete_ticket/{ticket}', [AdminController::class,'dticket'])->name('delete_ticket');
     Route::get('/replay_ticket/{ticket}', [AdminController::class,'chticket'])->name('check_ticket');
     Route::post('/replay_ticket/{ticket}', [AdminController::class,'rticket'])->name('reply_ticket');
+    Route::get('/notification', [AdminController::class,'notification'])->name('notification');
+    Route::post('/notification', [AdminController::class,'pnotification'])->name('pnotification');
+    Route::get('/dnotification/{delete}', [AdminController::class,'dnotification'])->name('deleteNoti');
+    Route::get('/settings', [AdminController::class,'settings'])->name('settings');
+    Route::post('/settings', [AdminController::class,'upsettings'])->name('upsettings');
 
     Route::get('/transfer', [AdminController::class,'transfer'])->name('transfer');
     Route::get('/messages', [AdminController::class,'messages'])->name('messages');
-    Route::get('/notification', [AdminController::class,'notification'])->name('notification');
-    Route::get('/settings', [AdminController::class,'settings'])->name('settings');
     Route::get('/faq', [AdminController::class,'faq'])->name('faq');
     Route::get('/page', [AdminController::class,'page'])->name('page');
     Route::get('/auth', [AdminController::class,'auth'])->name('auth');
