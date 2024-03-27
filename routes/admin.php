@@ -109,8 +109,8 @@ Route::get('/', function () {
     Route::post('/epin-edit/{pinid}', [AdminController::class,'epinEP'])->name('epinEP');
     Route::get('/epin-delete/{pinid}', [AdminController::class,'epinD'])->name('epinD');
 
-    // Route::get('/transfer', [AdminController::class,'transfer'])->name('transfer');
-    // Route::get('/messages', [AdminController::class,'messages'])->name('messages');
+    Route::get('/transfer', [AdminController::class,'transfer'])->name('transfer');
+    Route::get('/messages', [AdminController::class,'messages'])->name('messages');
 
 
 });

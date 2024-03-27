@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="description" content="vtpass.com ">
+    <meta name="description" content="kenspay.com.ng ">
     <meta name="keywords" content="">
     <title></title>
     <link rel='shortcut icon' href='{{ asset('frontend1/images/fav.jpg') }}' type='image/x-icon' />
