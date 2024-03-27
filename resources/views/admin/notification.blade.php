@@ -56,12 +56,26 @@
                     <form action="{{ route('admin.pnotification') }}" method="post">
                         @csrf
                         <div class="form-group row">
+
+
+                            {{-- <div class="form-group row"> --}}
+                            <div class="col-lg-12">
+                                <select class="form-control select" name="option" data-dropdown-css-class="bg-info-800"
+                                    data-fouc required>
+                                    <option value="notPublic">Not Public</option>
+                                    <option value="public">Public</option>
+                                </select>
+                            </div>
+                            {{-- </div> --}}
                             <div class="form-group row">
                                 <label class="col-form-label col-lg-12">Subject:</label>
                                 <div class="col-lg-12">
                                     <input type="text" name="subject" class="form-control" required>
                                 </div>
                             </div>
+
+
+
                             <div class="form-group row">
                                 <label class="col-form-label col-lg-2">Enter Comment:</label>
                                 <div class="col-lg-12">

@@ -9,6 +9,8 @@ class Api extends Model
 {
     use HasFactory;
     protected $fillable = [
+            "id",
+            "type",
             "name",
             "url",
             "username",

@@ -9,6 +9,7 @@ class Cpage extends Model
 {
     use HasFactory;
     protected $fillable = [
+            "status",
             "type",
             "message",
     ];

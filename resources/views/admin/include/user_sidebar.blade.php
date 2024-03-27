@@ -101,6 +101,9 @@
                                  configuration</span></a>
 
                          <ul class="nav nav-group-sub" data-submenu-title="System configuration">
+                             <li class="nav-item"><a href="{{ route('admin.api') }}" class="nav-link"><i
+                                         class="icon-hammer-wrench"></i>Api Setup</a></li>
+
                              <li class="nav-item"><a href="{{ route('admin.settings') }}" class="nav-link"><i
                                          class="icon-hammer-wrench"></i>General Settings</a></li>
                              <li class="nav-item"><a href="{{ route('admin.faq') }}" class="nav-link"><i
@@ -111,12 +114,15 @@
                              <li class="nav-item"><a href="{{ route('admin.auth') }}" class="nav-link"><i
                                          class="icon-share"></i>Create
                                      Authorizaion Code</a></li>
-                             <li class="nav-item"><a href="{{ route('admin.product') }}" class="nav-link"><i
+                             <li class="nav-item"><a href="{{ route('admin.category') }}" class="nav-link"><i
                                          class="icon-share2"></i>Set
                                      Product & Pricing</a></li>
                              <li class="nav-item"><a href="{{ route('admin.add_pins') }}" class="nav-link"><i
                                          class="icon-share"></i>Add
                                      Pins</a></li>
+                             <li class="nav-item"><a href="{{ route('admin.epinlimit') }}" class="nav-link"><i
+                                         class="icon-share"></i>Set
+                                     Epin Limit</a></li>
                          </ul>
                      </li>
                      <li class="nav-item nav-item-submenu">

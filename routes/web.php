@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Website\WebsiteController;
 use App\Http\Controllers\User\Auth\AuthController;
+use App\Http\Controllers\Website\NotificationController;
 use App\Http\Controllers\Website\ProductController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -52,7 +53,9 @@ Route::post('/registeru', [AuthController::class,'signupu'])->name('Signup');
 Route::post('/loginu', [AuthController::class,'loginu'])->name('Login');
 Route::post('/forget-password', [AuthController::class,'forgotPass'])->name('forgot-pass');
 Route::get('/logout', [AuthController::class,'logOut'])->name('logout');
-
+Route::get('/ajax-platform-notification', [NotificationController::class,'ajaxPlatformNotification']);
+Route::get('/platform-notification-read/{id}', [NotificationController::class,'platformNotificationRead']);
+Route::get('/display-all-platform-notification', [NotificationController::class,'allplatformNotificationRead']);
 // Route::get('/settings', [WebsiteController::class,'settings'])->name('settings');
 
 

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SubProduct extends Model
 {
     use HasFactory;
+   protected $primaryKey = 'subProdId';
 
     protected $fillable = [
             "subProdTitle",

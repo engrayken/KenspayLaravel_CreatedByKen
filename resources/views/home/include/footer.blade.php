@@ -6,11 +6,11 @@
                 <h6 style="color:#4672c4;font-weight:bold;">Earn with kenspay.com.ng
                 </h6>
                 <div class="d-flex flex-column justify-content-center align-items-start">
-                    {{-- <a style="color:#4672c4" href="https://www.kenspay.com.ng/agent">Become an Agent</a> --}}
-                    {{-- <a style="color:#4672c4" href="https://www.kenspay.com.ng/earnings">Start earning</a> --}}
+                    {{-- <a style="color:#4672c4" href="agent">Become an Agent</a> --}}
+                    {{-- <a style="color:#4672c4" href="earnings">Start earning</a> --}}
                     <a style="color:#4672c4" href="{{ route('documentation') }}">Integrate our API</a>
-                    {{-- <a style="color:#4672c4" href="https://www.kenspay.com.ng/agent-academy">Agent Academy</a> --}}
-                    {{-- <a style="color:#4672c4" href="https://www.kenspay.com.ng/partners">Partner with Us</a> --}}
+                    {{-- <a style="color:#4672c4" href="agent-academy">Agent Academy</a> --}}
+                    {{-- <a style="color:#4672c4" href="partners">Partner with Us</a> --}}
                     <a style="color:#4672c4" href="terms-and-conditions">Terms and Conditions</a>
                     <a style="color:#4672c4" href="privacy-policy">Privacy Policy</a>
                 </div>
@@ -20,12 +20,12 @@
                 class="col-lg-2 col-6 mb-3 d-flex justify-content-start align-items-start flex-column">
                 <h6 style="color:#4672c4;font-weight:bold;">About</h6>
                 <div class="d-flex flex-column justify-content-center align-items-start">
-                    <a style="color:#4672c4" href="https://www.kenspay.com.ng/about">About us</a>
-                    <a style="color:#4672c4" href="https://www.kenspay.com.ng/contact">Contact us</a>
-                    <a style="color:#4672c4" href="https://www.kenspay.com.ng/help">Help</a>
-                    <a style="color:#4672c4" href="https://www.kenspay.com.ng/faqs">FAQs</a>
-                    <a style="color:#4672c4" href="https://www.kenspay.com.ng/blog" target="_blank">Blog</a>
-                    <a style="color:#4672c4" href="https://www.kenspay.com.ng/developers">Developers</a>
+                    <a style="color:#4672c4" href="about">About us</a>
+                    <a style="color:#4672c4" href="contact">Contact us</a>
+                    <a style="color:#4672c4" href="help">Help</a>
+                    <a style="color:#4672c4" href="faqs">FAQs</a>
+                    <a style="color:#4672c4" href="blog" target="_blank">Blog</a>
+                    <a style="color:#4672c4" href="developers">Developers</a>
                 </div>
             </div> --}}
 
@@ -89,7 +89,7 @@
             </div>
 
             <div class="col-12 d-flex justify-content-center align-items-center">
-                <span style="color:#D50000;font-size:12px;">© 2023
+                <span style="color:#D50000;font-size:12px;">© {{ date('Y') }}
                     kenspay.com.ng</span>
             </div>
         </div><!-- .row -->
@@ -252,6 +252,7 @@
 <script src="{{ asset('frontend1/js/jquery.pinlogin.js') }}"></script>
 <script>
     $(document).ready(function() {
+
         var oldPosTop = 0;
         var oldBarHeight = 0;
         setInterval(() => {
@@ -415,7 +416,7 @@
             }
         }
     });
-    // var arr = ["https://www.kenspay.com.ng/resources/ads/hunt.jpg","https://www.kenspay.com.ng/resources/ads/hunt1.jpg"];
+    // var arr = ["resources/ads/hunt.jpg","resources/ads/hunt1.jpg"];
     // var adCenterImageIndex = 0;
     // $(document).ready(function(e) {
     //     setInterval(function() {
@@ -426,7 +427,7 @@
     //             console.log(0);
     //         }else{
     //             adCenterImageIndex += 1;
-    //             $('.ad-center').css({"backgroundImage":'url("https://www.kenspay.com.ng/resources/ads/ad_bg.png")'});
+    //             $('.ad-center').css({"backgroundImage":'url("resources/ads/ad_bg.png")'});
     //             $('.ad-center img').attr("src",arr[1]);
     //         }
     //     },5000);
@@ -435,7 +436,7 @@
     $('#submit-rate').on('click', function(e) {
         e.preventDefault();
         $.ajax({
-            url: "https://www.kenspay.com.ng/rate-our-website",
+            url: "rate-our-website",
             method: "POST",
             data: $('#rate-form').serialize(),
             success: function(data) {
@@ -479,7 +480,7 @@
             revpanel.find('.content2').css('padding', '0');
             revpanel.find('.irs-content2.main-2').removeClass('hide');
             let iframeUrl =
-                "https://www.kenspay.com.ng/widget-irs?segment=home-page&transactionId=";
+                "widget-irs?segment=home-page&transactionId=";
             revpanel.find('.irs-content2.main-2').find('#irs-iframe').attr('src', iframeUrl);
         }
     });
@@ -500,7 +501,7 @@
             login_id: $('#login_id-input-master-' + $(self).attr('data-message-id')).val(),
             extcid: $('#extcid-input-master-' + $(self).attr('data-message-id')).val()
         }
-        let url = "https://www.kenspay.com.ng/messaging/login"
+        let url = "messaging/login"
         doAjaxServicesx(url, 'POST', data, function() {
             if (master_id == null)
                 self.text('processing...');
@@ -564,13 +565,15 @@
     });
 
     function readPlatformNotification(id) {
+
         $.ajax({
-            url: "https://www.kenspay.com.ng/platform-notification-read/" + id,
+            url: "platform-notification-read/" + id,
             method: "GET",
             success: function(data) {
                 if (data) {
                     var data = JSON.parse(data);
                     // $('#noty-holder-div').html("");
+
                     $('#notification-spinner').html(data.totalCount);
                     $('#notification-spinner').html(data.totalCount);
                     if (data.data.length > 0) {
@@ -589,7 +592,7 @@
                             html +=
                                 '<div class="d-flex justify-content-start align-items-center w-100"><span style="display:block;font-size:12px;color:#758698;letter-spacing: 0.01em;line-height: 1;padding-top: 7px;font-weight: 400;">' +
                                 element.preamble +
-                                '</span></div><a role="button" href="https://www.kenspay.com.ng/single-platform-display' +
+                                '</span></div><a role="button" href="single-platform-display' +
                                 "/" + element.id +
                                 '" class="btn noty-view-btn btn-sm align-self-end single-platform-display" style="min-width:unset;width:50px;padding:0;color:#fff;background-image:linear-gradient(#4672c4, #195B7e);cursor:pointer;">view</a></div>';
                             $('#noty-holder-div').append(html);
@@ -616,7 +619,7 @@
                         html +=
                             '<div class="d-flex justify-content-start align-items-center w-100"><span style="display:block;font-size:12px;color:#758698;letter-spacing: 0.01em;line-height: 1;padding-top: 7px;font-weight: 400;">' +
                             data.data.preamble +
-                            '</span></div><a role="button" href="https://www.kenspay.com.ng/single-platform-display' +
+                            '</span></div><a role="button" href="single-platform-display' +
                             "/" + element.id +
                             '" class="btn noty-view-btn btn-sm align-self-end single-platform-display" style="min-width:unset;width:50px;padding:0;color:#fff;background-image:linear-gradient(#4672c4, #195B7e);cursor:pointer;">view</a></div>';
                         $('#noty-holder-div').append(html);
@@ -628,7 +631,7 @@
                             }
                         }
                         $('#noty-holder-div').append(
-                            '<a href="https://www.kenspay.com.ng/display-all-platform-notification" class="btn btn-block display-all-platform-notification" style="background-image:linear-gradient(#4672c4, #195B7e);color:#fff;">View All</a>'
+                            '<a href="display-all-platform-notification" class="btn btn-block display-all-platform-notification" style="background-image:linear-gradient(#4672c4, #195B7e);color:#fff;">View All</a>'
                         );
                     } else {
                         if (data.totalCount == 0) {
@@ -645,12 +648,15 @@
     }
 
     $(document).ready(function() {
+
         setTimeout(function() {
+
             $.ajax({
-                url: "https://www.kenspay.com.ng/ajax-platform-notification",
+                url: "ajax-platform-notification",
                 method: "GET",
                 success: function(data) {
                     data = JSON.parse(data);
+
                     $('#notification-spinner').html(data.totalCount);
                     if (data.totalCount > 0) {
                         ///build notification
@@ -673,7 +679,7 @@
                                 element.preamble +
                                 '</span></div><a role="button" id="single-platform-display/' +
                                 element.id +
-                                '" href="https://www.kenspay.com.ng/single-platform-display' +
+                                '" href="single-platform-display' +
                                 "/" + element.id +
                                 '" class="btn noty-view-btn btn-sm align-self-end" style="min-width:unset;width:50px;padding:0;color:#fff;background-image:linear-gradient(#4672c4, #195B7e);cursor:pointer;">view</a></div>';
                             $('#noty-holder-div').append(html);
@@ -693,7 +699,7 @@
                         html +=
                             '<div class="d-flex justify-content-start align-items-center w-100"><span style="display:block;font-size:12px;color:#758698;letter-spacing: 0.01em;line-height: 1;padding-top: 7px;font-weight: 400;">' +
                             data.data.preamble +
-                            '</span></div><a role="button" href="https://www.kenspay.com.ng/single-platform-display' +
+                            '</span></div><a role="button" href="single-platform-display' +
                             "/" + element.id +
                             '" class="btn noty-view-btn btn-sm align-self-end single-platform-display" style="min-width:unset;width:50px;padding:0;color:#fff;background-image:linear-gradient(#4672c4, #195B7e);cursor:pointer;">view</a></div>';
                         $('#noty-holder-div').append(html);
@@ -728,7 +734,7 @@
         }, 10);
         setTimeout(function() {
             $.ajax({
-                url: "https://www.kenspay.com.ng/ajax-get-modal-display-platform-notification",
+                url: "ajax-get-modal-display-platform-notification",
                 method: "GET",
                 success: function(data) {
 
@@ -746,7 +752,7 @@
                         $('#platform-notification-modal-display').attr(
                             'data-notification-id', data.notification.id);
                         $('#single-platform-display-modal-btn').attr("href",
-                            "https://www.kenspay.com.ng/single-platform-display" + "/" +
+                            "single-platform-display" + "/" +
                             data
                             .notification.id);
                         $('#platform-notification-modal-display').modal('show');
@@ -861,7 +867,7 @@
         for (var i = 0; i < products.length; i++) {
             if (products[i]['prods'].length != 0) {
                 products[i]['prods'].map((prods) => {
-                    if (prods.url != "https://www.kenspay.com.ng/bank-deposit") {
+                    if (prods.url != "bank-deposit") {
                         $(dropdownContent).append('<a class="nav-link" href="' + prods.url +
                             '"><span class="word-span">' + prods.name +
                             '</span><span style="font-size:18px;color:#ccc;" class="fa fa-angle-right"></span></a>'
@@ -879,7 +885,7 @@
                 "name": "Contact"
             }];
             var educationLink = "education";
-            // var insuranceLink = "https://www.kenspay.com.ng/insurance";
+            // var insuranceLink = "insurance";
             $(dropdownContent).append('<a class="nav-link" href="' + educationLink +
                 '"><span class="word-span">Education Payment</span><span style="font-size:18px;color:#ccc;" class="fa fa-angle-right"></span></a>'
 

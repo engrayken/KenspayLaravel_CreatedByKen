@@ -90,7 +90,7 @@
             </div>
 
             <div class="col-12 d-flex justify-content-center align-items-center">
-                <span style="color:#D50000;font-size:12px;">© 2023
+                <span style="color:#D50000;font-size:12px;">© {{ date('Y') }}
                     kenspay.com.ng</span>
             </div>
         </div><!-- .row -->
@@ -566,7 +566,7 @@
 
     function readPlatformNotification(id) {
         $.ajax({
-            url: "https://www.kenspay.com.ng/platform-notification-read/" + id,
+            url: "user/platform-notification-read/" + id,
             method: "GET",
             success: function(data) {
                 if (data) {
@@ -590,7 +590,7 @@
                             html +=
                                 '<div class="d-flex justify-content-start align-items-center w-100"><span style="display:block;font-size:12px;color:#758698;letter-spacing: 0.01em;line-height: 1;padding-top: 7px;font-weight: 400;">' +
                                 element.preamble +
-                                '</span></div><a role="button" href="https://www.kenspay.com.ng/single-platform-display' +
+                                '</span></div><a role="button" href="single-platform-display' +
                                 "/" + element.id +
                                 '" class="btn noty-view-btn btn-sm align-self-end single-platform-display" style="min-width:unset;width:50px;padding:0;color:#fff;background-image:linear-gradient(#4672c4, #195B7e);cursor:pointer;">view</a></div>';
                             $('#noty-holder-div').append(html);
@@ -617,7 +617,7 @@
                         html +=
                             '<div class="d-flex justify-content-start align-items-center w-100"><span style="display:block;font-size:12px;color:#758698;letter-spacing: 0.01em;line-height: 1;padding-top: 7px;font-weight: 400;">' +
                             data.data.preamble +
-                            '</span></div><a role="button" href="https://www.kenspay.com.ng/single-platform-display' +
+                            '</span></div><a role="button" href="single-platform-display' +
                             "/" + element.id +
                             '" class="btn noty-view-btn btn-sm align-self-end single-platform-display" style="min-width:unset;width:50px;padding:0;color:#fff;background-image:linear-gradient(#4672c4, #195B7e);cursor:pointer;">view</a></div>';
                         $('#noty-holder-div').append(html);
@@ -629,7 +629,7 @@
                             }
                         }
                         $('#noty-holder-div').append(
-                            '<a href="https://www.kenspay.com.ng/display-all-platform-notification" class="btn btn-block display-all-platform-notification" style="background-image:linear-gradient(#4672c4, #195B7e);color:#fff;">View All</a>'
+                            '<a href="display-all-platform-notification" class="btn btn-block display-all-platform-notification" style="background-image:linear-gradient(#4672c4, #195B7e);color:#fff;">View All</a>'
                         );
                     } else {
                         if (data.totalCount == 0) {
@@ -648,7 +648,7 @@
     $(document).ready(function() {
         setTimeout(function() {
             $.ajax({
-                url: "https://www.kenspay.com.ng/ajax-platform-notification",
+                url: "user/ajax-platform-notification",
                 method: "GET",
                 success: function(data) {
                     data = JSON.parse(data);
@@ -674,7 +674,7 @@
                                 element.preamble +
                                 '</span></div><a role="button" id="single-platform-display/' +
                                 element.id +
-                                '" href="https://www.kenspay.com.ng/single-platform-display' +
+                                '" href="single-platform-display' +
                                 "/" + element.id +
                                 '" class="btn noty-view-btn btn-sm align-self-end" style="min-width:unset;width:50px;padding:0;color:#fff;background-image:linear-gradient(#4672c4, #195B7e);cursor:pointer;">view</a></div>';
                             $('#noty-holder-div').append(html);
@@ -694,7 +694,7 @@
                         html +=
                             '<div class="d-flex justify-content-start align-items-center w-100"><span style="display:block;font-size:12px;color:#758698;letter-spacing: 0.01em;line-height: 1;padding-top: 7px;font-weight: 400;">' +
                             data.data.preamble +
-                            '</span></div><a role="button" href="https://www.kenspay.com.ng/single-platform-display' +
+                            '</span></div><a role="button" href="single-platform-display' +
                             "/" + element.id +
                             '" class="btn noty-view-btn btn-sm align-self-end single-platform-display" style="min-width:unset;width:50px;padding:0;color:#fff;background-image:linear-gradient(#4672c4, #195B7e);cursor:pointer;">view</a></div>';
                         $('#noty-holder-div').append(html);
@@ -729,7 +729,7 @@
         }, 10);
         setTimeout(function() {
             $.ajax({
-                url: "https://www.kenspay.com.ng/ajax-get-modal-display-platform-notification",
+                url: "ajax-get-modal-display-platform-notification",
                 method: "GET",
                 success: function(data) {
 
@@ -747,7 +747,7 @@
                         $('#platform-notification-modal-display').attr(
                             'data-notification-id', data.notification.id);
                         $('#single-platform-display-modal-btn').attr("href",
-                            "https://www.kenspay.com.ng/single-platform-display" + "/" +
+                            "single-platform-display" + "/" +
                             data
                             .notification.id);
                         $('#platform-notification-modal-display').modal('show');
@@ -862,7 +862,7 @@
         for (var i = 0; i < products.length; i++) {
             if (products[i]['prods'].length != 0) {
                 products[i]['prods'].map((prods) => {
-                    if (prods.url != "https://www.kenspay.com.ng/bank-deposit") {
+                    if (prods.url != "bank-deposit") {
                         $(dropdownContent).append('<a class="nav-link" href="' + prods.url +
                             '"><span class="word-span">' + prods.name +
                             '</span><span style="font-size:18px;color:#ccc;" class="fa fa-angle-right"></span></a>'

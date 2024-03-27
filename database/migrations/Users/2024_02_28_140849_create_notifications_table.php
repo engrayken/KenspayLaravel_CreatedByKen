@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('userId');
             $table->string('subject')->nullable();
+            $table->string('options')->nullable();
             $table->mediumText('text')->nullable();
             $table->string('status')->default(0);
             $table->foreign('userId')

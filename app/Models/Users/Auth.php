@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Models\Product;
+namespace App\Models\Users;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Auth extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'catId';
     protected $fillable = [
-    "catName",
-    "catTitle",
+        "code",
+        "phone",
+        "email"
     ];
-
 }

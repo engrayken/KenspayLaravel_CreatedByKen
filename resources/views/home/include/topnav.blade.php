@@ -2,14 +2,14 @@
 
     <div class="topbar is-sticky" style="padding-left:0px;padding-right:0px;">
 
-                    {{-- <div class="text-center bg-white pt-1" id="switchBar" style="height:48px;width:100%;overflow:hidden;"> --}}
-            {{-- <a href="https://www.kenspay.com.ng/blog/index.php/2023/10/18/ikedc-sts-prepaid-meter-upgrade/" target="_blank">
+        {{-- <div class="text-center bg-white pt-1" id="switchBar" style="height:48px;width:100%;overflow:hidden;"> --}}
+        {{-- <a href="blog/index.php/2023/10/18/ikedc-sts-prepaid-meter-upgrade/" target="_blank">
                 <h2 class="pt-2" id="rate" style="cursor:pointer">
                     <img src="{{ asset('frontend1/images/new-tag.png') }}" height="28"> UPGRADE YOUR IKEDC STS PREPAID METER WITH THESE FEW STEPS.
                 </h2>
             </a> --}}
-            <!-- <a href="https://kenspay.com.ng">
-                    <img src="https://www.kenspay.com.ng/resources/frontend3/images/switch1.png" class="img-fluid" id="switchIMG">
+        <!-- <a href="https://kenspay.com.ng">
+                    <img src="resources/frontend3/images/switch1.png" class="img-fluid" id="switchIMG">
                 </a>
                 <small style="display:block;" id="vt-count-down"></small> -->
 
@@ -17,7 +17,7 @@
 
 
 
-            <!-- <h2 data-toggle="modal" data-target="#website-rating" class="pt-2" id="rate" style="cursor:pointer;display:block">
+        <!-- <h2 data-toggle="modal" data-target="#website-rating" class="pt-2" id="rate" style="cursor:pointer;display:block">
                     <img src="{{ asset('frontend1/images/star.png') }}" height="28">
                     <span style="top:4px">We just launched the kenspay Messaging Service (Bulk SMS). Click here to Start!</span>
                 </h2>
@@ -44,15 +44,14 @@
                         </li><!-- .topbar-nav-item -->
                     </ul><!-- .topbar-nav -->
                     <a class="topbar-logo" href="">
-                                                                                    <img src="{{ asset('frontend1/images/logo-white.png') }}"
-                                srcset="{{ asset('frontend1/images/logo-white.png') }} 2x"
-                                alt="logo">
-                                                </a>
+                        <img src="{{ asset('frontend1/images/logo-white.png') }}"
+                            srcset="{{ asset('frontend1/images/logo-white.png') }} 2x" alt="logo">
+                    </a>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
-                                            <ul class="topbar-nav">
-                        
-                                {{-- <li class="topbar-nav-item relative d-lg-block d-none">
+                    <ul class="topbar-nav">
+
+                        {{-- <li class="topbar-nav-item relative d-lg-block d-none">
                                 <style type="text/css">
                                     #switcherX.user-dropdown.modified:after {
                                         border-bottom-color: #1a5171;
@@ -75,7 +74,7 @@
                                 <img class="blink"
                                     src="{{ asset('frontend1/images/lost-your-token.png') }}"
                                     height="24px" style="position:relative;">
-                                <a href="https://www.kenspay.com.ng/find-my-token" style="color: #fff;"><span
+                                <a href="find-my-token" style="color: #fff;"><span
                                         class="user-welcome d-none d-lg-inline-block">Find my token</span></a>
 
                                 <img src="{{ asset('frontend1/images/new-tag.png') }}" height="30px" style="position:relative;">
@@ -99,9 +98,9 @@
                                     </ul>
                                 </div>
                             </li> --}}
-                                                    {{-- <li class="topbar-nav-item relative d-lg-none d-block"
+                        {{-- <li class="topbar-nav-item relative d-lg-none d-block"
                             style="cursor: pointer;margin:0 0;">
-                            <a style="color:#fff;" href="https://www.kenspay.com.ng/find-my-token"
+                            <a style="color:#fff;" href="find-my-token"
                                 class="d-flex justify-content-center align-items-center">
                                 <img class="blink"
                                     src="{{ asset('frontend1/images/lost-your-token.png') }}"
@@ -116,7 +115,7 @@
                             </a>
                         </li> --}}
                         <li class="topbar-nav-item relative" id="notification-button" style="cursor: pointer;">
-                                                            <span id="notification-badge">
+                            <span id="notification-badge">
                                 <a style="color:#fff;cursor: pointer;"><i class="fas fa-bell"
                                         style="cursor: pointer;"></i></a>
                                 <span class="badge rounded-circle" id="notification-counter"
@@ -135,7 +134,7 @@
                                     </div>
                                     <div class="col-12" id="noty-holder-div"></div>
                                     <div class="col-12">
-                                        <a href="https://www.kenspay.com.ng/display-all-platform-notification"
+                                        <a href="display-all-platform-notification"
                                             class="btn btn-block display-all-platform-notification"
                                             style="background-image:linear-gradient(#4672c4, #195B7e);color:#fff;">View
                                             All</a>
@@ -143,37 +142,34 @@
                                 </div>
                             </div>
                         </li>
-                                                        <li class="topbar-nav-item relative d-lg-none d-block" id="authentication-button"
-                                style="cursor: pointer;">
-                                <a style="color:#fff;cursor: pointer;font-size:24px;"><i
-                                        class="fas fa-user-circle" style="cursor: pointer;"></i></a>
-                                <div id="authentication-holder">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <ul>
-                                                <li class="authentication-holder-link"
-                                                    href="register">
-                                                    <a class="authentication-holder-link"
-                                                        style="line-height: 1.1;margin:0 0;color:#333;"
-                                                        href="register">Sign Up</a>
-                                                </li>
-                                                <li class="authentication-holder-link"
-                                                    href="login">
-                                                    <a class="authentication-holder-link"
-                                                        style="line-height: 1.1;margin:0 0;color:#333;"
-                                                        href="login">Login</a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                        <li class="topbar-nav-item relative d-lg-none d-block" id="authentication-button"
+                            style="cursor: pointer;">
+                            <a style="color:#fff;cursor: pointer;font-size:24px;"><i class="fas fa-user-circle"
+                                    style="cursor: pointer;"></i></a>
+                            <div id="authentication-holder">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <ul>
+                                            <li class="authentication-holder-link" href="register">
+                                                <a class="authentication-holder-link"
+                                                    style="line-height: 1.1;margin:0 0;color:#333;" href="register">Sign
+                                                    Up</a>
+                                            </li>
+                                            <li class="authentication-holder-link" href="login">
+                                                <a class="authentication-holder-link"
+                                                    style="line-height: 1.1;margin:0 0;color:#333;"
+                                                    href="login">Login</a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
-                            </li>
-                            <li class="topbar-nav-item relative d-lg-block d-none"><a style="color:#fff;"
-                                    style="line-height: 1.1;margin:0 0;"
-                                    href="register">Sign Up</a></li>
-                            <li class="topbar-nav-item relative d-lg-block d-none"><a style="color:#fff;"
-                                    href="login">Login</a></li>
-                                                                            </ul><!-- .topbar-nav -->
+                            </div>
+                        </li>
+                        <li class="topbar-nav-item relative d-lg-block d-none"><a style="color:#fff;"
+                                style="line-height: 1.1;margin:0 0;" href="register">Sign Up</a></li>
+                        <li class="topbar-nav-item relative d-lg-block d-none"><a style="color:#fff;"
+                                href="login">Login</a></li>
+                    </ul><!-- .topbar-nav -->
                 </div>
             </div>
         </div><!-- .container -->
@@ -213,80 +209,74 @@
                         </div>
                     </li> --}}
 
-                                        </ul>
+                </ul>
             </div>
         </div>
     </div>
-                <div class="navbar" id="second-bar">
-            <div class="container">
-                <div class="navbar-innr">
-                    <ul class="navbar-menu" id="start-menu-link">
-                        <li>
-                            <div class="mobile-menu-side-by-side-list">
-                                <div category="1" class="mobile-menu-item mobile-menu-item-50">
-                                    <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                        class="" href="{{ route('pins') }}">
-                                        <div
-                                            style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                            <i style="font-size:20px;" class="fas fa-print"></i>
-                                        </div>
-                                        Print Recharge Card
-                                    </a>
-                                </div>
+    <div class="navbar" id="second-bar">
+        <div class="container">
+            <div class="navbar-innr">
+                <ul class="navbar-menu" id="start-menu-link">
+                    <li>
+                        <div class="mobile-menu-side-by-side-list">
+                            <div category="1" class="mobile-menu-item mobile-menu-item-50">
+                                <a style="font-size:14px;line-height:20px;color:#fff !important;" class=""
+                                    href="{{ route('pins') }}">
+                                    <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                        <i style="font-size:20px;" class="fas fa-print"></i>
+                                    </div>
+                                    Print Recharge Card
+                                </a>
+                            </div>
 
-                                <div category="1" class="mobile-menu-item mobile-menu-item-50">
+                            <div category="1" class="mobile-menu-item mobile-menu-item-50">
+                                <a style="font-size:14px;line-height:20px;color:#fff !important;" class=""
+                                    href="{{ route('airtimes') }}">
+                                    <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                        <i style="font-size:20px;" class="fas fa-mobile-alt"></i>
+                                    </div>
+                                    Buy phone airtime
+                                </a>
+                            </div>
+                            <div category="3" class="mobile-menu-item mobile-menu-item-50">
+                                <a style="font-size:14px;line-height:20px;color:#fff !important;" class=""
+                                    href="{{ route('datas') }}">
+                                    <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                        <i style="font-size:20px;" class="fas fa-wifi"></i>
+                                    </div>
+                                    Buy internet data
+                                </a>
+                            </div>
+                            <div category="6" class="mobile-menu-item mobile-menu-item-50">
+                                <a style="font-size:14px;line-height:20px;line-height:20px;color:#fff !important;"
+                                    class="" href="{{ route('tvs') }}">
+                                    <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                        <i style="color:#b0e2fb;font-size:20px;" class="fas fa-tv"></i>
+                                    </div>
+                                    Pay TV subscription
+                                </a>
+                            </div>
+                            <div category="7" class="mobile-menu-item mobile-menu-item-50">
+                                <a style="font-size:14px;line-height:20px;color:#fff !important;" class=""
+                                    href="{{ route('electricitys') }}">
+                                    <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                        <i style="font-size:20px;" class="far fa-lightbulb"></i>
+                                    </div>
+                                    Pay electricity bill
+                                </a>
+                            </div>
+                            <div category="7" class="mobile-menu-item mobile-menu-item-50">
+                                <a style="font-size:14px;line-height:20px;color:#fff !important;" class=""
+                                    href="{{ route('educations') }}">
+                                    <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                        <i style="font-size:20px;" class="fas fa-book-open"></i>
+                                    </div>
+                                    Education Payment
+                                </a>
+                            </div>
+                            {{-- <div category="7" class="mobile-menu-item mobile-menu-item-50">
                                     <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                        class="" href="{{ route('airtimes') }}">
-                                        <div
-                                            style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                            <i style="font-size:20px;" class="fas fa-mobile-alt"></i>
-                                        </div>
-                                        Buy phone airtime
-                                    </a>
-                                </div>
-                                <div category="3" class="mobile-menu-item mobile-menu-item-50">
-                                    <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                        class="" href="{{ route('datas') }}">
-                                        <div
-                                            style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                            <i style="font-size:20px;" class="fas fa-wifi"></i>
-                                        </div>
-                                        Buy internet data
-                                    </a>
-                                </div>
-                                <div category="6" class="mobile-menu-item mobile-menu-item-50">
-                                    <a style="font-size:14px;line-height:20px;line-height:20px;color:#fff !important;"
-                                        class="" href="{{ route('tvs') }}">
-                                        <div
-                                            style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                            <i style="color:#b0e2fb;font-size:20px;" class="fas fa-tv"></i>
-                                        </div>
-                                        Pay TV subscription
-                                    </a>
-                                </div>
-                                <div category="7" class="mobile-menu-item mobile-menu-item-50">
-                                    <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                        class="" href="{{ route('electricitys') }}">
-                                        <div
-                                            style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                            <i style="font-size:20px;" class="far fa-lightbulb"></i>
-                                        </div>
-                                        Pay electricity bill
-                                    </a>
-                                </div>
-                                <div category="7" class="mobile-menu-item mobile-menu-item-50">
-                                    <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                        class="" href="{{ route('educations') }}">
-                                        <div
-                                            style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                            <i style="font-size:20px;" class="fas fa-book-open"></i>
-                                        </div>
-                                        Education Payment
-                                    </a>
-                                </div>
-                                {{-- <div category="7" class="mobile-menu-item mobile-menu-item-50">
-                                    <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                        class="" href="https://www.kenspay.com.ng/insurance">
+                                        class="" href="insurance">
                                         <div
                                             style="width:30px;display:flex;justify-content:center;align-items:center;">
                                             <i style="font-size:20px;" class="fab fa-accessible-icon"></i>
@@ -294,29 +284,34 @@
                                         Buy Insurance
                                     </a>
                                 </div> --}}
-                                                                </div>
-                        </li>
-                        <li style="border-top: 1px solid #fff;" category="more"
-                            class="has-dropdown mobile-menu-item">
-                            <a style="font-size:14px;line-height:20px;color:#fff !important;" class="drop-toggle"
-                                href="#">
-                                <div style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                    <i style="font-size:20px;" class="fas fa-ellipsis-v"></i>
-                                </div>
-                                More
-                            </a>
-                            <ul id="more-list" class="navbar-dropdown navbar-dropdown-mobile">
-                                <script>
-                                    var constrLinkArr = [{"link":"partners","name":"Partner with us"},{"link":"contact","name":"Contact"}];
-                                    constrLinkArr.map((lik) => {
-                                        $('#more-list').append('<li><a href="' + lik.link + '">' + lik.name + '</a></li>');
-                                    });
-                                </script>
-                            </ul>
-                        </li>
-                        {{-- <li class="semi-mobile-menu-item">
+                        </div>
+                    </li>
+                    <li style="border-top: 1px solid #fff;" category="more" class="has-dropdown mobile-menu-item">
+                        <a style="font-size:14px;line-height:20px;color:#fff !important;" class="drop-toggle"
+                            href="#">
+                            <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                <i style="font-size:20px;" class="fas fa-ellipsis-v"></i>
+                            </div>
+                            More
+                        </a>
+                        <ul id="more-list" class="navbar-dropdown navbar-dropdown-mobile">
+                            <script>
+                                var constrLinkArr = [{
+                                    "link": "partners",
+                                    "name": "Partner with us"
+                                }, {
+                                    "link": "contact",
+                                    "name": "Contact"
+                                }];
+                                constrLinkArr.map((lik) => {
+                                    $('#more-list').append('<li><a href="' + lik.link + '">' + lik.name + '</a></li>');
+                                });
+                            </script>
+                        </ul>
+                    </li>
+                    {{-- <li class="semi-mobile-menu-item">
                             <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                href="https://www.kenspay.com.ng/payment">
+                                href="payment">
                                 <div style="width:30px;display:flex;justify-content:center;align-items:center;">
                                     <i class="fas fa-money-bill" style="font-size:20px;"></i>
                                 </div>
@@ -325,32 +320,30 @@
                         </li>
                         <li class="semi-mobile-menu-item">
                             <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                href="https://www.kenspay.com.ng/agent">
+                                href="agent">
                                 <div style="width:30px;display:flex;justify-content:center;align-items:center;">
                                     <i class="fas fa-user" style="font-size:20px;"></i>
                                 </div>
                                 Become an Agent
                             </a>
                         </li> --}}
-                        <li class="semi-mobile-menu-item">
-                            <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                href="partners">
-                                <div style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                    <i class="fas fa-money-check-alt" style="font-size:20px;"></i>
-                                </div>
-                                Start Earning
-                            </a>
-                        </li>
-                        <li class="semi-mobile-menu-item">
-                            <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                href="help">
-                                <div style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                    <i class="fas fa-info-circle" style="font-size:20px;"></i>
-                                </div>
-                                Help/Support
-                            </a>
-                        </li>
-                        {{-- <li class="has-dropdown page-links-all semi-mobile-menu-item">
+                    <li class="semi-mobile-menu-item">
+                        <a style="font-size:14px;line-height:20px;color:#fff !important;" href="partners">
+                            <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                <i class="fas fa-money-check-alt" style="font-size:20px;"></i>
+                            </div>
+                            Start Earning
+                        </a>
+                    </li>
+                    <li class="semi-mobile-menu-item">
+                        <a style="font-size:14px;line-height:20px;color:#fff !important;" href="help">
+                            <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                <i class="fas fa-info-circle" style="font-size:20px;"></i>
+                            </div>
+                            Help/Support
+                        </a>
+                    </li>
+                    {{-- <li class="has-dropdown page-links-all semi-mobile-menu-item">
                             <a style="font-size:14px;line-height:20px;color:#fff !important;" class="drop-toggle">
                                 <div style="width:30px;display:flex;justify-content:center;align-items:center;">
                                     <i class="fas fa-toolbox" style="font-size:20px;"></i>
@@ -358,46 +351,46 @@
                                 Quick Tools
                             </a>
                             <ul class="navbar-dropdown navbar-dropdown-mobile">
-                                <li><a href="https://www.kenspay.com.ng/generate-kct">Generate KCT</a></li>
-                                <li><a href="https://www.kenspay.com.ng/find-my-transaction">Find My Transaction</a></li>
-                                <li><a href="https://www.kenspay.com.ng/all-tickets">Support Tickets</a></li>
-                                <li><a href="https://www.kenspay.com.ng/jamb-centers">Jamb Centers</a></li>
+                                <li><a href="generate-kct">Generate KCT</a></li>
+                                <li><a href="find-my-transaction">Find My Transaction</a></li>
+                                <li><a href="all-tickets">Support Tickets</a></li>
+                                <li><a href="jamb-centers">Jamb Centers</a></li>
 
                             </ul>
                         </li> --}}
-                        {{-- <li class="desktop-menu-item">
-                            <a href="https://www.kenspay.com.ng/payment">
+                    {{-- <li class="desktop-menu-item">
+                            <a href="payment">
                                 <i class="fas fa-money-bill"></i>
                                 Make Payment
                             </a>
                         </li>
                         <li class="desktop-menu-item">
-                            <a href="https://www.kenspay.com.ng/agent">
+                            <a href="agent">
                                 <i class="fas fa-user"></i>
                                 Become an Agent
                             </a>
                         </li> --}}
-                        <li class="desktop-menu-item">
-                            <a href="partners">
-                                <i class="fas fa-money-check-alt"></i>
-                                Start Earning
-                            </a>
-                        </li>
-                        {{-- <li class="has-dropdown page-links-all desktop-menu-item">
+                    <li class="desktop-menu-item">
+                        <a href="partners">
+                            <i class="fas fa-money-check-alt"></i>
+                            Start Earning
+                        </a>
+                    </li>
+                    {{-- <li class="has-dropdown page-links-all desktop-menu-item">
                             <a class="drop-toggle">
                                 <i class="fas fa-toolbox"></i>
                                 Quick Tools
                             </a>
                             <ul class="navbar-dropdown">
-                                <li><a href="https://www.kenspay.com.ng/generate-kct">Generate KCT</a></li>
-                                <li><a href="https://www.kenspay.com.ng/find-my-transaction">Find My Transaction</a></li>
-                                <li><a href="https://www.kenspay.com.ng/all-tickets">Support Tickets</a></li>
-                                <li><a href="https://www.kenspay.com.ng/jamb-centers">Jamb Centers</a></li>
+                                <li><a href="generate-kct">Generate KCT</a></li>
+                                <li><a href="find-my-transaction">Find My Transaction</a></li>
+                                <li><a href="all-tickets">Support Tickets</a></li>
+                                <li><a href="jamb-centers">Jamb Centers</a></li>
 
                             </ul>
                         </li> --}}
-                    </ul>
-                </div><!-- .navbar-innr -->
-            </div><!-- .container -->
-        </div><!-- .navbar -->
-        </div><!-- .topbar-wrap -->
+                </ul>
+            </div><!-- .navbar-innr -->
+        </div><!-- .container -->
+    </div><!-- .navbar -->
+</div><!-- .topbar-wrap -->

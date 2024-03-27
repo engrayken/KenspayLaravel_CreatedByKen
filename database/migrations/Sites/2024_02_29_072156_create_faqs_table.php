@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cpages', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('type');
-            $table->longText('message');
-            $table->integer('status')->default(0);
+        Schema::create('faqs', function (Blueprint $table) {
+            $table->id();
+            $table->mediumText('question')->nullable();
+            $table->mediumText('answer')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cpages');
+        Schema::dropIfExists('faqs');
     }
 };

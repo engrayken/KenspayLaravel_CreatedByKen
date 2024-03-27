@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\User\UserController;
 use App\Http\Controllers\User\Product\ProductController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\Website\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,5 +46,9 @@ use App\Http\Controllers\MailController;
     Route::post('/transactionv', [UserController::class,'transactionv'])->name('transactionv');
     Route::get('/transaction_view/{id}', [UserController::class,'transactionview'])->where(['id' => '[0-9a-zA-Z]+'])->name('transaction_view');
     Route::post('/download', [UserController::class,'print'])->name('print');
+    Route::get('/ajax-platform-notification', [NotificationController::class,'LogedajaxPlatformNotification']);
+    Route::get('/platform-notification-read/{id}', [NotificationController::class,'platformNotificationRead']);
+Route::get('/display-all-platform-notification', [NotificationController::class,'allplatformNotificationRead']);
+
     // Route::get('/AccountVerify', [MailController::class,'verify'])->name('verify');
 });

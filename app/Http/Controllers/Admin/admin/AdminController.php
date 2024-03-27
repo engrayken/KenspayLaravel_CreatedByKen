@@ -9,12 +9,21 @@ use App\Http\Requests\Admin\User\ProfileRequest;
 use App\Interfaces\Admin\IAdminRepository;
 use App\Mail\PHPMailler;
 use App\Models\Admin\Admin;
+use App\Models\Admin\Faq;
+use App\Models\Product\Category;
+use App\Models\Product\Product;
+use App\Models\Product\SubProduct;
+use App\Models\Site\Api;
+use App\Models\Site\Cpage;
 use App\Models\Site\Epin;
+use App\Models\Site\EpinLimit;
 use App\Models\Users\Reply_ticket;
 use App\Models\Site\Setting;
+use App\Models\Users\Auth;
 use App\Models\Users\Notification;
 use App\Models\Users\PUser;
 use App\Models\Users\Ticket;
+use App\Models\Users\Transaction;
 use App\Models\Users\User;
 use Illuminate\Http\Request;
 
@@ -305,6 +314,7 @@ $makeway = view('mail.user', compact('subject','message'));
         public function pnotification(Request $request)
     {
         $request->validate([
+            "option"=>"required",
             "subject"=>"required",
             "comment"=>"required"
         ]);
@@ -312,6 +322,8 @@ $makeway = view('mail.user', compact('subject','message'));
         $admin = Admin::findorFail($id);
         $setting = Setting::findOrfail(SiteEnums::$settings);
         $user = User::all();
+        if($request->option!='public')
+        {
         foreach($user as $user)
         {
           $sent =  Notification::create([
@@ -320,6 +332,16 @@ $makeway = view('mail.user', compact('subject','message'));
                 "text"=>$request->comment,
             ]);
         }
+    } else {
+                foreach($user as $user)
+        {  $sent =  Notification::create([
+                "userId"=>$user->id,
+                "options"=>$request->option,
+                "subject"=>$request->subject,
+                "text"=>$request->comment,
+            ]);
+        }
+    }
         if(!$sent)
         return back()->with('failed','Notification not sent');
         return back()->with('success','Notification sent successfull');
@@ -338,7 +360,7 @@ $makeway = view('mail.user', compact('subject','message'));
 
     public function settings()
     {
-        $title = 'Dashboard';
+        $title = 'Site Settings';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
         $setting = Setting::findOrfail(SiteEnums::$settings);
@@ -386,70 +408,624 @@ $makeway = view('mail.user', compact('subject','message'));
 
         public function faq()
     {
-        $title = 'Dashboard';
+        $title = 'Forther enquiries';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
         $setting = Setting::findOrfail(SiteEnums::$settings);
+        $faq = Faq::all();
 
-        return view('admin.dashboard', compact('title','admin','setting'));
+        return view('admin.faq', compact('faq','title','admin','setting'));
 
     }
 
-        public function page()
+
+        public function checkfaq(Faq $faq)
     {
-        $title = 'Dashboard';
+        $title = 'Forther enquiries';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
         $setting = Setting::findOrfail(SiteEnums::$settings);
 
-        return view('admin.dashboard', compact('title','admin','setting'));
+        return view('admin.check_faq', compact('faq','title','admin','setting'));
 
+    }
+
+           public function cfaq()
+    {
+        $title = 'Forther enquiries';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+
+        return view('admin.add_faq', compact('title','admin','setting'));
+
+    }
+        public function addfaq(Request $request)
+    {
+        $request->validate(["question"=>"required",
+        "answer"=>"required"]);
+        $title = 'Forther enquiries';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+          $update = Faq::create(["question"=>$request->question,"answer"=>$request->answer]);
+            if(!$update)
+        return back()->with('failed','Faq failed to add');
+        return back()->with('success','Faq added successfull');
+    }
+
+        public function editedfaq(Request $request,Faq $faq)
+    {
+        $request->validate(["question"=>"required",
+        "answer"=>"required"]);
+
+        $title = 'Forther enquiries';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $update =  $faq->update(["question"=>$request->question,"answer"=>$request->answer]);
+      if(!$update)
+        return back()->with('failed','Faq failed to update');
+        return back()->with('success','Faq updated successfull');
+    }
+        public function deletedfaq(Faq $faq)
+    {
+        $title = 'Forther enquiries';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $deleted =  $faq->delete($faq);
+        return back()->with('success','Faq deleted successfull');
+    }
+
+
+        public function page()
+    {
+        $title = 'Web Page';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $df = Cpage::all();
+        return view('admin.web_pages', compact('title','admin','setting','df'));
+
+    }
+
+
+        public function vadd_page()
+    {
+        $title = 'Web Page';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        return view('admin.create_page', compact('title','admin','setting'));
+
+    }
+
+      public function add_page(Request $request)
+    {
+        $request->validate(["type"=>"required","message"=>"required"]);
+
+        $title = 'Web Page';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $update = Cpage::create(["type"=>$request->type,"message"=>$request->message,"status"=>0]);
+      if(!$update)
+        return back()->with('failed','Faq failed to create');
+        return back()->with('success','Faq Created successfull');
+
+    }
+
+        public function editepage(Cpage $page)
+    {
+        // return $page;
+        $title = 'Web Page';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        return view('admin.edit_page', compact('title','admin','setting','page'));
+
+    }
+
+    public function edit_page(Request $request, Cpage $page)
+    {
+        // return $page;
+        $title = 'Web Page';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $update = $page->update(["type"=>$request->type,"message"=>$request->message]);
+      if(!$update)
+        return back()->with('failed','Faq failed to update');
+        return back()->with('success','Faq updated successfull');
+
+    }
+
+       public function page_status(Cpage $page, $status)
+    {
+        // return $page;
+        $title = 'Web Page';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $update = $page->update(["status"=>$status]);
+      if(!$update)
+        return back()->with('failed','Faq failed to update');
+        return back()->with('success','Faq updated successfull');
+
+    }
+
+
+        public function delete_page(Cpage $page)
+    {
+        // return $page;
+        $title = 'Web Page';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $update = $page->delete($page);
+        return back()->with('success','Faq deleted successfull');
     }
 
         public function auth()
     {
-        $title = 'Dashboard';
+        $title = 'Create Authorization Code';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
         $setting = Setting::findOrfail(SiteEnums::$settings);
+        $code = Auth::all();
 
-        return view('admin.dashboard', compact('title','admin','setting'));
+        return view('admin.auth', compact('title','admin','setting','code'));
 
     }
-
-        public function product()
+        public function pauth(Request $request)
     {
-        $title = 'Dashboard';
+        $request->validate(["email"=>"required|unique:users,email","phone"=>"required|unique:users,phone","prefix"=>"required"]);
+
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
         $setting = Setting::findOrfail(SiteEnums::$settings);
-
-        return view('admin.dashboard', compact('title','admin','setting'));
+        $inserted = Auth::create(["code"=>$request->prefix.time(),"email"=>$request->email,"phone"=>$request->phone]);
+       if(!$inserted)
+        return back()->with('failed','Faq failed to create authorization Code');
+        return back()->with('success','authorization code has been created successful');
 
     }
+
+        public function dauth(Auth $delete)
+    {
+        $delete->delete($delete);
+        return back()->with('success','authorization code has been deleted successful');
+
+    }
+        public function category()
+    {
+        $title = 'Product Category';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $cat = Category::orderBy('created_at','desc')->get();
+        $cate='';
+        return view('admin.category', compact('title','admin','setting','cat','cate'));
+
+    }
+
+        public function pcategory(Request $request)
+    {
+        $request->validate(["category_name"=>"required|unique:categories,catName","category_title"=>"required"]);
+
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $inserted = Category::create(["catName"=>$request->category_name,"catTitle"=>$request->category_title]);
+       if(!$inserted)
+        return back()->with('failed','Faq failed to create authorization Code');
+        return back()->with('success','category has been created successful');
+
+    }
+
+        public function epcategory(Request $request, Category $edited)
+    {
+        $request->validate(["category_name"=>"required","category_title"=>"required"]);
+
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $inserted = $edited->update(["catName"=>$request->category_name,"catTitle"=>$request->category_title]);
+       if(!$inserted)
+        return back()->with('failed','category couldnt be updated');
+        return back()->with('success','category has been edited successful');
+
+    }
+    public function ecategory(Category $edited)
+    {
+        $title = 'Product Category';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $cate = $edited;
+        $cat = Category::OrderBy('created_at','desc')->get();
+
+        return view('admin.category', compact('title','admin','setting','cat','cate'));
+
+    }
+        public function dcategory(Category $delete)
+    {
+        $delete->delete($delete);
+        return back()->with('success','category has been deleted successful');
+
+    }
+
+            public function product(Category $product)
+    {
+        $title = 'Product';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $products =$product;
+        $product = Product::where(['prodCat_id'=>$product->catId,'prodCat_name'=>$product->catName])->get();
+      $prodCatid = Product::where(['prodCat_id'=>$products->catId,'prodCat_name'=>$products->catName])->first();
+        $prod ='';
+        return view('admin.product', compact('title','admin','setting','product','prod','prodCatid'));
+
+    }
+
+        public function pproduct(Request $request, $catid, $catname)
+    {
+        $request->validate(["product_name"=>"required","product_title"=>"required","product_slogan"=>"required"]);
+
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $inserted = Product::create(["prodName"=>$request->product_name,"prodTitle"=>$request->product_title,"prodSlonga"=>$request->product_slogan,"prodCat_id"=>$catid,"prodCat_name"=>$catname,]);
+       if(!$inserted)
+        return back()->with('failed','Faq failed to create authorization Code');
+        return back()->with('success','product has been created successful');
+
+    }
+
+                public function eproduct(Category $product,Product $prod)
+    {
+        $title = 'Product';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $products =$product;
+        $product = Product::where(['prodCat_id'=>$product->catId,'prodCat_name'=>$product->catName])->get();
+      $prodCatid = Product::where(['prodCat_id'=>$products->catId,'prodCat_name'=>$products->catName])->first();
+        return view('admin.product', compact('title','admin','setting','product','prod','prodCatid'));
+
+    }
+
+
+        public function epproduct(Request $request, Product $edited)
+    {
+        // $request->validate(["category_name"=>"required","category_title"=>"required"]);
+        $request->validate(["product_name"=>"required","product_title"=>"required","product_slogan"=>"required"]);
+
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $inserted = $edited->update(["prodName"=>$request->product_name,"prodTitle"=>$request->product_title,"prodSlogan"=>$request->product_slogan]);
+       if(!$inserted)
+        return back()->with('failed','product couldnt be updated');
+        return back()->with('success','product has been edited successful');
+
+    }
+        public function dproduct(Product $delete)
+    {
+        $delete->delete($delete);
+        return back()->with('success','product has been deleted successful');
+
+    }
+
+
+            public function subproduct(Product $product)
+    {
+        $title = 'Sub Product';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+         $productid =$product;
+        $subproduct = SubProduct::where(['subProdMain_id'=>$product->prodId])->get();
+        $prod ='';
+        return view('admin.sub_product', compact('title','admin','setting','subproduct','prod','productid'));
+
+    }
+
+                public function esubproduct(Product $product,SubProduct $prod)
+    {
+        $title = 'Product';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $products =$product;
+         $subproduct = SubProduct::where(['subProdMain_id'=>$products->prodId])->get();
+        //  $product = Product::where(['prodCat_id'=>$product->catId,'prodCat_name'=>$product->catName])->get();
+        return view('admin.sub_product', compact('title','admin','setting','subproduct','prod'));
+
+    }
+
+            public function epsubproduct(Request $request, SubProduct $edited)
+    {
+        // $request->validate(["category_name"=>"required","category_title"=>"required"]);
+        $request->validate(["product_title"=>"required","product_amount"=>"required","product_variation"=>"required"]);
+
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $inserted = $edited->update(["subProdTitle"=>$request->product_title,"subProdAmount"=>$request->product_amount,"subProdAmount_variation"=>$request->product_variation]);
+       if(!$inserted)
+        return back()->with('failed','sub product couldnt be updated');
+        return back()->with('success','sub product has been edited successful');
+
+    }
+
+
+        public function psubproduct(Request $request,Product $product,category $category)
+    {
+        $request->validate(["product_title"=>"required","product_amount"=>"required","product_variation"=>"required"]);
+
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $inserted = SubProduct::create(["subProdTitle"=>$request->product_title,"subProdAmount"=>$request->product_amount,"subProdAmount_variation"=>$request->product_variation,"subProdMain_id"=>$product->prodId,"subProdMain_name"=>$product->prodName,"subProdMainCat_id"=>$category->catId,"subProdMainCat_name"=>$category->catName,]);
+       if(!$inserted)
+        return back()->with('failed',' failed to create sub product');
+        return back()->with('success','sub product has been created successful');
+
+    }
+
+
+
+        public function dsubproduct(SubProduct $delete)
+    {
+        $delete->delete($delete);
+        return back()->with('success','product has been deleted successful');
+
+    }
+
 
         public function add_pins()
     {
-        $title = 'Dashboard';
+        $title = 'Add Pins';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
         $setting = Setting::findOrfail(SiteEnums::$settings);
-
-        return view('admin.dashboard', compact('title','admin','setting'));
+        $pins = Epin::all();
+        return view('admin.add_pins', compact('title','admin','setting','pins'));
 
     }
 
-        public function transaction()
+        public function padd_pins(Request $request)
     {
-        $title = 'Dashboard';
+        $request->validate([
+            "net"=>"required",
+            "deno"=>"required",
+            "bundle"=>"required",
+        ]);
+
+        $title = 'Add Pins';
         $id = session()->get('adminid');
         $admin = Admin::findorFail($id);
         $setting = Setting::findOrfail(SiteEnums::$settings);
 
-        return view('admin.dashboard', compact('title','admin','setting'));
+       $exp = explode('
+        ', $request->bundle);
+
+// Splitting the string into lines
+$lines = explode("\r\n", $exp[0]);
+        $pinAlp = SiteEnums::$pinAlp;
+        $pinNum = SiteEnums::$pinNum;
+// Loop through each line
+foreach ($lines as $line) {
+    // Explode each line by comma
+    $xexp = explode(',', $line);
+
+    // Generate the description
+    $dial = '*311*' . str_replace($pinNum,$pinAlp,$xexp[1]) . '#';
+
+    // Prepare the data for insertion
+    $pins = [
+        "net" => $request->net,
+        "deno" => $request->deno,
+        "seria" => $xexp[0],
+        "pin" => str_replace($pinNum,$pinAlp,$xexp[1]),
+        "descr" => $dial
+    ];
+
+    // Insert the record into the database
+    Epin::create($pins);
+}
+
+       return back()->with('success',$request->net.' Pin has been Added successful');
 
     }
 
+            public function dadd_pins(Epin $delete)
+    {
+        $delete->delete($delete);
+        return back()->with('success','Pin has been deleted successful');
+
+
+    }
+
+    public function transaction()
+    {
+        $title = 'Transaction History';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $trans = Transaction::orderBy('id', 'desc')->get();
+
+        return view('admin.transaction', compact('title','admin','setting','trans'));
+
+    }
+
+
+        public function api()
+    {
+        $title = 'Api Setup';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $api = Api::orderBy('id', 'desc')->get();
+        $apiE ='';
+
+        return view('admin.api', compact('title','admin','setting','api','apiE'));
+
+    }
+
+
+    public function apiP(Request $request)
+    {
+        $request->validate([
+            "type"=>"required",
+            "name"=>"required",
+            "url"=>"required",
+            "username"=>"required",
+        ]);
+
+        $title = 'Api Setup';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+         $apip = Api::create([
+            "type"=>$request->type,
+            "name"=>$request->name,
+            "url"=>$request->url,
+            "username"=>$request->username]);
+          if(!$apip)
+         return back()->with('failed','Api has couldnt be created');
+         return back()->with('success','Api has been created successful');
+
+
+    }
+       public function apiE(Api $apid)
+    {
+        $title = 'Api Setup';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $api = Api::orderBy('id', 'desc')->get();
+        $apiE = $apid;
+
+        return view('admin.api', compact('title','admin','setting','api','apiE'));
+
+    }
+
+    public function apiEP(Request $request, Api $api)
+    {
+        $request->validate([
+            "type"=>"required",
+            "name"=>"required",
+            "url"=>"required",
+            "username"=>"required",
+        ]);
+// return  $api;
+        $title = 'Api Setup';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+         $api->update([
+            "type"=>$request->type,
+            "name"=>$request->name,
+            "url"=>$request->url,
+            "username"=>$request->username]);
+         return redirect('admin/2718/api')->with('success','Api has been updated successful');
+
+
+    }
+    
+
+    public function apiD(Api $api)
+    {
+        $api->delete($api);
+        return back()->with('success','Api has been deleted successful');
+    }
+
+
+    public function apiU(Api $api, $status)
+    {
+        $api->update(["status"=>$status]);
+        return back()->with('success','Api has been updated successful');
+    }
+
+
+        public function epinLimit()
+    {
+        $title = 'Epin Limit';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $epin = EpinLimit::orderBy('id', 'desc')->get();
+        $epinE ='';
+
+        return view('admin.epinLimit', compact('title','admin','setting','epin','epinE'));
+
+    }
+
+    
+    public function epinP(Request $request)
+    {
+        $request->validate([
+            "net"=>"required",
+            "deno"=>"required",
+            "balance"=>"required",
+            "limit"=>"required",
+        ]);
+
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+         $apip = EpinLimit::create([
+            "net"=>$request->net,
+            "deno"=>$request->deno,
+            "balance"=>$request->balance,
+            "limit"=>$request->limit]);
+          if(!$apip)
+         return back()->with('failed','Api has couldnt be created');
+         return back()->with('success','Api has been created successful');
+
+
+    }
+       public function epinE(EpinLimit $pinid)
+    {
+        $title = 'Edit Epin Limit';
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+        $epin = EpinLimit::orderBy('id', 'desc')->get();
+        $epinE = $pinid;
+
+        return view('admin.epinLimit', compact('title','admin','setting','epin','epinE'));
+
+    }
+
+   public function epinEP(Request $request, EpinLimit $pinid)
+    {
+        $request->validate([
+            "net"=>"required",
+            "deno"=>"required",
+            "balance"=>"required",
+            "limit"=>"required",
+        ]);
+
+        $id = session()->get('adminid');
+        $admin = Admin::findorFail($id);
+        $setting = Setting::findOrfail(SiteEnums::$settings);
+         $pinid->update([
+            "net"=>$request->net,
+            "deno"=>$request->deno,
+            "balance"=>$request->balance,
+            "limit"=>$request->limit]);
+         return redirect('admin/2718/epinLimit')->with('success','Epin Limit has been updated successful');
+
+
+    }
+
+    public function epinD(EpinLimit $pinid)
+    {
+        $pinid->delete($pinid);
+        return back()->with('success','Epin Limit has been deleted successful');
+    }
 
 
 }

@@ -55,15 +55,62 @@ Route::get('/', function () {
     Route::get('/dnotification/{delete}', [AdminController::class,'dnotification'])->name('deleteNoti');
     Route::get('/settings', [AdminController::class,'settings'])->name('settings');
     Route::post('/settings', [AdminController::class,'upsettings'])->name('upsettings');
-
-    Route::get('/transfer', [AdminController::class,'transfer'])->name('transfer');
-    Route::get('/messages', [AdminController::class,'messages'])->name('messages');
     Route::get('/faq', [AdminController::class,'faq'])->name('faq');
+    Route::get('/faq/{faq}', [AdminController::class,'checkfaq'])->name('check_faq');
+    Route::post('/faq/{faq}', [AdminController::class,'editedfaq'])->name('edited_faq');
+    Route::get('/dfaq/{faq}', [AdminController::class,'deletedfaq'])->name('delete_faq');
+    Route::get('/cfaq', [AdminController::class,'cfaq'])->name('cfaq');
+    Route::post('/faq', [AdminController::class,'addfaq'])->name('add_faq');
+
     Route::get('/page', [AdminController::class,'page'])->name('page');
+    Route::post('/page', [AdminController::class,'add_page'])->name('add_page');
+    Route::get('/cpage', [AdminController::class,'vadd_page'])->name('cpage');
+    Route::get('/edit_page/{page}', [AdminController::class,'editepage'])->name('edit_page');
+    Route::post('/edit_page/{page}', [AdminController::class,'edit_page'])->name('editpage');
+    Route::get('/dedit_page/{page}', [AdminController::class,'delete_page'])->name('delete_page');
+    Route::get('/page_status/{page}/{status}', [AdminController::class,'page_status'])->name('page_status');
+
     Route::get('/auth', [AdminController::class,'auth'])->name('auth');
-    Route::get('/product', [AdminController::class,'product'])->name('product');
+    Route::post('/auth', [AdminController::class,'pauth'])->name('pauth');
+    Route::get('/dauth/{delete}', [AdminController::class,'dauth'])->name('dauth');
+
+    Route::get('/product_category', [AdminController::class,'category'])->name('category');
+    Route::post('/category', [AdminController::class,'pcategory'])->name('pcategory');
+    Route::get('/product_category/{delete}', [AdminController::class,'dcategory'])->name('dcategory');
+    Route::get('/edite_product_category/{edited}', [AdminController::class,'ecategory'])->name('ecategory');
+    Route::post('/edit_product_category/{edited}', [AdminController::class,'epcategory'])->name('epcategory');
+
+    Route::get('/product/{product}', [AdminController::class,'product'])->name('product');
+    Route::post('/product/{catid}/{catname}', [AdminController::class,'pproduct'])->name('pproduct');
+    Route::get('/dproduct/{delete}', [AdminController::class,'dproduct'])->name('dproduct');
+    Route::get('/edite_product/{product}/{prod}', [AdminController::class,'eproduct'])->name('eproduct');
+    Route::post('/edit_product/{edited}', [AdminController::class,'epproduct'])->name('epproduct');
+
+    Route::get('/sub_product/{product}', [AdminController::class,'subproduct'])->name('subproduct');
+    Route::post('/sub_product/{product}/{category}', [AdminController::class,'psubproduct'])->name('psubproduct');
+    Route::get('/dsub_product/{delete}', [AdminController::class,'dsubproduct'])->name('dsubproduct');
+    Route::get('/edite_sub_product/{product}/{prod}', [AdminController::class,'esubproduct'])->name('esubproduct');
+    Route::post('/editsub_product/{edited}', [AdminController::class,'epsubproduct'])->name('epsubproduct');
+
     Route::get('/add_pins', [AdminController::class,'add_pins'])->name('add_pins');
+    Route::post('/add_pins', [AdminController::class,'padd_pins'])->name('padd_pins');
+    Route::get('/dadd_pins/{delete}', [AdminController::class,'dadd_pins'])->name('dadd_pins');
     Route::get('/transaction', [AdminController::class,'transaction'])->name('transaction');
+    Route::get('/api', [AdminController::class,'api'])->name('api');
+    Route::post('/api', [AdminController::class,'apiP'])->name('apiP');
+    Route::get('/api-edit/{apid}', [AdminController::class,'apiE'])->name('apiE');
+    Route::post('/api-edit/{api}', [AdminController::class,'apiEP'])->name('apiEP');
+    Route::get('/api-delete/{api}', [AdminController::class,'apiD'])->name('apiD');
+    Route::get('/api-update/{api}/{status}', [AdminController::class,'apiU'])->name('apiU');
+
+    Route::get('/epinLimit', [AdminController::class,'epinLimit'])->name('epinlimit');
+    Route::post('/epinLimit', [AdminController::class,'epinP'])->name('epinP');
+    Route::get('/epin-edit/{pinid}', [AdminController::class,'epinE'])->name('epinE');
+    Route::post('/epin-edit/{pinid}', [AdminController::class,'epinEP'])->name('epinEP');
+    Route::get('/epin-delete/{pinid}', [AdminController::class,'epinD'])->name('epinD');
+
+    // Route::get('/transfer', [AdminController::class,'transfer'])->name('transfer');
+    // Route::get('/messages', [AdminController::class,'messages'])->name('messages');
 
 
 });
