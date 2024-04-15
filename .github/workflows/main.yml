@@ -7,7 +7,7 @@ jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
-    timeout-minutes: 5 # time out after 15 minutes (default is 360 minutes)
+    timeout-minutes: 30 # time out after 15 minutes (default is 360 minutes)
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
