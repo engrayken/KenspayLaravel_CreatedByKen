@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120 # time out after 15 minutes (default is 360 minutes)
     steps:
-    - name: 🚚 Get latest code
+    - name: 🚚 Get latest code now
       uses: actions/checkout@v3
     
     - name: 📂 Sync files
