@@ -543,6 +543,7 @@ class ComposerStaticInit7530dd8e30f5578a4d16faa6b9d7dafa
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Admin\\Auth\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Auth/AuthController.php',
         'App\\Http\\Controllers\\Admin\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/HomeController.php',
+        'App\\Http\\Controllers\\Admin\\admin\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/admin/AdminController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\User\\Auth\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/Auth/AuthController.php',
         'App\\Http\\Controllers\\User\\Product\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/Product/ProductController.php',

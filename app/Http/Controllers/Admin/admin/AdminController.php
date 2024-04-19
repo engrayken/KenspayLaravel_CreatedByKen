@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin\admin;
+namespace App\Http\Controllers\Admin\admin;
 
 use App\Enums\SiteEnums;
 use App\Http\Controllers\Controller;
@@ -933,7 +933,7 @@ foreach ($lines as $line) {
 
 
     }
-    
+
 
     public function apiD(Api $api)
     {
@@ -962,7 +962,7 @@ foreach ($lines as $line) {
 
     }
 
-    
+
     public function epinP(Request $request)
     {
         $request->validate([
