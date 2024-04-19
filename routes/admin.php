@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\admin\admin\AdminController;
+use App\Http\Controllers\Admin\Admin\AdminController;
 use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Website\WebsiteController;

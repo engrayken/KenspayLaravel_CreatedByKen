@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\admin;
+namespace App\Http\Controllers\Admin\Admin;
 
 use App\Enums\SiteEnums;
 use App\Http\Controllers\Controller;
