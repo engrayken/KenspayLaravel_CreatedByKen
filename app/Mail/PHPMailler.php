@@ -11,12 +11,12 @@ class PHPMailler
 {
     public function sendMail($subject, $message, $sendTo, $bcc =  null)
     {
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
+// require 'PHPMailer/src/Exception.php';
+// require 'PHPMailer/src/PHPMailer.php';
+// require 'PHPMailer/src/SMTP.php';
 
-//Load Composer's autoloader
-require '../vendor/autoload.php';
+// //Load Composer's autoloader
+// require '../vendor/autoload.php';
 
 $settings = Setting::where('id','=','1')->first();
 

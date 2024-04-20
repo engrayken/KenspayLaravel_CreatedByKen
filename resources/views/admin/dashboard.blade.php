@@ -71,7 +71,7 @@
                                 <span>
 
                                     Customer messages:
-                                    <span class="font-weight-semibold">#{{ $mticket->subject }}</span>
+                                    <span class="font-weight-semibold">#{{ $mticket->subject ?? "0" }}</span>
                                 </span>
                             </div>
                         </a>
