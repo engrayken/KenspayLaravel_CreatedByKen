@@ -4,29 +4,29 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <base href="http://127.0.0.1:8000">
+    <base href="{{ env('APP_URL') }}">
     </base>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-            <meta name="description" content="kenspay.com.ng Platform for quick purchase of Airtime, Internet Data Bundles, DSTV, GOTV, PHCN and payment for other services in Nigeria">
+    <meta name="description"
+        content="kenspay.com.ng Platform for quick purchase of Airtime, Internet Data Bundles, DSTV, GOTV, PHCN and payment for other services in Nigeria">
 
-            <meta name="keywords" content="kenspay.com.ng - Buy airtime online, buy MTN airtime, buy internet data subscription, Etisalat Glo Airtel Airtime, DSTV payment,GOTV payment,PHCN payment">
-           
-                <meta name="csrf-token" content="{{ csrf_token() }}">
-           
+    <meta name="keywords"
+        content="kenspay.com.ng - Buy airtime online, buy MTN airtime, buy internet data subscription, Etisalat Glo Airtel Airtime, DSTV payment,GOTV payment,PHCN payment">
 
-            <title>kenspay.com.ng - 
-                
-                @if (isset($title))
-                {{ $title }}
-            @else
-         
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+    <title>kenspay.com.ng -
+
+        @if (isset($title))
+            {{ $title }}
+        @else
             Buy Airtime and Data for MTN, Glo, Etisalat, Airtel. Make payment for DSTV, GOTV, PHCN other services
-   
-            @endif
-            </title>
+        @endif
+    </title>
 
     <link rel='shortcut icon' href='{{ asset('frontend1/images/fav.jpg') }}' type='image/x-icon' />
 
@@ -37,10 +37,10 @@
 
     <!-- Custom styles for this template -->
     {{-- <link rel="stylesheet" href="https://www.kenspay.com.ng/resources/frontend3/assets/css/style.css"> --}}
-   <link rel="stylesheet" href="{{ asset('frontend1/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend1/css/style.css') }}">
 
-            {{-- <link rel="stylesheet" href="https://www.kenspay.com.ng/resources/frontend3/assets/css/custom.css"> --}}
-            <link rel="stylesheet" href="{{ asset('frontend1/css/custom.css') }}">
+    {{-- <link rel="stylesheet" href="https://www.kenspay.com.ng/resources/frontend3/assets/css/custom.css"> --}}
+    <link rel="stylesheet" href="{{ asset('frontend1/css/custom.css') }}">
 
     {{-- <link rel="stylesheet" href="https://www.kenspay.com.ng/resources/frontend3/assets/css/jquery.pinlogin.css"> --}}
     <link rel="stylesheet" href="{{ asset('frontend1/css/jquery.pinlogin.css') }}">
@@ -54,7 +54,7 @@
     {{-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9781468396083534"
         crossorigin="anonymous"></script> --}}
 
-        <script src="https://kit.fontawesome.com/9bcfe881ca.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/9bcfe881ca.js" crossorigin="anonymous"></script>
 
     <style type="text/css">
         .lds-ring {
@@ -104,7 +104,7 @@
             animation-delay: -0.15s;
         }
 
-        @keyframes  lds-ring {
+        @keyframes lds-ring {
             0% {
                 transform: rotate(0deg);
             }
@@ -390,7 +390,7 @@
             margin: auto;
         }
 
-        @keyframes  blink-animation {
+        @keyframes blink-animation {
             to {
                 visibility: hidden;
             }
@@ -403,7 +403,7 @@
         }
 
         /* Added CSS */
-        @media  only screen and (min-width: 990px) {
+        @media only screen and (min-width: 990px) {
             .remove-shadow {
                 -webkit-box-shadow: none;
                 -moz-box-shadow: none;
@@ -411,7 +411,7 @@
             }
         }
 
-        @media  only screen and (max-width: 989px) {
+        @media only screen and (max-width: 989px) {
             /* .ticker-widget {
                 max-width: 25rem;
             } */
@@ -555,7 +555,7 @@
             }
         }
 
-        @media  screen and (max-height: 450px) {
+        @media screen and (max-height: 450px) {
             .sidenav {
                 padding-top: 15px;
             }
@@ -565,7 +565,7 @@
             }
         }
 
-        @media  screen and (max-width: 450px) {
+        @media screen and (max-width: 450px) {
             #rate {
                 font-size: 1em;
                 line-height: 0;
@@ -610,7 +610,7 @@
             margin-top: 40vh;
         }
 
-        @media  only screen and (max-width: 989px) {
+        @media only screen and (max-width: 989px) {
             .modified.dropdown-content {
                 top: calc(100% + -5px);
                 z-index: 9999999999999999;
@@ -669,7 +669,7 @@
             padding: 0px 14px;
         }
 
-        @media  only screen and (max-width: 989px) {
+        @media only screen and (max-width: 989px) {
             .floating-irs-wrapper2 {
                 right: 0;
                 width: 100%;
@@ -907,41 +907,42 @@
             color: #b0e2fb;
         }
     </style>
-        <style>
-        .item-holder{
-            margin-bottom:20px;
-            border:1px solid #e0e8f3;
-            width:300px;
-            padding:10px;
-            box-sizing:border-box;
-            margin-right:20px;
+    <style>
+        .item-holder {
+            margin-bottom: 20px;
+            border: 1px solid #e0e8f3;
+            width: 300px;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-right: 20px;
         }
 
-        .item-holder-div{
-            display:flex;
-            justify-content:start;
-            align-items:center;
-            flex-wrap:wrap;
+        .item-holder-div {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
-        .img-holder{
-            background-color:#D50000;
-            border-radius:100px;
-            width:40px;
-            height:40px;
+        .img-holder {
+            background-color: #D50000;
+            border-radius: 100px;
+            width: 40px;
+            height: 40px;
         }
 
-        .arrow-holder{
-            background-color:red;
-            border-radius:100px;
-            width:30px;
-            height:30px;
+        .arrow-holder {
+            background-color: red;
+            border-radius: 100px;
+            width: 30px;
+            height: 30px;
         }
 
-        .select2-container--flat .select2-selection--single .select2-selection__rendered, .select2-container--flat .select2-selection--multiple .select2-selection__rendered {
-            background-color:#e0e8f3 !important;
-            color:#333;
-            border-radius:0;
+        .select2-container--flat .select2-selection--single .select2-selection__rendered,
+        .select2-container--flat .select2-selection--multiple .select2-selection__rendered {
+            background-color: #e0e8f3 !important;
+            color: #333;
+            border-radius: 0;
         }
     </style>
 
