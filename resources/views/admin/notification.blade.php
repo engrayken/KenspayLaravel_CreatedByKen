@@ -102,58 +102,62 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($noti as $row)
-                                <tr>
-                                    <td>{{ $row->User->name }}</td>
-                                    <td>{{ $row->subject }}</td>
-                                    <td>{{ $row->text }}</td>
-                                    <td>
-                                        @if ($row->status != 1)
-                                            <span class="text-danger">Not Seen</span>
-                                        @else
-                                            <span class="text-success">Read</span>
-                                        @endif
+                            @if ($noti)
+                                @foreach ($noti as $row)
+                                    <tr>
+                                        <td>{{ $row->User->name }}</td>
+                                        <td>{{ $row->subject }}</td>
+                                        <td>{{ $row->text }}</td>
+                                        <td>
+                                            @if ($row->status != 1)
+                                                <span class="text-danger">Not Seen</span>
+                                            @else
+                                                <span class="text-success">Read</span>
+                                            @endif
 
-                                    </td>
-                                    <td>{{ $row->created_at }}</td>
-                                    <td class="text-center">
-                                        <div class="list-icons">
-                                            <div class="dropdown">
-                                                <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                                    <i class="icon-menu9"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
+                                        </td>
+                                        <td>{{ $row->created_at }}</td>
+                                        <td class="text-center">
+                                            <div class="list-icons">
+                                                <div class="dropdown">
+                                                    <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                                        <i class="icon-menu9"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
 
-                                                    <a data-toggle="modal" data-target="#{{ $row->id }}delete"
-                                                        class="dropdown-item"><i class="icon-bin2 mr-2"></i>Delete</a>
+                                                        <a data-toggle="modal" data-target="#{{ $row->id }}delete"
+                                                            class="dropdown-item"><i class="icon-bin2 mr-2"></i>Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <div id="{{ $row->id }}delete" class="modal fade" tabindex="-1">
+                                        <div class="modal-dialog modal-xs">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h6 class="modal-title">Delete {{ $row->subject }}</h6>
+                                                    <button type="button" class="close"
+                                                        data-dismiss="modal">&times;</button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <h6 class="font-weight-semibold"></h6>
+                                                    <p>You are about to delete this Notification, this can't be undone.</p>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-link"
+                                                        data-dismiss="modal">Close</button>
+                                                    <a href="{{ route('admin.deleteNoti', $row->created_at) }}"
+                                                        class="btn bg-danger">Proceed</a>
                                                 </div>
                                             </div>
                                         </div>
-                                    </td>
-                                </tr>
-                                <div id="{{ $row->id }}delete" class="modal fade" tabindex="-1">
-                                    <div class="modal-dialog modal-xs">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h6 class="modal-title">Delete {{ $row->subject }}</h6>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            </div>
-
-                                            <div class="modal-body">
-                                                <h6 class="font-weight-semibold"></h6>
-                                                <p>You are about to delete this Notification, this can't be undone.</p>
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-link"
-                                                    data-dismiss="modal">Close</button>
-                                                <a href="{{ route('admin.deleteNoti', $row->created_at) }}"
-                                                    class="btn bg-danger">Proceed</a>
-                                            </div>
-                                        </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            @endif
+
                         </tbody>
                     </table>
                 </div>

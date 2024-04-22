@@ -185,12 +185,12 @@ return ['code'=>'401'];
 
     if($update->transId!=$id && $update->status==0 && $decode->status!=true)
     return ['code'=>'403'];
-    $charge= 1.5/100*$total;
-
+    $tran_bal = Transaction::where('transId',$trans_id)->first();
+    $charge= 1.5/100*$tran_bal->deno;
     $cre= $user->pinBalance+$total-$charge;
     $update = Transaction::where('transId',$trans_id)->update(['balBefore'=>$user->pinBalance,'balAfter'=>$cre,'status'=>'1','rstatus'=>$response,'network'=>'Psk Fund Wallet']);
     $dep= User::where('id',$user->id)->update(['pinBalance'=>$cre]);
-    return ['code'=>'s0c','total'=>$total];
+    return ['code'=>'s0c','total'=>$cre];
 
     }
 
