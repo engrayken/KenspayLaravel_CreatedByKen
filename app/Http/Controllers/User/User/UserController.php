@@ -222,7 +222,7 @@ return  back()->with('success','Account Credited with N'.$response["total"].' su
         $b64 = base64_encode($str);
         $contractCode=config('services.monify.contractCode');
 
-    if(!$user->bvn || !$user->bvn)
+    if(!$user->nin || !$user->bvn)
 return redirect('user/wallet')->with('failed','error occured, Please insert your NIN or BVN in your profile settings');
 
 //start login to monify
