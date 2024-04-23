@@ -19,6 +19,7 @@ class User extends Model
         'phone',
         'dataBalance',
         'pinBalance',
+        'bName',
         'nin',
         'bvn',
         'status',
