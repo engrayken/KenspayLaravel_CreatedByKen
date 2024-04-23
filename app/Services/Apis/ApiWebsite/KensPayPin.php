@@ -30,7 +30,7 @@ public function KensPayPin(User $user, $dataArray)
 $updateTrans = $user->Transaction()->where("transId",$transid)->update(['status'=>SiteEnums::$successStatus]);
 
 if($insert)
-// $deleted = Epin::destroy($epins);
+$deleted = Epin::destroy($epins);
 return successResponse();
 
 }

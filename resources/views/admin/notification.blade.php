@@ -104,7 +104,7 @@
                         <tbody>
                             @foreach ($noti as $row)
                                 <tr>
-                                    <td>{{ $row->User->name ?? '' }}</td>
+                                    <td>{{ $row->User::name ?? '' }}</td>
                                     <td>{{ $row->subject }}</td>
                                     <td>{{ $row->text }}</td>
                                     <td>
