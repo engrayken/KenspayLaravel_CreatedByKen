@@ -422,6 +422,9 @@ public function reserveWebhook(Request $request)
 $settings = Setting::findOrfail(SiteEnums::$settings);
 
     $json_string = file_get_contents('php://input');
+            $filePath = storage_path('app/data.txt');
+        file_put_contents($filePath, $json_string . PHP_EOL, FILE_APPEND);
+
 //    $json_string ='{"eventData":{"product":{"reference":"1707819474","type":"RESERVED_ACCOUNT"},"transactionReference":"MNFY|46|20240220045657|000665","paymentReference":"MNFY|46|20240220045657|000665","paidOn":"2024-02-20 04:56:58.0","paymentDescription":"Ayo","metaData":{},"paymentSourceInformation":[{"bankCode":"","amountPaid":100,"accountName":"Monnify Limited","sessionId":"rI25PDxyXv8CZx7NcRrmbhWX4EhSnbUw","accountNumber":"0065432190"}],"destinationAccountInformation":{"bankCode":"035","bankName":"Wema bank","accountNumber":"3000304876"},"amountPaid":100,"totalPayable":100,"cardDetails":{},"paymentMethod":"ACCOUNT_TRANSFER","currency":"NGN","settlementAmount":"90.00","paymentStatus":"PAID","customer":{"name":"Kenspay Technology","email":"kennethayogu@gmail.com"}},"eventType":"SUCCESSFUL_TRANSACTION"}';
     $DEFAULT_MERCHANT_CLIENT_SECRET = config('services.monify.secret_key');
     $computedHash = $this->CustomTransactionHashUtil->computeSHA512TransactionHash($json_string, $DEFAULT_MERCHANT_CLIENT_SECRET);
