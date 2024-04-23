@@ -38,7 +38,7 @@ class Handler extends ExceptionHandler
         });
 
         $this->renderable(function(HttpException $ex){
-            return redirect('/error');
+            // return redirect('/error');
             return failedApiResponse($ex->getMessage(), $ex->getHeaders()['data'] ?? [], [], $ex->getStatusCode());
         });
 

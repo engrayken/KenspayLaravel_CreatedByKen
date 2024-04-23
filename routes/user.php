@@ -17,7 +17,7 @@ use App\Http\Controllers\Website\NotificationController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-    Route::post('/rsv_acc_webhk', [UserController::class,'reserveWebhook'])->name('reserveWebhook');
+    // Route::post('/rsv_acc_webhk', [UserController::class,'reserveWebhook'])->name('reserveWebhook');
     Route::middleware(['islogedin'])->group(function () {
     Route::get('/', [UserController::class,'index'])->name('dashboard');
     Route::get('/recharge_card', [ProductController::class,'pin'])->name('pin');
