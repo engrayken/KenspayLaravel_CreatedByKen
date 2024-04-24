@@ -164,6 +164,7 @@
                                                             data-dismiss="modal">Close</button>
                                                         <button type="submit" class="btn bg-danger">Proceed</button>
                                                     </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
