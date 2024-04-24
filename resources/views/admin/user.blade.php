@@ -162,7 +162,7 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-link"
                                                             data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn bg-danger">Proceed</a>
+                                                        <button type="submit" class="btn bg-danger">Proceed</button>
                                                     </div>
                                             </div>
                                         </div>
