@@ -61,8 +61,10 @@ public function MobileAirtimeSme(User $user, $dataArray)
     $jsons = json_decode($responseBody, true);
     $rep = $jsons['code'];
     if($rep=='100')
-    // if($rep=='100' || $rep=='')
     {
+    // if($rep=='100' || $rep=='')
+$user->Transaction()->where("transId", $dataArray["transid"])->update(["status"=>SiteEnums::$successStatus,"rstatus"=>$responseBody
+]);
     return successResponse($jsons['message'] ?? "Transaction Successful");
 
 }

@@ -43,6 +43,8 @@ public function VtpassAirtime(User $user, $dataArray)
     $rep = $jsons['code'];
     if($rep=='000' || $rep=='099' || $rep=='')
     {
+    $user->Transaction()->where("transId", $dataArray["transid"])->update(["status"=>SiteEnums::$successStatus,"rstatus"=>$responseBody
+]);
     return successResponse($jsons['response_description'] ?? "Transaction Successful");
 
 }
