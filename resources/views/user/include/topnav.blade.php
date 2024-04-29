@@ -344,7 +344,7 @@
                     </li>
 
                     <li style="border-top: 1px solid #fff;" category="more" class="has-dropdown mobile-menu-item">
-                        <a style="font-size:14px;line-height:20px;color:#fff !important;" class="drop-toggle"
+                        <a style="font-size:14px;line-height:20px;color:#fff !important;"
                             href="{{ route('transaction') }}">
                             <div style="width:30px;display:flex;justify-content:center;align-items:center;">
                                 <i style="font-size:20px;" class="fas fa-history"></i>
