@@ -2,13 +2,13 @@
 
     <div class="topbar is-sticky" style="padding-left:0px;padding-right:0px;">
 
-                    {{-- <div class="text-center bg-white pt-1" id="switchBar" style="height:48px;width:100%;overflow:hidden;"> --}}
-            {{-- <a href="https://www.kenspay.com.ng/blog/index.php/2023/10/18/ikedc-sts-prepaid-meter-upgrade/" target="_blank">
+        {{-- <div class="text-center bg-white pt-1" id="switchBar" style="height:48px;width:100%;overflow:hidden;"> --}}
+        {{-- <a href="https://www.kenspay.com.ng/blog/index.php/2023/10/18/ikedc-sts-prepaid-meter-upgrade/" target="_blank">
                 <h2 class="pt-2" id="rate" style="cursor:pointer">
                     <img src="{{ asset('frontend1/images/new-tag.png') }}" height="28"> UPGRADE YOUR IKEDC STS PREPAID METER WITH THESE FEW STEPS.
                 </h2>
             </a> --}}
-            <!-- <a href="https://kenspay.com.ng">
+        <!-- <a href="https://kenspay.com.ng">
                     <img src="https://www.kenspay.com.ng/resources/frontend3/images/switch1.png" class="img-fluid" id="switchIMG">
                 </a>
                 <small style="display:block;" id="vt-count-down"></small> -->
@@ -17,7 +17,7 @@
 
 
 
-            <!-- <h2 data-toggle="modal" data-target="#website-rating" class="pt-2" id="rate" style="cursor:pointer;display:block">
+        <!-- <h2 data-toggle="modal" data-target="#website-rating" class="pt-2" id="rate" style="cursor:pointer;display:block">
                     <img src="{{ asset('frontend1/images/star.png') }}" height="28">
                     <span style="top:4px">We just launched the kenspay Messaging Service (Bulk SMS). Click here to Start!</span>
                 </h2>
@@ -44,14 +44,13 @@
                         </li><!-- .topbar-nav-item -->
                     </ul><!-- .topbar-nav -->
                     <a class="topbar-logo" href="">
-                                                                                    <img src="{{ asset('frontend1/images/logo-white.png') }}"
-                                srcset="{{ asset('frontend1/images/logo-white.png') }} 2x"
-                                alt="logo">
-                                                </a>
+                        <img src="{{ asset('frontend1/images/logo-white.png') }}"
+                            srcset="{{ asset('frontend1/images/logo-white.png') }} 2x" alt="logo">
+                    </a>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
-                                            <ul class="topbar-nav">
-                    {{-- <li class="topbar-nav-item relative d-lg-block d-none">
+                    <ul class="topbar-nav">
+                        {{-- <li class="topbar-nav-item relative d-lg-block d-none">
                                 <style type="text/css">
                                     #switcherX.user-dropdown.modified:after {
                                         border-bottom-color: #1a5171;
@@ -99,7 +98,7 @@
 
                                 </div>
                             </li> --}}
-                                                    {{-- <li class="topbar-nav-item relative d-lg-none d-block"
+                        {{-- <li class="topbar-nav-item relative d-lg-none d-block"
                             style="cursor: pointer;margin:0 0;">
                             <a style="color:#fff;" href="https://www.kenspay.com.ng/find-my-token"
                                 class="d-flex justify-content-center align-items-center">
@@ -116,7 +115,7 @@
                             </a>
                         </li> --}}
                         <li class="topbar-nav-item relative" id="notification-button" style="cursor: pointer;">
-                                                            <span id="notification-badge">
+                            <span id="notification-badge">
                                 <a style="color:#fff;cursor: pointer;"><i class="fas fa-bell"
                                         style="cursor: pointer;"></i></a>
                                 <span class="badge rounded-circle" id="notification-counter"
@@ -143,70 +142,67 @@
                                 </div>
                             </div>
                         </li>
-                                                        <li class="topbar-nav-item relative d-lg-none d-block" id="authentication-button"
-                                style="cursor: pointer;">
-                                <a style="color:#fff;cursor: pointer;font-size:24px;"><i
-                                        class="fas fa-user-circle" style="cursor: pointer;"></i></a>
-                                <div id="authentication-holder">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <ul>
-                                                <li class="authentication-holder-link"
-                                                    href="register">
-                                                    <a class="authentication-holder-link"
-                                                        style="line-height: 1.1;margin:0 0;color:#333;"
-                                                        href="{{ route('account') }}">Profile</a>
-                                                </li>
-                                                <li class="authentication-holder-link"
-                                                    href="logout">
-                                                    <a class="authentication-holder-link"
-                                                        style="line-height: 1.1;margin:0 0;color:#333;"
-                                                        href="logout">LogOut</a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                        <li class="topbar-nav-item relative d-lg-none d-block" id="authentication-button"
+                            style="cursor: pointer;">
+                            <a style="color:#fff;cursor: pointer;font-size:24px;"><i class="fas fa-user-circle"
+                                    style="cursor: pointer;"></i></a>
+                            <div id="authentication-holder">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <ul>
+                                            <li class="authentication-holder-link" href="register">
+                                                <a class="authentication-holder-link"
+                                                    style="line-height: 1.1;margin:0 0;color:#333;"
+                                                    href="{{ route('account') }}">Profile</a>
+                                            </li>
+                                            <li class="authentication-holder-link" href="logout">
+                                                <a class="authentication-holder-link"
+                                                    style="line-height: 1.1;margin:0 0;color:#333;"
+                                                    href="logout">LogOut</a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
-                            </li>
+                            </div>
+                        </li>
 
 
-                                    <li class="topbar-nav-item relative d-lg-block d-none">
-                                        <span class="user-welcome d-none d-lg-inline-block">Welcome!
-                                            {{ $user->name }}</span>
-                                        <a class="toggle-tigger user-thumb" href="{{ route('account') }}"><em
-                                                class="fas fa-user"></em></a>
-                                        <div
-                                            class="toggle-class dropdown-content dropdown-content-right dropdown-arrow-right user-dropdown">
-                                            <div class="user-status"
-                                                style="background:unset;background-image: linear-gradient(to right, #4672c4, #195B7e);padding: 20px 25px;">
-                                                <h6 class="user-status-title" style="color:#78a8c2;"><i
-                                                        class="fas fa-wallet mr-2"></i>Data balance</h6>
-                                                <div class="user-status-balance">{{ number_format($user->dataBalance) }}
-                                                    <small>NGN</small>
-                                                </div>
+                        <li class="topbar-nav-item relative d-lg-block d-none">
+                            <span class="user-welcome d-none d-lg-inline-block">Welcome!
+                                {{ $user->name }}</span>
+                            <a class="toggle-tigger user-thumb" href="{{ route('account') }}"><em
+                                    class="fas fa-user"></em></a>
+                            <div
+                                class="toggle-class dropdown-content dropdown-content-right dropdown-arrow-right user-dropdown">
+                                <div class="user-status"
+                                    style="background:unset;background-image: linear-gradient(to right, #4672c4, #195B7e);padding: 20px 25px;">
+                                    <h6 class="user-status-title" style="color:#78a8c2;"><i
+                                            class="fas fa-wallet mr-2"></i>Data balance</h6>
+                                    <div class="user-status-balance">{{ number_format($user->dataBalance) }}
+                                        <small>NGN</small>
+                                    </div>
 
-                                                <h6 class="user-status-title" style="color:#78a8c2;"><i
-                                                    class="fas fa-wallet mr-2"></i>Pin balance</h6>
-                                            <div class="user-status-balance">{{ number_format($user->pinBalance) }}
-                                                <small>NGN</small>
-                                            </div>
-                                            </div>
-                                            <ul class="user-links">
-                                                <li><a href="{{ route('account') }}" style="color:#173D52;"><i
-                                                            style="color:#758698;" class="fas fa-id-badge mr-3"></i>My
-                                                        Profile</a></li>
+                                    <h6 class="user-status-title" style="color:#78a8c2;"><i
+                                            class="fas fa-wallet mr-2"></i>Pin balance</h6>
+                                    <div class="user-status-balance">{{ number_format($user->pinBalance) }}
+                                        <small>NGN</small>
+                                    </div>
+                                </div>
+                                <ul class="user-links">
+                                    <li><a href="{{ route('account') }}" style="color:#173D52;"><i
+                                                style="color:#758698;" class="fas fa-id-badge mr-3"></i>My
+                                            Profile</a></li>
 
-                                                <li><a href="user" style="color:#173D52;"><i
-                                                            style="color:#758698;"
-                                                            class="fas fa-th-large mr-3"></i>Dashboard</a></li>
-                                            </ul>
-                                            <ul class="user-links bg-light">
-                                                <li><a href="logout" style="color:#D50000;"><i
-                                                            class="fas fa-sign-out-alt mr-3"></i>Logout</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                                                            </ul><!-- .topbar-nav -->
+                                    <li><a href="user" style="color:#173D52;"><i style="color:#758698;"
+                                                class="fas fa-th-large mr-3"></i>Dashboard</a></li>
+                                </ul>
+                                <ul class="user-links bg-light">
+                                    <li><a href="logout" style="color:#D50000;"><i
+                                                class="fas fa-sign-out-alt mr-3"></i>Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul><!-- .topbar-nav -->
                 </div>
             </div>
         </div><!-- .container -->
@@ -253,7 +249,7 @@
                             <i class="fas fa-money-check"></i>
                             <!-- <span>Wallet:</span> -->
                             <strong style="color:#173D52;">
-                                ₦ {{number_format($user->pinBalance)}}
+                                ₦ {{ number_format($user->pinBalance) }}
                             </strong>
                         </a>
                     </li>
@@ -270,77 +266,71 @@
                         </a>
                     </li>
 
-                                        </ul>
+                </ul>
             </div>
         </div>
     </div>
-                <div class="navbar" id="second-bar">
-            <div class="container">
-                <div class="navbar-innr">
-                    <ul class="navbar-menu" id="start-menu-link">
-                        <li>
-                            <div class="mobile-menu-side-by-side-list">
-                                <div category="1" class="mobile-menu-item mobile-menu-item-50">
-                                    <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                        class="" href="{{  route('pin') }}">
-                                        <div
-                                            style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                            <i style="font-size:20px;" class="fas fa-print"></i>
-                                        </div>
-                                        Print Recharge Card
-                                    </a>
-                                </div>
-                                <div category="1" class="mobile-menu-item mobile-menu-item-50">
-                                    <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                        class="" href="{{  route('airtime') }}">
-                                        <div
-                                            style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                            <i style="font-size:20px;" class="fas fa-mobile-alt"></i>
-                                        </div>
-                                        Buy phone airtime
-                                    </a>
-                                </div>
-                                <div category="3" class="mobile-menu-item mobile-menu-item-50">
-                                    <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                        class="" href="{{  route('data') }}">
-                                        <div
-                                            style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                            <i style="font-size:20px;" class="fas fa-wifi"></i>
-                                        </div>
-                                        Buy internet data
-                                    </a>
-                                </div>
-                                <div category="6" class="mobile-menu-item mobile-menu-item-50">
-                                    <a style="font-size:14px;line-height:20px;line-height:20px;color:#fff !important;"
-                                        class="" href="{{  route('tv') }}">
-                                        <div
-                                            style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                            <i style="color:#b0e2fb;font-size:20px;" class="fas fa-tv"></i>
-                                        </div>
-                                        Pay TV subscription
-                                    </a>
-                                </div>
-                                <div category="7" class="mobile-menu-item mobile-menu-item-50">
-                                    <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                        class="" href="{{  route('electricity') }}">
-                                        <div
-                                            style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                            <i style="font-size:20px;" class="far fa-lightbulb"></i>
-                                        </div>
-                                        Pay electricity bill
-                                    </a>
-                                </div>
-                                <div category="7" class="mobile-menu-item mobile-menu-item-50">
-                                    <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                        class="" href="{{  route('education') }}">
-                                        <div
-                                            style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                            <i style="font-size:20px;" class="fas fa-book-open"></i>
-                                        </div>
-                                        Education Payment
-                                    </a>
-                                </div>
-                                {{-- <div category="7" class="mobile-menu-item mobile-menu-item-50">
+    <div class="navbar" id="second-bar">
+        <div class="container">
+            <div class="navbar-innr">
+                <ul class="navbar-menu" id="start-menu-link">
+                    <li>
+                        <div class="mobile-menu-side-by-side-list">
+                            <div category="1" class="mobile-menu-item mobile-menu-item-50">
+                                <a style="font-size:14px;line-height:20px;color:#fff !important;" class=""
+                                    href="{{ route('pin') }}">
+                                    <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                        <i style="font-size:20px;" class="fas fa-print"></i>
+                                    </div>
+                                    Print Recharge Card
+                                </a>
+                            </div>
+                            <div category="1" class="mobile-menu-item mobile-menu-item-50">
+                                <a style="font-size:14px;line-height:20px;color:#fff !important;" class=""
+                                    href="{{ route('airtime') }}">
+                                    <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                        <i style="font-size:20px;" class="fas fa-mobile-alt"></i>
+                                    </div>
+                                    Buy phone airtime
+                                </a>
+                            </div>
+                            <div category="3" class="mobile-menu-item mobile-menu-item-50">
+                                <a style="font-size:14px;line-height:20px;color:#fff !important;" class=""
+                                    href="{{ route('data') }}">
+                                    <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                        <i style="font-size:20px;" class="fas fa-wifi"></i>
+                                    </div>
+                                    Buy internet data
+                                </a>
+                            </div>
+                            <div category="6" class="mobile-menu-item mobile-menu-item-50">
+                                <a style="font-size:14px;line-height:20px;line-height:20px;color:#fff !important;"
+                                    class="" href="{{ route('tv') }}">
+                                    <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                        <i style="color:#b0e2fb;font-size:20px;" class="fas fa-tv"></i>
+                                    </div>
+                                    Pay TV subscription
+                                </a>
+                            </div>
+                            <div category="7" class="mobile-menu-item mobile-menu-item-50">
+                                <a style="font-size:14px;line-height:20px;color:#fff !important;" class=""
+                                    href="{{ route('electricity') }}">
+                                    <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                        <i style="font-size:20px;" class="far fa-lightbulb"></i>
+                                    </div>
+                                    Pay electricity bill
+                                </a>
+                            </div>
+                            <div category="7" class="mobile-menu-item mobile-menu-item-50">
+                                <a style="font-size:14px;line-height:20px;color:#fff !important;" class=""
+                                    href="{{ route('education') }}">
+                                    <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                        <i style="font-size:20px;" class="fas fa-book-open"></i>
+                                    </div>
+                                    Education Payment
+                                </a>
+                            </div>
+                            {{-- <div category="7" class="mobile-menu-item mobile-menu-item-50">
                                     <a style="font-size:14px;line-height:20px;color:#fff !important;"
                                         class="" href="https://www.kenspay.com.ng/insurance">
                                         <div
@@ -350,48 +340,52 @@
                                         Buy Insurance
                                     </a>
                                 </div> --}}
-                                                                </div>
-                        </li>
+                        </div>
+                    </li>
 
-                        <li style="border-top: 1px solid #fff;" category="more"
-                        class="has-dropdown mobile-menu-item">
+                    <li style="border-top: 1px solid #fff;" category="more" class="has-dropdown mobile-menu-item">
                         <a style="font-size:14px;line-height:20px;color:#fff !important;" class="drop-toggle"
-                            href="transaction">
+                            href="{{ route('transaction') }}">
                             <div style="width:30px;display:flex;justify-content:center;align-items:center;">
                                 <i style="font-size:20px;" class="fas fa-history"></i>
                             </div>
                             Transaction
                         </a>
-                        </li>
-                        <li style="border-top: 1px solid #fff;" category="more"
-                            class="has-dropdown mobile-menu-item">
-                            <a style="font-size:14px;line-height:20px;color:#fff !important;" class="drop-toggle"
-                                href="#">
-                                <div style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                    <i style="font-size:20px;" class="fas fa-ellipsis-v"></i>
-                                </div>
-                                More
-                            </a>
-                            <ul id="more-list" class="navbar-dropdown navbar-dropdown-mobile">
-                                <script>
-                                    var constrLinkArr = [{"link":"https:\/\/www.kenspay.com.ng\/partners","name":"Partner with us"},{"link":"https:\/\/www.kenspay.com.ng\/contact","name":"Contact"}];
-                                    constrLinkArr.map((lik) => {
-                                        $('#more-list').append('<li><a href="' + lik.link + '">' + lik.name + '</a></li>');
-                                    });
-                                </script>
-                            </ul>
-                        </li>
-                        <li class="semi-mobile-menu-item">
-                            <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                href="{{ route('wallet') }}">
-                                <div style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                    <i class="fas fa-money-bill" style="font-size:20px;"></i>
-                                </div>
-                                Fund Wallet
-                            </a>
-                        </li>
+                    </li>
+                    <li style="border-top: 1px solid #fff;" category="more" class="has-dropdown mobile-menu-item">
+                        <a style="font-size:14px;line-height:20px;color:#fff !important;" class="drop-toggle"
+                            href="#">
+                            <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                <i style="font-size:20px;" class="fas fa-ellipsis-v"></i>
+                            </div>
+                            More
+                        </a>
+                        <ul id="more-list" class="navbar-dropdown navbar-dropdown-mobile">
+                            <script>
+                                var constrLinkArr = [{
+                                    "link": "https:\/\/www.kenspay.com.ng\/partners",
+                                    "name": "Partner with us"
+                                }, {
+                                    "link": "https:\/\/www.kenspay.com.ng\/contact",
+                                    "name": "Contact"
+                                }];
+                                constrLinkArr.map((lik) => {
+                                    $('#more-list').append('<li><a href="' + lik.link + '">' + lik.name + '</a></li>');
+                                });
+                            </script>
+                        </ul>
+                    </li>
+                    <li class="semi-mobile-menu-item">
+                        <a style="font-size:14px;line-height:20px;color:#fff !important;"
+                            href="{{ route('wallet') }}">
+                            <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                <i class="fas fa-money-bill" style="font-size:20px;"></i>
+                            </div>
+                            Fund Wallet
+                        </a>
+                    </li>
 
-                        {{-- <li class="semi-mobile-menu-item">
+                    {{-- <li class="semi-mobile-menu-item">
                             <a style="font-size:14px;line-height:20px;color:#fff !important;"
                                 href="https://www.kenspay.com.ng/agent">
                                 <div style="width:30px;display:flex;justify-content:center;align-items:center;">
@@ -400,26 +394,24 @@
                                 Become an Agent
                             </a>
                         </li> --}}
-                        <li class="semi-mobile-menu-item">
-                            <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                href="partners">
-                                <div style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                    <i class="fas fa-money-check-alt" style="font-size:20px;"></i>
-                                </div>
-                                Start Earning
-                            </a>
-                        </li>
-                        <li class="semi-mobile-menu-item">
-                            <a style="font-size:14px;line-height:20px;color:#fff !important;"
-                                href="help">
-                                <div style="width:30px;display:flex;justify-content:center;align-items:center;">
-                                    <i class="fas fa-info-circle" style="font-size:20px;"></i>
-                                </div>
-                                Help/Support
-                            </a>
-                        </li>
+                    <li class="semi-mobile-menu-item">
+                        <a style="font-size:14px;line-height:20px;color:#fff !important;" href="partners">
+                            <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                <i class="fas fa-money-check-alt" style="font-size:20px;"></i>
+                            </div>
+                            Start Earning
+                        </a>
+                    </li>
+                    <li class="semi-mobile-menu-item">
+                        <a style="font-size:14px;line-height:20px;color:#fff !important;" href="help">
+                            <div style="width:30px;display:flex;justify-content:center;align-items:center;">
+                                <i class="fas fa-info-circle" style="font-size:20px;"></i>
+                            </div>
+                            Help/Support
+                        </a>
+                    </li>
 
-                        {{-- <li class="has-dropdown page-links-all semi-mobile-menu-item">
+                    {{-- <li class="has-dropdown page-links-all semi-mobile-menu-item">
                             <a style="font-size:14px;line-height:20px;color:#fff !important;" class="drop-toggle">
                                 <div style="width:30px;display:flex;justify-content:center;align-items:center;">
                                     <i class="fas fa-toolbox" style="font-size:20px;"></i>
@@ -436,48 +428,46 @@
                         </li> --}}
 
 
-                        <li class="desktop-menu-item">
-                            <a href="{{ route('wallet') }}">
-                                <i class="fas fa-money-bill"></i>
-                                Fund Wallet
-                            </a>
-                        </li>
+                    <li class="desktop-menu-item">
+                        <a href="{{ route('wallet') }}">
+                            <i class="fas fa-money-bill"></i>
+                            Fund Wallet
+                        </a>
+                    </li>
 
-                        <li class="desktop-menu-item">
-                            <a href="partners">
-                                <i class="fas fa-money-check-alt"></i>
-                                Start Earning
-                            </a>
-                        </li>
+                    <li class="desktop-menu-item">
+                        <a href="partners">
+                            <i class="fas fa-money-check-alt"></i>
+                            Start Earning
+                        </a>
+                    </li>
 
-                    </ul>
+                </ul>
 
-                    <ul class="navbar-btns desktop-menu-item">
-                        <li>
-                            <a style="color:#173D52;" href="user/credit-wallet"
-                                class="btn btn-sm btn-outline btn-light">
-                                <i class="fas fa-money-check"></i>
-                                <span>Pin Balance:</span>
-                                <strong style="color:#173D52;">
-                                    ₦ {{ number_format($user->pinBalance) }}
-                                </strong>
-                            </a>
-                        </li>
-                    </ul>
+                <ul class="navbar-btns desktop-menu-item">
+                    <li>
+                        <a style="color:#173D52;" href="user/credit-wallet" class="btn btn-sm btn-outline btn-light">
+                            <i class="fas fa-money-check"></i>
+                            <span>Pin Balance:</span>
+                            <strong style="color:#173D52;">
+                                ₦ {{ number_format($user->pinBalance) }}
+                            </strong>
+                        </a>
+                    </li>
+                </ul>
 
-                    <ul class="navbar-btns desktop-menu-item">
-                        <li>
-                            <a style="color:#173D52;" href="user/credit-wallet"
-                                class="btn btn-sm btn-outline btn-light">
-                                <i class="fas fa-money-check"></i>
-                                <span>Data Balance:</span>
-                                <strong style="color:#173D52;">
-                                    ₦ {{number_format($user->dataBalance)}}
-                                </strong>
-                            </a>
-                        </li>
-                    </ul>
-                </div><!-- .navbar-innr -->
-            </div><!-- .container -->
-        </div><!-- .navbar -->
-        </div><!-- .topbar-wrap -->
+                <ul class="navbar-btns desktop-menu-item">
+                    <li>
+                        <a style="color:#173D52;" href="user/credit-wallet" class="btn btn-sm btn-outline btn-light">
+                            <i class="fas fa-money-check"></i>
+                            <span>Data Balance:</span>
+                            <strong style="color:#173D52;">
+                                ₦ {{ number_format($user->dataBalance) }}
+                            </strong>
+                        </a>
+                    </li>
+                </ul>
+            </div><!-- .navbar-innr -->
+        </div><!-- .container -->
+    </div><!-- .navbar -->
+</div><!-- .topbar-wrap -->
