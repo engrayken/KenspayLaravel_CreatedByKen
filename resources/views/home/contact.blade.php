@@ -19,8 +19,7 @@
                                                     style="color:inherit;border-bottom:10px solid #D50000;">Need
                                                     help</span></b>
                                             <br>
-                                            {{-- kenspay.com.ng is Nigeria’s top payment platform providing fast, easy online payment solution for millions of<br/>people. We are impacting lives by ensuring payments for day-to-day services you enjoy are<br/>stress-free. With kenspay.com.ng, you can perform quick transactions anytime and anywhere using any device. --}}
-                                            {!! $cpage->message !!}
+                                            {!! html_entity_decode($cpage->message) !!}
 
 
                                         </p>
