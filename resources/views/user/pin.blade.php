@@ -185,7 +185,7 @@
                     // alert('dfgh');
 
                     $('#quantity').html(
-                        '<option value="">Click To Select Network</option><option value="1">1 PCS (Check Price)</option><option value="10">10 PCS (Buy)</option><option value="30">30 PCS (Buy)</option><option value="40">40 PCS (Buy)</option><option value="60">60 PCS (Buy)</option><option value="80">80 PCS (Buy)</option><option value="100">100 PCS (Buy)</option>'
+                        '<option value="">Click To Select Network</option><option value="1">1 PCS (Check Price)</option><option value="10">10 PCS (Buy)</option></option><option value="20">20 PCS (Buy)</option><option value="30">30 PCS (Buy)</option><option value="40">40 PCS (Buy)</option><option value="60">60 PCS (Buy)</option><option value="80">80 PCS (Buy)</option><option value="100">100 PCS (Buy)</option>'
                     );
 
                     // $('#pay').val('Pay...');
